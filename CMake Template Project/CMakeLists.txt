@@ -1,10 +1,10 @@
-project (Unit-Test)
+project (PathPlanner)
 cmake_minimum_required (VERSION 3.0.2)
 
 include_directories(include)
 
 if(MSVC)
-	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2 /DNDEBUG")
+	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Qpar /MP /O2 /DNDEBUG")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE}")
 else(MSVC)
 	set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
@@ -31,7 +31,7 @@ SET(SOURCEFILES
 	include/xxmatrix.cpp
 )
   
-add_executable(Unit-Test
+add_executable(PathPlanner
 	${SOURCEFILES}
 	${HEADERFILES}
 )
