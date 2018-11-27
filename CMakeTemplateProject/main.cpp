@@ -205,4 +205,5 @@ int main()
 	//std::cout << "Point of interest type: " << factory.getPointOfInterest(1, 1).getPointOfInterestType()<< "\n\n";
 
 	system("pause");
+
 }
