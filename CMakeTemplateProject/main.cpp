@@ -24,6 +24,10 @@ class PointOfInterest {
 			isObstacle = obstacle;
 		}
 
+		void printCoords() {
+			std::cout << "(" << x << "," << y << ")\n";
+		}
+
 		bool getIsObstacle() {
 			return isObstacle;
 		}
@@ -45,14 +49,14 @@ class PointOfInterest {
 class Map {
 	private:
 		std::vector<Vehicle> vehicleList;
-		//PointOfInterest *map;
+		PointOfInterest *map;
 		//std::vector<PointOfInterest> poiList;
-		int * testarray;
+		//int * testarray;
 
 	public:
 		const int width;
 		const int height;
-		PointOfInterest *map;
+		//PointOfInterest *map;
 		Map(int width, int height) : width(width), height(height){
 			map = new PointOfInterest[width*height];
 			
@@ -63,7 +67,7 @@ class Map {
 				}
 			}
 
-			testarray = new int[width*height];
+			//testarray = new int[width*height];
 			//map = new PointOfInterest[width][height];
 			//PointOfInterest map[width][height];
 		
@@ -75,12 +79,12 @@ class Map {
 
 		~Map() {
 			delete[] map;
-			delete[] testarray;
+			//delete[] testarray;
 		}
 
-		int& at(int i1, int i2) {
-			return testarray[i1 * width + height];
-		}
+		//int& at(int i1, int i2) {
+		//	return testarray[i1 * width + height];
+		//}
 
 		PointOfInterest& getPointOfInterest(int x, int y) {
 			//Check wether the requested point is within the map
@@ -93,7 +97,7 @@ class Map {
 				throw "Requested point of interest is not within the map - class Map getPointOfInterest()";
 			}
 
-			PointOfInterest pointOfInterest = map[y * width + x];
+			PointOfInterest& pointOfInterest = map[y * width + x];
 			return pointOfInterest;
 		}
 
@@ -129,80 +133,19 @@ int main()
 	printf("Hello World!\n");
 	printf("\n");
 
-	Map factory(4,5);
+	Map factory(10,10);
 
-	PointOfInterest point1 = factory.getPointOfInterest(3,4);
-	std::cout <<"("<< point1.x << "," << point1.y << ")\n";
-
-
-
-	//PointOfInterest testie(pointOfInterestType::Wall);
-	//factory.getPointOfInterest(5, 5) = testie;
-	//PointOfInterest aa = factory.getPointOfInterest(5, 5);
-	//std::cout << aa.getPointOfInterestType();
-	//
-	//std::cout << "aa";
-	//
-	//Map test(10, 10);
-	//test.at(2, 2) = 42;
-	//std::cout << test.at(2, 2);
-	//
-	////factory.getPointOfInterest(1, 1).setPointOfInterestType(pointOfInterestType::Wall);
-	////factory.getPointOfInterest(2, 2).setPointOfInterestType(pointOfInterestType::Wall);
-	////factory.getPointOfInterest(4, 4).setPointOfInterestType(pointOfInterestType::Wall);
-	////factory.getPointOfInterest(5, 5).setPointOfInterestType(pointOfInterestType::Wall);
-	////factory.getPointOfInterest(7, 7).setPointOfInterestType(pointOfInterestType::Wall);
-	////factory.getPointOfInterest(8, 8).setPointOfInterestType(pointOfInterestType::Wall);
-	//
-	//PointOfInterest point0 = factory.getPointOfInterest(1, 1);
-	//point0.setPointOfInterestType(pointOfInterestType::Wall);
-	//
-	//
-	//PointOfInterest point1 = factory.getPointOfInterest(2, 2);
-	//point1.setPointOfInterestType(pointOfInterestType::Wall);
-	//PointOfInterest point2 = factory.getPointOfInterest(4, 4);
-	//point2.setPointOfInterestType(pointOfInterestType::Wall);
-	//PointOfInterest point3 = factory.getPointOfInterest(5, 5);
-	//point3.setPointOfInterestType(pointOfInterestType::Wall);
-	//PointOfInterest point4 = factory.getPointOfInterest(7, 7);
-	//point4.setPointOfInterestType(pointOfInterestType::Wall);
-	//PointOfInterest point5 = factory.getPointOfInterest(8, 8);
-	//point5.setPointOfInterestType(pointOfInterestType::Wall);
-
-	//for (int i = 0; i < 10; i++) {
-	//
-	//	for (int j = 0; j < 10; j++) {
-	//		PointOfInterest point = factory.getPointOfInterest(i,j);
-	//		point.setPointOfInterestType(pointOfInterestType::Wall);
-	//	}
-	//}
-	//std::cout << "print all:";
-	//for (int i = 0; i < 10; i++) {
-	//	for (int j = 0; j < 10; j++) {
-	//		PointOfInterest point = factory.getPointOfInterest(i, j);
-	//		//point.setPointOfInterestType(pointOfInterestType::Wall);
-	//		std::cout <<point.getPointOfInterestType();
-	//	}
-	//}
-	//std::cout << "End\n";
+	factory.getPointOfInterest(0, 5).setPointOfInterestType(pointOfInterestType::DropOff);
+	factory.getPointOfInterest(9, 6).setPointOfInterestType(pointOfInterestType::DropOff);
+	factory.getPointOfInterest(4, 2).setPointOfInterestType(pointOfInterestType::Wall);
+	factory.getPointOfInterest(4, 3).setPointOfInterestType(pointOfInterestType::Wall);
+	factory.getPointOfInterest(4, 4).setPointOfInterestType(pointOfInterestType::Wall);
+	factory.getPointOfInterest(4, 5).setPointOfInterestType(pointOfInterestType::Wall);
+	factory.getPointOfInterest(4, 6).setPointOfInterestType(pointOfInterestType::Wall);
+	factory.getPointOfInterest(4, 7).setPointOfInterestType(pointOfInterestType::Wall);
 
 	factory.printMap();
-
-	//PointOfInterest point1 = factory.getPointOfInterest(1, 1);
-	//std::cout << "Point1 of interest type: " << point1.getPointOfInterestType() << "\n";
-
-	//PointOfInterest point = factory.getPointOfInterest(3, 3);
-	//point.setPointOfInterestType(pointOfInterestType::Wall);
-	//std::cout << "\nPoint of interest type: " << point.getPointOfInterestType() << "\n";
-
-
-	//std::cout << factory.map[13].getPointOfInterestType();
-
-	//PointOfInterest point = factory.getPointOfInterest(2, 1);
-	//std::cout << "Point of interest type: " << point.getPointOfInterestType() << "\n";
-	//std::cout << "Point of interest obstacle: " << point.getIsObstacle() << "\n";
-
-	//std::cout << "Point of interest type: " << factory.getPointOfInterest(1, 1).getPointOfInterestType()<< "\n\n";
+	
 
 	system("pause");
 
