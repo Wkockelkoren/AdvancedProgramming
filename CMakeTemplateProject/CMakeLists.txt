@@ -13,22 +13,17 @@ else(MSVC)
 endif(MSVC)
 
 SET(HEADERFILES
-	include/EulerAngles.h
-	include/MotionProfiles.h
-	include/xxfuncs.h
-	include/xxinverse.h
-	include/xxmatrix.h
-	include/xxtypes.h
+	include/Map.h
+	include/PointOfInterest.h
+	include/Vehicle.h
 )
 SOURCE_GROUP("Header Files" FILES ${HEADERFILES})
 
 SET(SOURCEFILES
 	main.cpp 
-	include/EulerAngles.cpp
-	include/MotionProfiles.cpp
-	include/xxfuncs.cpp
-	include/xxinverse.cpp
-	include/xxmatrix.cpp
+	include/Map.cpp
+	include/PointOfInterest.cpp
+	include/Vehicle.cpp
 )
   
 add_executable(PathPlanner
