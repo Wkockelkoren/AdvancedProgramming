@@ -9,6 +9,7 @@ class Vehicle {
 
 enum pointOfInterestType { Path, Wall, DropOff };
 
+
 class PointOfInterest {
 	private:
 		bool isObstacle;
@@ -51,12 +52,11 @@ class Map {
 		std::vector<Vehicle> vehicleList;
 		PointOfInterest *map;
 		//std::vector<PointOfInterest> poiList;
-		//int * testarray;
 
 	public:
 		const int width;
 		const int height;
-		//PointOfInterest *map;
+
 		Map(int width, int height) : width(width), height(height){
 			map = new PointOfInterest[width*height];
 			
@@ -66,25 +66,15 @@ class Map {
 					map[y * width + x].y = y;
 				}
 			}
-
-			//testarray = new int[width*height];
-			//map = new PointOfInterest[width][height];
-			//PointOfInterest map[width][height];
 		
-			//map = calloc(sizeof(PointOfInterest), width*height);
-			//assert(map);
 			width;
 			height;
 		}
 
 		~Map() {
 			delete[] map;
-			//delete[] testarray;
 		}
 
-		//int& at(int i1, int i2) {
-		//	return testarray[i1 * width + height];
-		//}
 
 		PointOfInterest& getPointOfInterest(int x, int y) {
 			//Check wether the requested point is within the map
@@ -145,7 +135,6 @@ int main()
 	factory.getPointOfInterest(4, 7).setPointOfInterestType(pointOfInterestType::Wall);
 
 	factory.printMap();
-	
 
 	system("pause");
 
