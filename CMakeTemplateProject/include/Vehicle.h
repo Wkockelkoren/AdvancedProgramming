@@ -1,6 +1,11 @@
 #ifndef VEHICLE_H
 #define VEHICLE_H
 
+struct Position {
+	int x = 0;
+	int y = 0;
+};
+
 class Vehicle {
 private:
 
@@ -14,7 +19,7 @@ public:
 
 	void Vehicle::setPosition(int x1, int y1);
 
-	int Vehicle::getPosition();
+	Position Vehicle::getPosition();
 
 	void Vehicle::printMaxSpeed();
 
