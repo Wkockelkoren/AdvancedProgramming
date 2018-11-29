@@ -19,7 +19,7 @@ int main()
 		factory.getPointOfInterest(4, 6).setPointOfInterestType(pointOfInterestType::Wall);
 		factory.getPointOfInterest(4, 7).setPointOfInterestType(pointOfInterestType::Wall);
 	}
-	catch (std::exception const& e) {
+	catch (std::exception const& e) {// will be removed later is just for testing exeptions
 		std::cout << e.what();
 	}
 	

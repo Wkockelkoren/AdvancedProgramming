@@ -15,9 +15,6 @@ Map::Map(int width, int height) : width(width), height(height) {
 			map[y * width + x].y = y;
 		}
 	}
-
-	width;
-	height;
 }
 
 Map::~Map() {
