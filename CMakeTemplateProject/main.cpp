@@ -3,13 +3,24 @@
 #include <array>
 #include "Map.h"
 
+struct Position {
+	double x = 0;
+	double y = 0;
+};
 struct Coordinate {
-	int x;
-	int y;
-	int counter;
-} coordinate;
+	int x =0;
+	int y =0;
+	int counter=0;
+};
+struct Boundary {
+	int xUpper = 0;
+	int xLower = 0;
+	int yUpper = 0;
+	int yLower = 0;
+} boundary;
 
-std::vector<Coordinate> pathList;
+std::vector<Coordinate> getListOfPaths(Map map, Position startPosition, Position endPosition, Boundary boundary);
+
 
 int main()
 {
@@ -28,95 +39,126 @@ int main()
 	factory.getPointOfInterest(4, 7).setPointOfInterestType(pointOfInterestType::Wall);
 
 	factory.printMap();
+	
+	//get start position and dropoff position
+	Position startPosition;
+	startPosition.x = 1;
+	startPosition.y = 0;
+
+	Position dropOff;
+	dropOff.x = 3;
+	dropOff.y = 0;
 
 	//build empty map
-	int xUpperBound = factory.width - 1; //upper bound is biggest permissable x coordinate
-	int xLowerBound = 0;
-	int yUpperBound = factory.height - 1;
-	int yLowerBound = 0;
-
-	//get PoI locations
-	PointOfInterest start = factory.getPointOfInterest(1, 0);
-	PointOfInterest end = factory.getPointOfInterest(3, 0);
-
-	PointOfInterest wall1 = factory.getPointOfInterest(2, 0);
-	PointOfInterest wall2 = factory.getPointOfInterest(2, 1);
-	PointOfInterest wall3 = factory.getPointOfInterest(2, 2);
-
-	//set PoI
-	start.setPointOfInterestType(DropOff); //StartPoint was changed to DropOff !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	end.setPointOfInterestType(DropOff);
-	wall1.setPointOfInterestType(Wall);
-	wall1.setIsObstacle(true);
-	wall2.setPointOfInterestType(Wall);
-	wall2.setIsObstacle(true);
-	wall3.setPointOfInterestType(Wall);
-	wall3.setIsObstacle(true);
-
+//edit this!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	boundary.xUpper = factory.width - 1; //upper bound is biggest permissable x coordinate
+	boundary.xLower = 0;
+	boundary.yUpper = factory.height - 1;
+	boundary.yLower = 0;
 
 	//path finding algorithm (sample algorithm) 
-	//set startpoint
-	coordinate.x = end.x;
-	coordinate.y = end.y;
-	coordinate.counter = 0;
+	getListOfPaths(factory,dropOff,startPosition,boundary)
 
-	int highestCounter = 0;
-	pathList.push_back(coordinate);
 
-	bool startPointReached = false;
+
+
 
 	// denk er aan, jullie zetten dubbele coordinaten neer vanwege het doorschrijven
 	// jullie hebben nu een error die aan het de vorige bug van de jacco en wouter kan liggen
+
+	
+
+	//print PoI
+	std::cout << "start (" << start.x << "," << start.y << ")\n";
+	std::cout << "dropoff (" << end.x << "," << end.y << ")\n";
+
+	//print coordinates and map
+//	int vectorSize = pathList.size();
+//	for (int i = 0; i < vectorSize; i++) {
+//		std::cout << "coordinate: " << i;
+//		std::cout << "\n\tx: " << pathList[i].x;
+//		std::cout << "\n\ty: " << pathList[i].y;
+//		std::cout << "\n\tcounter: " << pathList[i].counter;
+//		std::cout << "\n";
+//	}
+	
+	//factory.printMap();
+	system("pause");
+
+}
+
+std::vector<Coordinate> getListOfPaths(Map map, Position startCoordinate, Position endCoordinate, Boundary boundary) {
+	std::vector<Coordinate> pathList;
+	Coordinate coordinate;
+
+	//control variables
+	int startPointReached = false;
+	int highestCounter = 0;
+
+	//Place startCoordinate in list
+	coordinate.x = endCoordinate.x;
+	coordinate.y = endCoordinate.y;
+	coordinate.counter = 0;
+	pathList.push_back(coordinate);
 
 	while (startPointReached == false) { //loop as long a the start point is nog reached
 		int listSize = pathList.size(); // get the list size in order to loop through every index 
 
 		for (int i = 0; i < listSize; i++) { //loop through every index in the pathlist
 			if (pathList[i].counter == highestCounter) { //only add coordinates add the 'newest' coordinates
-				//every if statements first:
-					// check if neighbour is within the map boundaries
-					// save new coordinate
-					// if coordinate is no obstacle, add it and check if startpoint
-				if ((pathList[i].x + 1) <= xUpperBound) {
+
+				//obtain new coordinate to the right of current coordinate
+				if ((pathList[i].x + 1) <= boundary.xUpper) { //check iff new coordinate doesn't move outside the map
 					coordinate.x = pathList[i].x + 1;
 					coordinate.y = pathList[i].y;
 					coordinate.counter = highestCounter + 1;
-					if (factory.getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
+					//now check if there is no obstacle at the new coordinate on the map
+					if (map.getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
 						pathList.push_back(coordinate);
-						if ((coordinate.x == start.x) && (coordinate.y == start.y)) {
+						//stop looping when the right location is found
+						if ((coordinate.x == startCoordinate.x) && (coordinate.y == startCoordinate.y)) {
 							startPointReached = true;
 						}
 					}
 				}
-				if ((pathList[i].y + 1) <= yUpperBound) {
+				//obtain new coordinate above current coordinate
+				if ((pathList[i].y + 1) <= boundary.yUpper) { //check iff new coordinate doesn't move outside the map
 					coordinate.x = pathList[i].x;
 					coordinate.y = pathList[i].y + 1;
 					coordinate.counter = highestCounter + 1;
-					if (factory.getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
+					//now check if there is no obstacle at the new coordinate on the map
+					if (map.getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
 						pathList.push_back(coordinate);
-						if ((coordinate.x == start.x) && (coordinate.y == start.y)) {
+						//stop looping when the right location is found
+						if ((coordinate.x == startCoordinate.x) && (coordinate.y == startCoordinate.y)) {
 							startPointReached = true;
 						}
 					}
 				}
-				if ((pathList[i].x - 1) >= xLowerBound) {
+				//obtain new coordinate left to current coordinate
+				if ((pathList[i].x - 1) >= boundary.xLower) { //check iff new coordinate doesn't move outside the map
 					coordinate.x = pathList[i].x - 1;
 					coordinate.y = pathList[i].y;
 					coordinate.counter = highestCounter + 1;
-					if (factory.getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
+					//now check if there is no obstacle at the new coordinate on the map
+					if (map.getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
 						pathList.push_back(coordinate);
-						if ((coordinate.x == start.x) && (coordinate.y == start.y)) {
+						//stop looping when the right location is found
+						if ((coordinate.x == startCoordinate.x) && (coordinate.y == startCoordinate.y)) {
 							startPointReached = true;
 						}
 					}
 				}
-				if ((pathList[i].y - 1) >= yLowerBound) {
-					coordinate.x = pathList[0].x;
-					coordinate.y = pathList[0].y - 1;
+				//obtain new coordinae beneath the current coordinate
+				if ((pathList[i].y - 1) >= boundary.yLower) { //check iff new coordinate doesn't move outside the map
+					coordinate.x = pathList[i].x;
+					coordinate.y = pathList[i].y - 1;
 					coordinate.counter = highestCounter + 1;
-					if (factory.getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
+					//now check if there is no obstacle at the new coordinate on the map
+					if (map.getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
 						pathList.push_back(coordinate);
-						if ((coordinate.x == start.x) && (coordinate.y == start.y)) {
+						//stop looping when the right location is found
+						if ((coordinate.x == startCoordinate.x) && (coordinate.y == startCoordinate.y)) {
 							startPointReached = true;
 						}
 					}
@@ -127,29 +169,5 @@ int main()
 		}
 		highestCounter++;
 	}
-
-	//print PoI
-	std::cout << "start (" << start.x << "," << start.y << ")\n";
-	std::cout << "dropoff (" << end.x << "," << end.y << ")\n";
-
-	//print if start pointed reached
-	if (startPointReached) {
-		std::cout << "start point reached \n";
-	}
-	else {
-		std::cout << "no start point found \n";
-	}
-
-	//print coordinates and map
-	int vectorSize = pathList.size();
-	for (int i = 0; i < vectorSize; i++) {
-		std::cout << "coordinate: " << i;
-		std::cout << "\n\tx: " << pathList[i].x;
-		std::cout << "\n\ty: " << pathList[i].y;
-		std::cout << "\n\tcounter: " << pathList[i].counter;
-		std::cout << "\n";
-	}
-	factory.printMap();
-	system("pause");
-
+	return pathList;
 }
