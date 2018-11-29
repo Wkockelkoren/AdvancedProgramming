@@ -8,7 +8,15 @@ int main()
 	printf("Hello World!\n");
 	printf("\n");
 
-	Map factory(10,10);
+	Map factory(10, 10);
+	
+	
+	std::vector<Vehicle> vehicles;
+	/*Vehicle car(2,2);
+	Vehicle bike(6, 6);
+	vehicles.push_back(car);
+	vehicles.push_back(bike);*/
+
 	try {
 		factory.getPointOfInterest(0, 5).setPointOfInterestType(pointOfInterestType::DropOff);
 		factory.getPointOfInterest(9, 6).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -22,9 +30,7 @@ int main()
 	catch (std::exception const& e) {// will be removed later is just for testing exeptions
 		std::cout << e.what();
 	}
-	
-
-	factory.printMap();
+	factory.printMap(vehicles);
 
 	system("pause");
 

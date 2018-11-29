@@ -2,7 +2,9 @@
 #include <vector>
 #include "Vehicle.h"
 
-Vehicle::Vehicle(int x, int y, double maxSpeed) : x(x), y(y), maxSpeed(maxSpeed) {}
+Vehicle::Vehicle(int x, int y, double maxSpeed) : x(x), y(y), maxSpeed(maxSpeed) {
+
+}
 
 void Vehicle::printCoords() {
 	std::cout << "(" << x << "," << y << ")\n";
