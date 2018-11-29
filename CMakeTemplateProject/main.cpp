@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "Map.h"
-
+#include "Vehicle.h"
 
 int main()
 {
