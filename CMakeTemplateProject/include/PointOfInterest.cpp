@@ -2,11 +2,8 @@
 #include <vector>
 #include "PointOfInterest.h"
 
-PointOfInterest::PointOfInterest(int x1, int y1, pointOfInterestType pointType , bool obstacle ) {
-	x = x1;
-	y = y1;
-	type = pointType;
-	isObstacle = obstacle;
+PointOfInterest::PointOfInterest(int x, int y, pointOfInterestType type, bool obstacle) : x(x), y(y), type(type), isObstacle(obstacle) {
+
 }
 
 void PointOfInterest::printCoords() {
@@ -26,5 +23,12 @@ pointOfInterestType PointOfInterest::getPointOfInterestType() {
 }
 
 void PointOfInterest::setPointOfInterestType(pointOfInterestType pointType) {
+	if (pointType == pointOfInterestType::Wall) {
+		isObstacle = true;
+	}
+	else {
+		isObstacle = false;
+	}
+
 	type = pointType;
 }

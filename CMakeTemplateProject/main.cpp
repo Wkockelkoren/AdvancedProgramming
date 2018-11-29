@@ -2,11 +2,9 @@
 #include <vector>
 #include <array>
 #include "Map.h"
+#include "Vehicle.h"
 
-struct Position {
-	double x = 0;
-	double y = 0;
-};
+
 struct Coordinate {
 	int x =0;
 	int y =0;
@@ -27,18 +25,15 @@ int main()
 	printf("Hello World!\n");
 	printf("\n");
 
-	Map factory(10,10);
+	Map factory(10, 10);
+	
+	
+	std::vector<Vehicle> vehicles;
+	/*Vehicle car(2,2);
+	Vehicle bike(6, 6);
+	vehicles.push_back(car);
+	vehicles.push_back(bike);*/
 
-	factory.getPointOfInterest(0, 5).setPointOfInterestType(pointOfInterestType::DropOff);
-	factory.getPointOfInterest(9, 6).setPointOfInterestType(pointOfInterestType::DropOff);
-	factory.getPointOfInterest(4, 2).setPointOfInterestType(pointOfInterestType::Wall);
-	factory.getPointOfInterest(4, 3).setPointOfInterestType(pointOfInterestType::Wall);
-	factory.getPointOfInterest(4, 4).setPointOfInterestType(pointOfInterestType::Wall);
-	factory.getPointOfInterest(4, 5).setPointOfInterestType(pointOfInterestType::Wall);
-	factory.getPointOfInterest(4, 6).setPointOfInterestType(pointOfInterestType::Wall);
-	factory.getPointOfInterest(4, 7).setPointOfInterestType(pointOfInterestType::Wall);
-
-	factory.printMap();
 	
 	//get start position and dropoff position
 	Position startPosition;
@@ -54,6 +49,23 @@ int main()
 	boundary.xLower = 0;
 	boundary.yUpper = factory.height - 1;
 	boundary.yLower = 0;
+
+	
+
+	try {
+		factory.getPointOfInterest(0, 5).setPointOfInterestType(pointOfInterestType::DropOff);
+		factory.getPointOfInterest(9, 6).setPointOfInterestType(pointOfInterestType::DropOff);
+		factory.getPointOfInterest(4, 2).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(4, 3).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(4, 4).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(4, 5).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(4, 6).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(4, 7).setPointOfInterestType(pointOfInterestType::Wall);
+	}
+	catch (std::exception const& e) {// will be removed later is just for testing exeptions
+		std::cout << e.what();
+	}
+	factory.printMap(vehicles);
 
 	//path finding algorithm (sample algorithm) 
 	std::vector<Coordinate>	listOfPaths = generateListOfPaths(&factory, dropOff, startPosition, boundary);
