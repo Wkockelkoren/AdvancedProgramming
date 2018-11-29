@@ -19,7 +19,7 @@ struct Boundary {
 	int yLower = 0;
 } boundary;
 
-std::vector<Coordinate> getListOfPaths(Map map, Position startPosition, Position endPosition, Boundary boundary);
+std::vector<Coordinate> generateListOfPaths(Map *map, Position startPosition, Position endPosition, Boundary boundary);
 
 
 int main()
@@ -49,60 +49,60 @@ int main()
 	dropOff.x = 3;
 	dropOff.y = 0;
 
-	//build empty map
-//edit this!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//define boundary
 	boundary.xUpper = factory.width - 1; //upper bound is biggest permissable x coordinate
 	boundary.xLower = 0;
 	boundary.yUpper = factory.height - 1;
 	boundary.yLower = 0;
 
 	//path finding algorithm (sample algorithm) 
-	getListOfPaths(factory,dropOff,startPosition,boundary)
-
-
-
-
-
-	// denk er aan, jullie zetten dubbele coordinaten neer vanwege het doorschrijven
-	// jullie hebben nu een error die aan het de vorige bug van de jacco en wouter kan liggen
-
+	std::vector<Coordinate>	listOfPaths = generateListOfPaths(&factory, dropOff, startPosition, boundary);
 	
 
-	//print PoI
-	std::cout << "start (" << start.x << "," << start.y << ")\n";
-	std::cout << "dropoff (" << end.x << "," << end.y << ")\n";
+	//print start and dropoff location
+	std::cout << "start (" << startPosition.x << "," << startPosition.y << ")\n";
+	std::cout << "dropoff (" << dropOff.x << "," << dropOff.y << ")\n";
 
 	//print coordinates and map
-//	int vectorSize = pathList.size();
-//	for (int i = 0; i < vectorSize; i++) {
-//		std::cout << "coordinate: " << i;
-//		std::cout << "\n\tx: " << pathList[i].x;
-//		std::cout << "\n\ty: " << pathList[i].y;
-//		std::cout << "\n\tcounter: " << pathList[i].counter;
-//		std::cout << "\n";
-//	}
+	int vectorSize = listOfPaths.size();
+	for (int i = 0; i < vectorSize; i++) {
+		std::cout << "coordinate: " << i;
+		std::cout << "\n\tx: " << listOfPaths[i].x;
+		std::cout << "\n\ty: " << listOfPaths[i].y;
+		std::cout << "\n\tcounter: " << listOfPaths[i].counter;
+		std::cout << "\n";
+	}
 	
 	//factory.printMap();
 	system("pause");
 
 }
 
-std::vector<Coordinate> getListOfPaths(Map map, Position startCoordinate, Position endCoordinate, Boundary boundary) {
+std::vector<Coordinate> generateListOfPaths(Map *map, Position startCoordinate, Position endCoordinate, Boundary boundary) {
+	/*This function generates a vector of coordinates. It starts with the start coordinate and 
+	then it checks every coordinate adjacent to the start coordinate. If the coordinate is no 
+	obstacle and within boundaries it adds the coordinate to a list. Next, this action also happens
+	with every new coordinate in the list untill the end position is found.
+	*/
 	std::vector<Coordinate> pathList;
 	Coordinate coordinate;
 
 	//control variables
 	int startPointReached = false;
 	int highestCounter = 0;
-
+	bool coordinateAdded = false;
+	bool noPathPossible = false;
 	//Place startCoordinate in list
-	coordinate.x = endCoordinate.x;
-	coordinate.y = endCoordinate.y;
+	coordinate.x = startCoordinate.x;
+	coordinate.y = startCoordinate.y;
 	coordinate.counter = 0;
 	pathList.push_back(coordinate);
 
-	while (startPointReached == false) { //loop as long a the start point is nog reached
+	std::cout << "generating path\n";
+
+	while ((startPointReached == false) && (noPathPossible ==false)) { //loop as long a the start point is nog reached
 		int listSize = pathList.size(); // get the list size in order to loop through every index 
+		coordinateAdded = false;
 
 		for (int i = 0; i < listSize; i++) { //loop through every index in the pathlist
 			if (pathList[i].counter == highestCounter) { //only add coordinates add the 'newest' coordinates
@@ -113,10 +113,11 @@ std::vector<Coordinate> getListOfPaths(Map map, Position startCoordinate, Positi
 					coordinate.y = pathList[i].y;
 					coordinate.counter = highestCounter + 1;
 					//now check if there is no obstacle at the new coordinate on the map
-					if (map.getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
+					if (map->getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
 						pathList.push_back(coordinate);
+						coordinateAdded = true;
 						//stop looping when the right location is found
-						if ((coordinate.x == startCoordinate.x) && (coordinate.y == startCoordinate.y)) {
+						if ((coordinate.x == endCoordinate.x) && (coordinate.y == endCoordinate.y)) {
 							startPointReached = true;
 						}
 					}
@@ -127,10 +128,11 @@ std::vector<Coordinate> getListOfPaths(Map map, Position startCoordinate, Positi
 					coordinate.y = pathList[i].y + 1;
 					coordinate.counter = highestCounter + 1;
 					//now check if there is no obstacle at the new coordinate on the map
-					if (map.getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
+					if (map->getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
 						pathList.push_back(coordinate);
+						coordinateAdded = true;
 						//stop looping when the right location is found
-						if ((coordinate.x == startCoordinate.x) && (coordinate.y == startCoordinate.y)) {
+						if ((coordinate.x == endCoordinate.x) && (coordinate.y == endCoordinate.y)) {
 							startPointReached = true;
 						}
 					}
@@ -141,10 +143,11 @@ std::vector<Coordinate> getListOfPaths(Map map, Position startCoordinate, Positi
 					coordinate.y = pathList[i].y;
 					coordinate.counter = highestCounter + 1;
 					//now check if there is no obstacle at the new coordinate on the map
-					if (map.getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
+					if (map->getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
 						pathList.push_back(coordinate);
+						coordinateAdded = true;
 						//stop looping when the right location is found
-						if ((coordinate.x == startCoordinate.x) && (coordinate.y == startCoordinate.y)) {
+						if ((coordinate.x == endCoordinate.x) && (coordinate.y == endCoordinate.y)) {
 							startPointReached = true;
 						}
 					}
@@ -155,19 +158,22 @@ std::vector<Coordinate> getListOfPaths(Map map, Position startCoordinate, Positi
 					coordinate.y = pathList[i].y - 1;
 					coordinate.counter = highestCounter + 1;
 					//now check if there is no obstacle at the new coordinate on the map
-					if (map.getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
+					if (map->getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false) {
 						pathList.push_back(coordinate);
+						coordinateAdded = true;
 						//stop looping when the right location is found
-						if ((coordinate.x == startCoordinate.x) && (coordinate.y == startCoordinate.y)) {
+						if ((coordinate.x == endCoordinate.x) && (coordinate.y == endCoordinate.y)) {
 							startPointReached = true;
 						}
 					}
 				}
-
 			}
-
 		}
 		highestCounter++;
+	//	if (coordinateAdded == false) {
+//			noPathPossible = true;
+	//		throw std::runtime_error("No path found");
+	//	}
 	}
 	return pathList;
 }
