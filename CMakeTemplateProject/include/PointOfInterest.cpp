@@ -23,5 +23,12 @@ pointOfInterestType PointOfInterest::getPointOfInterestType() {
 }
 
 void PointOfInterest::setPointOfInterestType(pointOfInterestType pointType) {
+	if (pointType == pointOfInterestType::Wall) {
+		isObstacle = true;
+	}
+	else {
+		isObstacle = false;
+	}
+
 	type = pointType;
 }
