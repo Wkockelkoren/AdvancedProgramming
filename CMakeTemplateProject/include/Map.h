@@ -2,6 +2,7 @@
 #define MAP_H
 
 #include "PointOfInterest.h"
+#include "Vehicle.h"
 
 class Map {
 private:
@@ -18,6 +19,7 @@ public:
 
 	PointOfInterest& getPointOfInterest(int x, int y);
 
+	void printMap(std::vector<Vehicle> vehicles);
 	void printMap();
 	
 };
