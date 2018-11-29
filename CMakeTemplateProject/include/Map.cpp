@@ -15,9 +15,6 @@ Map::Map(int width, int height) : width(width), height(height) {
 			map[y * width + x].y = y;
 		}
 	}
-
-	width;
-	height;
 }
 
 Map::~Map() {
@@ -28,12 +25,10 @@ Map::~Map() {
 PointOfInterest& Map::getPointOfInterest(int x, int y) {
 	//Check wether the requested point is within the map
 	if (!(x < width) || !(x >= 0)) {
-		std::cout << "\nRequested point of interest is not within the map\n\n";
-		throw "Requested point of interest is not within the map - class Map getPointOfInterest()";
+		throw std::runtime_error("Requested point of interest is not within the map - class Map getPointOfInterest()\n");
 	}
 	if (!(y < height) || !(y >= 0)) {
-		std::cout << "\nRequested point of interest is not within the map\n\n";
-		throw "Requested point of interest is not within the map - class Map getPointOfInterest()";
+		throw std::runtime_error("Requested point of interest is not within the map - class Map getPointOfInterest()\n");
 	}
 
 	PointOfInterest& pointOfInterest = map[y * width + x];
@@ -55,7 +50,7 @@ void Map::printMap() {
 				std::cout << "D ";
 			}
 			else {
-				throw "Requested type can't be printed - class Map PrintMap()";
+				throw std::runtime_error("Requested type can't be printed - class Map PrintMap()\n");
 			}
 
 			if (x == width - 1) {
