@@ -20,7 +20,7 @@ struct Boundary {
 } boundary;
 
 std::vector<Coordinate> generateListOfPaths(Map *map, Position startPosition, Position endPosition, Boundary boundary);
-
+std::vector<Coordinate> GeneratePath(std::vector<Coordinate> &pathList, Position &start);
 
 int main()
 {
@@ -47,7 +47,7 @@ int main()
 
 	Position dropOff;
 	dropOff.x = 9;
-	dropOff.y = 0;
+	dropOff.y = 4;
 
 	//define boundary
 	boundary.xUpper = factory.width - 1; //upper bound is biggest permissable x coordinate
@@ -57,19 +57,19 @@ int main()
 
 	//path finding algorithm (sample algorithm) 
 	std::vector<Coordinate>	listOfPaths = generateListOfPaths(&factory, dropOff, startPosition, boundary);
-	
+	std::vector<Coordinate> generatedPath = GeneratePath(listOfPaths, startPosition);
 
 	//print start and dropoff location
 	std::cout << "start (" << startPosition.x << "," << startPosition.y << ")\n";
 	std::cout << "dropoff (" << dropOff.x << "," << dropOff.y << ")\n";
 
 	//print coordinates and map
-	int vectorSize = listOfPaths.size();
+	int vectorSize = generatedPath.size();
 	for (int i = 0; i < vectorSize; i++) {
 		std::cout << "coordinate: " << i;
-		std::cout << "\n\tx: " << listOfPaths[i].x;
-		std::cout << "\n\ty: " << listOfPaths[i].y;
-		std::cout << "\n\tcounter: " << listOfPaths[i].counter;
+		std::cout << "\n\tx: " << generatedPath[i].x;
+		std::cout << "\n\ty: " << generatedPath[i].y;
+		std::cout << "\n\tcounter: " << generatedPath[i].counter;
 		std::cout << "\n";
 	}
 	
@@ -208,4 +208,64 @@ std::vector<Coordinate> generateListOfPaths(Map *map, Position startCoordinate, 
 	//	}
 	}
 	return pathList;
+}
+
+std::vector<Coordinate> GeneratePath(std::vector<Coordinate> &pathList, Position &start) {
+	//Reduce the pathList to list with steps to take
+	int currentCounter;
+	bool added = false;
+	Coordinate currentCoordinate;
+	std::vector<Coordinate> generatedPath;
+
+	//Find startposition and counter by looping through pathList and comparing to startposition
+	for (int i = 0; i < pathList.size(); i++) {
+		if (pathList[i].x == start.x) {
+			if (pathList[i].y == start.y) {
+				currentCounter = pathList[i].counter;
+				currentCoordinate = pathList[i];
+				generatedPath.push_back(currentCoordinate);
+			}
+		}
+	}
+
+	while (currentCounter != 0) {
+		for (int i = 0; i < pathList.size(); i++) {
+			added = false;
+			if (pathList[i].counter < currentCounter) {
+				if ((pathList[i].x == (currentCoordinate.x + 1)) && (pathList[i].y == currentCoordinate.y) && added == false) {
+					currentCoordinate.x = pathList[i].x;
+					currentCoordinate.y = pathList[i].y;
+					currentCoordinate.counter = pathList[i].counter;
+					currentCounter = pathList[i].counter;
+					generatedPath.push_back(currentCoordinate);
+					added = true;
+				}
+				if ((pathList[i].x == (currentCoordinate.x - 1)) && (pathList[i].y == currentCoordinate.y) && added == false) {
+					currentCoordinate.x = pathList[i].x;
+					currentCoordinate.y = pathList[i].y;
+					currentCoordinate.counter = pathList[i].counter;
+					currentCounter = pathList[i].counter;
+					generatedPath.push_back(currentCoordinate);
+					added = true;
+				}
+				if ((pathList[i].y == (currentCoordinate.y + 1)) && (pathList[i].x == currentCoordinate.x) && added == false) {
+					currentCoordinate.x = pathList[i].x;
+					currentCoordinate.y = pathList[i].y;
+					currentCoordinate.counter = pathList[i].counter;
+					currentCounter = pathList[i].counter;
+					generatedPath.push_back(currentCoordinate);
+					added = true;
+				}
+				if ((pathList[i].y == (currentCoordinate.y - 1)) && (pathList[i].x == currentCoordinate.x) && added == false) {
+					currentCoordinate.x = pathList[i].x;
+					currentCoordinate.y = pathList[i].y;
+					currentCoordinate.counter = pathList[i].counter;
+					currentCounter = pathList[i].counter;
+					generatedPath.push_back(currentCoordinate);
+					added = true;
+				}
+			}
+		}
+	}
+	return generatedPath;
 }
