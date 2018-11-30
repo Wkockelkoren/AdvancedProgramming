@@ -5,11 +5,7 @@
 #include "Vehicle.h"
 
 
-struct Coordinate {
-	int x =0;
-	int y =0;
-	int counter=0;
-};
+
 struct Boundary {
 	int xUpper = 0;
 	int xLower = 0;
@@ -27,31 +23,6 @@ int main()
 
 	Map factory(10, 10);
 	
-	
-	std::vector<Vehicle> vehicles;
-	/*Vehicle car(2,2);
-	Vehicle bike(6, 6);
-	vehicles.push_back(car);
-	vehicles.push_back(bike);*/
-
-	
-	//get start position and dropoff position
-	Position startPosition;
-	startPosition.x = 0;
-	startPosition.y = 0;
-
-	Position dropOff;
-	dropOff.x = 9;
-	dropOff.y = 4;
-
-	//define boundary
-	boundary.xUpper = factory.width - 1; //upper bound is biggest permissable x coordinate
-	boundary.xLower = 0;
-	boundary.yUpper = factory.height - 1;
-	boundary.yLower = 0;
-
-	
-
 	try {
 		factory.getPointOfInterest(0, 5).setPointOfInterestType(pointOfInterestType::DropOff);
 		factory.getPointOfInterest(9, 6).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -64,8 +35,27 @@ int main()
 	}
 	catch (std::exception const& e) {// will be removed later is just for testing exeptions
 		std::cout << e.what();
-	}
-	factory.printMap(vehicles);
+	}	
+	
+	std::vector<Vehicle> vehicles;
+	Vehicle vehicle(1,4);
+	vehicles.push_back(vehicle);
+
+	
+	//get start position and dropoff position
+	Position startPosition;
+	startPosition.x = vehicle.getPosition().x;
+	startPosition.y = vehicle.getPosition().y;
+
+	Position dropOff;
+	dropOff.x = 9;
+	dropOff.y = 4;
+
+	//define boundary
+	boundary.xUpper = factory.width - 1; //upper bound is biggest permissable x coordinate
+	boundary.xLower = 0;
+	boundary.yUpper = factory.height - 1;
+	boundary.yLower = 0;
 
 	//path finding algorithm (sample algorithm) 
 	std::vector<Coordinate>	listOfPaths = generateListOfPaths(&factory, dropOff, startPosition, boundary);
@@ -76,8 +66,7 @@ int main()
 	std::cout << "dropoff (" << dropOff.x << "," << dropOff.y << ")\n";
 
 	//print coordinates and map
-	int vectorSize = generatedPath.size();
-	for (int i = 0; i < vectorSize; i++) {
+	for (int i = 0; i < generatedPath.size(); i++) {
 		std::cout << "coordinate: " << i;
 		std::cout << "\n\tx: " << generatedPath[i].x;
 		std::cout << "\n\ty: " << generatedPath[i].y;
@@ -85,9 +74,9 @@ int main()
 		std::cout << "\n";
 	}
 	
+	factory.printMap(vehicles,generatedPath);
 	//factory.printMap();
 	system("pause");
-
 }
 
 std::vector<Coordinate> generateListOfPaths(Map *map, Position startCoordinate, Position endCoordinate, Boundary boundary) {

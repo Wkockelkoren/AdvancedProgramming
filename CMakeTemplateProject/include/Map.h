@@ -4,6 +4,12 @@
 #include "PointOfInterest.h"
 #include "Vehicle.h"
 
+struct Coordinate {
+	int x = 0;
+	int y = 0;
+	int counter = 0;
+};
+
 class Map {
 private:
 	//std::vector<Vehicle> vehicleList;
@@ -19,7 +25,7 @@ public:
 
 	PointOfInterest& getPointOfInterest(int x, int y);
 
-	void printMap(std::vector<Vehicle> vehicles);
+	void printMap(std::vector<Vehicle> vehicles, std::vector<Coordinate> path);
 	void printMap();
 	
 };
