@@ -18,8 +18,6 @@ std::vector<Coordinate> GeneratePath(std::vector<Coordinate> &pathList, Position
 
 int main()
 {
-	printf("Hello World!\n");
-	printf("\n");
 
 	Map factory(10, 10);
 	
@@ -35,11 +33,17 @@ int main()
 	}
 	catch (std::exception const& e) {// will be removed later is just for testing exeptions
 		std::cout << e.what();
-	}	
+	}
+
+	factory.printMap();
+	system("pause");
 	
 	std::vector<Vehicle> vehicles;
 	Vehicle vehicle(1,4);
 	vehicles.push_back(vehicle);
+
+	factory.printMap();
+	system("pause");
 
 	
 	//get start position and dropoff position
