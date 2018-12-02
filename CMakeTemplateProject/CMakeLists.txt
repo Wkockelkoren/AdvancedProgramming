@@ -1,7 +1,10 @@
 project (PathPlanner)
-cmake_minimum_required (VERSION 3.0.2)
+cmake_minimum_required (VERSION 3.7)
 
-include_directories(include)
+
+set(SDL2_DIR "include/SDL2-2.0.9")
+find_package(SDL2 REQUIRED)
+include_directories(include ${SDL2_INCLUDE_DIRS})
 
 if(MSVC)
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Qpar /MP /O2 /DNDEBUG")
@@ -30,3 +33,5 @@ add_executable(PathPlanner
 	${SOURCEFILES}
 	${HEADERFILES}
 )
+
+target_link_libraries(PathPlanner ${SDL2_LIBRARIES})

@@ -3,8 +3,8 @@
 #include <array>
 #include "Map.h"
 #include "Vehicle.h"
-
-
+#include "SDL.h"
+#undef main
 
 struct Boundary {
 	int xUpper = 0;
@@ -16,8 +16,28 @@ struct Boundary {
 std::vector<Coordinate> generateListOfPaths(Map *map, Position startPosition, Position endPosition, Boundary boundary);
 std::vector<Coordinate> GeneratePath(std::vector<Coordinate> &pathList, Position &start);
 
-int main()
-{
+int main() {
+
+	SDL_Init(SDL_INIT_VIDEO);
+
+	SDL_Window *window = SDL_CreateWindow(
+		"SDL2Test",
+		SDL_WINDOWPOS_UNDEFINED,
+		SDL_WINDOWPOS_UNDEFINED,
+		640,
+		480,
+		0
+	);
+
+	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(renderer);
+	SDL_RenderPresent(renderer);
+
+	SDL_Delay(3000);
+
+	SDL_DestroyWindow(window);
+	SDL_Quit();
 
 	Map factory(10, 10);
 	
@@ -81,6 +101,8 @@ int main()
 	factory.printMap(vehicles,generatedPath);
 	//factory.printMap();
 	system("pause");
+
+	return 0;
 }
 
 std::vector<Coordinate> generateListOfPaths(Map *map, Position startCoordinate, Position endCoordinate, Boundary boundary) {
