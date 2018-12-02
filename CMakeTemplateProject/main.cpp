@@ -147,11 +147,6 @@ int main() {
 	std::cout << "Press enter to continue ...";
 	std::cin.get();
 
-	std::cout << SDL_INIT_VIDEO;
-
-	std::cout << "Press enter to continue ...";
-	std::cin.get(); 
-
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_Init fail : %s\n", SDL_GetError());
