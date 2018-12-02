@@ -85,7 +85,7 @@ std::vector<Coordinate> GeneratePath(std::vector<Coordinate> &pathList, Position
 int main() {
 
 	Map factory(10, 10);
-	
+
 	try {
 		factory.getPointOfInterest(0, 5).setPointOfInterestType(pointOfInterestType::DropOff);
 		factory.getPointOfInterest(9, 6).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -101,16 +101,14 @@ int main() {
 	}
 
 	factory.printMap();
-	system("pause");
-	
+
 	std::vector<Vehicle> vehicles;
 	Vehicle vehicle(1,4);
 	vehicles.push_back(vehicle);
 
 	factory.printMap();
-	system("pause");
 
-	
+
 	//get start position and dropoff position
 	Position startPosition;
 	startPosition.x = vehicle.getPosition().x;
@@ -126,7 +124,7 @@ int main() {
 	boundary.yUpper = factory.height - 1;
 	boundary.yLower = 0;
 
-	//path finding algorithm (sample algorithm) 
+	//path finding algorithm (sample algorithm)
 	std::vector<Coordinate>	listOfPaths = generateListOfPaths(&factory, dropOff, startPosition, boundary);
 	std::vector<Coordinate> generatedPath = GeneratePath(listOfPaths, startPosition);
 
@@ -142,10 +140,17 @@ int main() {
 		std::cout << "\n\tcounter: " << generatedPath[i].counter;
 		std::cout << "\n";
 	}
-	
+
 	factory.printMap(vehicles,generatedPath);
 	//factory.printMap();
-	system("pause");
+
+	std::cout << "Press enter to continue ...";
+	std::cin.get();
+
+	std::cout << SDL_INIT_VIDEO;
+
+	std::cout << "Press enter to continue ...";
+	std::cin.get(); 
 
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
@@ -192,8 +197,8 @@ int main() {
 }
 
 std::vector<Coordinate> generateListOfPaths(Map *map, Position startCoordinate, Position endCoordinate, Boundary boundary) {
-	/*This function generates a vector of coordinates. It starts with the start coordinate and 
-	then it checks every coordinate adjacent to the start coordinate. If the coordinate is no 
+	/*This function generates a vector of coordinates. It starts with the start coordinate and
+	then it checks every coordinate adjacent to the start coordinate. If the coordinate is no
 	obstacle and within boundaries it adds the coordinate to a list. Next, this action also happens
 	with every new coordinate in the list untill the end position is found.
 	*/
@@ -216,7 +221,7 @@ std::vector<Coordinate> generateListOfPaths(Map *map, Position startCoordinate, 
 	std::cout << "generating path\n";
 
 	while ((startPointReached == false) && (noPathPossible ==false)) { //loop as long a the start point is nog reached
-		int listSize = pathList.size(); // get the list size in order to loop through every index 
+		int listSize = pathList.size(); // get the list size in order to loop through every index
 		coordinateAdded = false;
 
 		for (int i = 0; i < listSize; i++) { //loop through every index in the pathlist

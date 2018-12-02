@@ -16,7 +16,10 @@ void Vehicle::setPosition(int x1, int y1) {
 }
 
 Position Vehicle::getPosition() {
-	return Position({x, y});
+	Position pos;
+	pos.x = x;
+	pos.y = y;
+	return pos;
 }
 
 void Vehicle::printMaxSpeed() {
