@@ -80,7 +80,25 @@ struct Boundary {
 } boundary;
 
 std::vector<Coordinate> generateListOfPaths(Map *map, Position startPosition, Position endPosition, Boundary boundary);
-std::vector<Coordinate> GeneratePath(std::vector<Coordinate> &pathList, Position &start);
+std::vector<Coordinate> generatePath(std::vector<Coordinate> &pathList, Position &start);
+
+class PathManager {
+public:
+	PathManager() {
+		std::cout << "constructor\n";
+	};
+	std::vector<Coordinate> createPath(Position startPosition, Position dropOff, Map &map, Boundary boundary) {
+
+		std::vector<Coordinate>	listOfPaths = generateListOfPaths(&map, dropOff, startPosition, boundary);
+		std::vector<Coordinate> generatedPath = generatePath(listOfPaths, startPosition);
+		return generatedPath;
+
+	};
+	std::vector<Coordinate> editPath(std::vector<Coordinate> path) { std::cout << "edit Path\n"; };
+	void deletePath(std::vector <Coordinate> path) { std::cout << "Delete Path\n"; };
+} pathManager;
+
+
 
 int main() {
 
@@ -125,8 +143,7 @@ int main() {
 	boundary.yLower = 0;
 
 	//path finding algorithm (sample algorithm)
-	std::vector<Coordinate>	listOfPaths = generateListOfPaths(&factory, dropOff, startPosition, boundary);
-	std::vector<Coordinate> generatedPath = GeneratePath(listOfPaths, startPosition);
+	std::vector<Coordinate> generatedPath = pathManager.createPath(startPosition, dropOff, factory, boundary);
 
 	//print start and dropoff location
 	std::cout << "start (" << startPosition.x << "," << startPosition.y << ")\n";
@@ -323,7 +340,7 @@ std::vector<Coordinate> generateListOfPaths(Map *map, Position startCoordinate, 
 	return pathList;
 }
 
-std::vector<Coordinate> GeneratePath(std::vector<Coordinate> &pathList, Position &start) {
+std::vector<Coordinate> generatePath(std::vector<Coordinate> &pathList, Position &start) {
 	//Reduce the pathList to list with steps to take
 	int currentCounter;
 	bool added = false;
