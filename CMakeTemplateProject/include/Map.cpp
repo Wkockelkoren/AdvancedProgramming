@@ -111,29 +111,3 @@ void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles, std::
 		}
 	}
 }
-
-void drawMap(SDL_Renderer * renderer)
-{
-	int row = 0, column = 0, x = 0;
-	SDL_Rect rect, darea;
-
-	/* Get the Size of drawing surface */
-	SDL_RenderGetViewport(renderer, &darea);
-
-	for (; row < 8; row++)
-	{
-		column = row % 2;
-		x = column;
-		for (; column < 4 + (row % 2); column++)
-		{
-			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
-
-			rect.w = darea.w / 8;
-			rect.h = darea.h / 8;
-			rect.x = x * rect.w;
-			rect.y = row * rect.h;
-			x = x + 2;
-			SDL_RenderFillRect(renderer, &rect);
-		}
-	}
-}
