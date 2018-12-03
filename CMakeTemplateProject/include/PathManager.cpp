@@ -211,6 +211,11 @@ std::vector<Coordinate> PathManager::generatePath(std::vector<Coordinate> &pathL
 
 
 std::vector<Coordinate> PathManager::createPath(Position startPosition, Position dropOff, Map &map) {
+	/* 
+	this public function can be called in order to generate a path. it uses the private function 
+	"ListOfPaths" to generate a vector with 1 path from start to end, and with paths that dont lead
+	to the right location. The function generatePath uses this list and returns only the correct path
+	*/
 	std::vector<Coordinate>	listOfPaths = generateListOfPaths(&map, dropOff, startPosition);
 	std::vector<Coordinate> generatedPath = generatePath(listOfPaths, startPosition);
 	return generatedPath;
