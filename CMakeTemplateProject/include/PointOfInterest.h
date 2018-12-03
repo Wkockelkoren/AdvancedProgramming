@@ -11,7 +11,7 @@ private:
 public:
 	int x;
 	int y;
-	PointOfInterest::PointOfInterest(int x1 = 0, int y1 = 0, pointOfInterestType pointType = pointOfInterestType::Floor, bool obstacle = false);
+	PointOfInterest(int x1 = 0, int y1 = 0, pointOfInterestType pointType = pointOfInterestType::Floor, bool obstacle = false);
 
 	void printCoords();
 

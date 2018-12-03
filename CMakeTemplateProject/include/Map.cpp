@@ -51,7 +51,9 @@ void Map::printMap(std::vector<Vehicle> vehicles, std::vector<Coordinate> path) 
 	// Pre allocate memory for variables used in the function
 	bool v = false;
 	pointOfInterestType type = pointOfInterestType::Floor;
-	Position pos = { 0,0 };
+	Position pos;
+	pos.x = 0;
+	pos.y = 0;
 
 	// Iteration over each row
 	for (int y = 0; y < height; y++) {
@@ -64,7 +66,7 @@ void Map::printMap(std::vector<Vehicle> vehicles, std::vector<Coordinate> path) 
 			for (Vehicle vehicle : vehicles) {
 				pos = vehicle.getPosition(); // Get the position of the vehicle
 				if (pos.x == x && pos.y == y) { // Check whether the position of the vehicle is equal to the current map position in the iteration
-					std::cout << "V ";  // Print that there is a Vehicle 
+					std::cout << "V ";  // Print that there is a Vehicle
 					v = true; // There is a vehicle, so we don't want to print the point of interest type
 					break; // Stop the for loop because there shouldn't be multiple vehicles on a position.
 				}
@@ -74,13 +76,13 @@ void Map::printMap(std::vector<Vehicle> vehicles, std::vector<Coordinate> path) 
 			if (v == false) {
 				for (Coordinate coordinate : path) {
 					if (coordinate.x == x && coordinate.y == y) { // Check whether the position of the path is equal to the current map position in the iteration
-						std::cout << "P ";  // Print that there is a path 
+						std::cout << "P ";  // Print that there is a path
 						v = true; // There is a path, so we don't want to print the point of interest type
 						break; // Stop the for loop because there shouldn't be multiple paths on a position.
 					}
 				}
 			}
-			
+
 			if (v == false) { // If there is no vehicle on the current position, then we print the point of interest type
 				if (type == pointOfInterestType::Floor) {
 					std::cout << "_ ";
@@ -95,7 +97,7 @@ void Map::printMap(std::vector<Vehicle> vehicles, std::vector<Coordinate> path) 
 					throw std::runtime_error("Requested type can't be printed - class Map PrintMap()\n");
 				}
 			}
-			
+
 			if (x == width - 1) { // If end of the rows we start printing on the next line
 				std::cout << "\n";
 			}

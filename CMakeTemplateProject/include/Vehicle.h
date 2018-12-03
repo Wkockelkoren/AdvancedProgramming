@@ -13,19 +13,19 @@ public:
 	int x;
 	int y;
 	double maxSpeed;
-	Vehicle::Vehicle(int x1 = 0, int y1 = 0, double maxSpeed1 = 1);
+	Vehicle(int x1 = 0, int y1 = 0, double maxSpeed1 = 1);
 
-	void Vehicle::printCoords();
+	void printCoords();
 
-	void Vehicle::setPosition(int x1, int y1);
+	void setPosition(int x1, int y1);
 
-	Position Vehicle::getPosition();
+	Position getPosition();
 
-	void Vehicle::printMaxSpeed();
+	void printMaxSpeed();
 
-	void Vehicle::setMaxSpeed(int maxSpeed1);
+	void setMaxSpeed(int maxSpeed1);
 
-	double Vehicle::getMaxSpeed();
+	double getMaxSpeed();
 };
 
 #endif
