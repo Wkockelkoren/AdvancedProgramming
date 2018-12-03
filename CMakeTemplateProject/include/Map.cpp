@@ -39,14 +39,14 @@ PointOfInterest& Map::getPointOfInterest(int x, int y) {
 }
 
 // TODO: find a method that we dont need to use multiple fuctions
-void Map::printMap() {
+void Map::printMap(SDL_Renderer * renderer) {
 	// If we have no vehicles we send an empty vector to the function
 	std::vector<Vehicle> vehicles{};
 	std::vector< Coordinate > path{};
-	printMap(vehicles,path);
+	printMap(renderer, vehicles, path);
 }
 
-void Map::printMap(std::vector<Vehicle> vehicles, std::vector<Coordinate> path) {
+void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles, std::vector<Coordinate> path) {
 
 	// Pre allocate memory for variables used in the function
 	bool v = false;
@@ -54,6 +54,11 @@ void Map::printMap(std::vector<Vehicle> vehicles, std::vector<Coordinate> path) 
 	Position pos;
 	pos.x = 0;
 	pos.y = 0;
+
+	SDL_Rect rect, darea;
+
+	/* Get the Size of drawing surface */
+	SDL_RenderGetViewport(renderer, &darea);
 
 	// Iteration over each row
 	for (int y = 0; y < height; y++) {
@@ -66,7 +71,7 @@ void Map::printMap(std::vector<Vehicle> vehicles, std::vector<Coordinate> path) 
 			for (Vehicle vehicle : vehicles) {
 				pos = vehicle.getPosition(); // Get the position of the vehicle
 				if (pos.x == x && pos.y == y) { // Check whether the position of the vehicle is equal to the current map position in the iteration
-					std::cout << "V ";  // Print that there is a Vehicle
+					SDL_SetRenderDrawColor(renderer, 255, 0, 0, 0xFF);  // Print that there is a Vehicle
 					v = true; // There is a vehicle, so we don't want to print the point of interest type
 					break; // Stop the for loop because there shouldn't be multiple vehicles on a position.
 				}
@@ -76,7 +81,7 @@ void Map::printMap(std::vector<Vehicle> vehicles, std::vector<Coordinate> path) 
 			if (v == false) {
 				for (Coordinate coordinate : path) {
 					if (coordinate.x == x && coordinate.y == y) { // Check whether the position of the path is equal to the current map position in the iteration
-						std::cout << "P ";  // Print that there is a path
+						SDL_SetRenderDrawColor(renderer, 200, 160, 40, 0xFF);  // Print that there is a path
 						v = true; // There is a path, so we don't want to print the point of interest type
 						break; // Stop the for loop because there shouldn't be multiple paths on a position.
 					}
@@ -85,22 +90,24 @@ void Map::printMap(std::vector<Vehicle> vehicles, std::vector<Coordinate> path) 
 
 			if (v == false) { // If there is no vehicle on the current position, then we print the point of interest type
 				if (type == pointOfInterestType::Floor) {
-					std::cout << "_ ";
+					SDL_SetRenderDrawColor(renderer, 126, 110, 90, 0xFF);
 				}
 				else if (type == pointOfInterestType::Wall) {
-					std::cout << "X ";
+					SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
 				}
 				else if (type == pointOfInterestType::DropOff) {
-					std::cout << "D ";
+					SDL_SetRenderDrawColor(renderer, 0, 0, 255, 0xFF);
 				}
 				else { // if the point of interest type is unknown we throw an exception
 					throw std::runtime_error("Requested type can't be printed - class Map PrintMap()\n");
 				}
 			}
 
-			if (x == width - 1) { // If end of the rows we start printing on the next line
-				std::cout << "\n";
-			}
+			rect.w = darea.w / width;
+			rect.h = darea.h / height;
+			rect.x = x * rect.w;
+			rect.y = y * rect.h;
+			SDL_RenderFillRect(renderer, &rect);
 		}
 	}
 }
