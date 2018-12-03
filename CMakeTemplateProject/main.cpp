@@ -4,73 +4,11 @@
 #include "Map.h"
 #include "Vehicle.h"
 #include "SDL.h"
-#undef main
 
 SDL_Window *window;
 SDL_Renderer *renderer;
 SDL_Surface *surface;
 int done;
-
-void DrawChessBoard(SDL_Renderer * renderer)
-{
-	int row = 0, column = 0, x = 0;
-	SDL_Rect rect, darea;
-
-	/* Get the Size of drawing surface */
-	SDL_RenderGetViewport(renderer, &darea);
-
-	for (; row < 8; row++)
-	{
-		column = row % 2;
-		x = column;
-		for (; column < 4 + (row % 2); column++)
-		{
-			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
-
-			rect.w = darea.w / 8;
-			rect.h = darea.h / 8;
-			rect.x = x * rect.w;
-			rect.y = row * rect.h;
-			x = x + 2;
-			SDL_RenderFillRect(renderer, &rect);
-		}
-	}
-}
-
-void loop()
-{
-	SDL_Event e;
-	while (SDL_PollEvent(&e)) {
-
-		/* Re-create when window has been resized */
-		if ((e.type == SDL_WINDOWEVENT) && (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)) {
-
-			SDL_DestroyRenderer(renderer);
-
-			surface = SDL_GetWindowSurface(window);
-			renderer = SDL_CreateSoftwareRenderer(surface);
-			/* Clear the rendering surface with the specified color */
-			SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-			SDL_RenderClear(renderer);
-		}
-
-		if (e.type == SDL_QUIT) {
-			done = 1;
-			return;
-		}
-
-		if ((e.type == SDL_KEYDOWN) && (e.key.keysym.sym == SDLK_ESCAPE)) {
-			done = 1;
-			return;
-		}
-	}
-
-	DrawChessBoard(renderer);
-
-	/* Got everything on rendering surface,
-	now Update the drawing image on window screen */
-	SDL_UpdateWindowSurface(window);
-}
 
 struct Boundary {
 	int xUpper = 0;
@@ -82,7 +20,7 @@ struct Boundary {
 std::vector<Coordinate> generateListOfPaths(Map *map, Position startPosition, Position endPosition, Boundary boundary);
 std::vector<Coordinate> GeneratePath(std::vector<Coordinate> &pathList, Position &start);
 
-int main() {
+int main(int argc, char*argv[]){
 
 	Map factory(10, 10);
 
@@ -100,14 +38,9 @@ int main() {
 		std::cout << e.what();
 	}
 
-	factory.printMap();
-
 	std::vector<Vehicle> vehicles;
 	Vehicle vehicle(1,4);
 	vehicles.push_back(vehicle);
-
-	factory.printMap();
-
 
 	//get start position and dropoff position
 	Position startPosition;
@@ -140,12 +73,6 @@ int main() {
 		std::cout << "\n\tcounter: " << generatedPath[i].counter;
 		std::cout << "\n";
 	}
-
-	factory.printMap(vehicles,generatedPath);
-	//factory.printMap();
-
-	std::cout << "Press enter to continue ...";
-	std::cin.get();
 
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
@@ -182,7 +109,37 @@ int main() {
 	/* Draw the Image on rendering surface */
 	done = 0;
 	while (!done) {
-		loop();
+		SDL_Event e;
+		while (SDL_PollEvent(&e)) {
+
+			/* Re-create when window has been resized */
+			if ((e.type == SDL_WINDOWEVENT) && (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)) {
+
+				SDL_DestroyRenderer(renderer);
+
+				surface = SDL_GetWindowSurface(window);
+				renderer = SDL_CreateSoftwareRenderer(surface);
+				/* Clear the rendering surface with the specified color */
+				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+				SDL_RenderClear(renderer);
+			}
+
+			if (e.type == SDL_QUIT) {
+				done = 1;
+				return 0;
+			}
+
+			if ((e.type == SDL_KEYDOWN) && (e.key.keysym.sym == SDLK_ESCAPE)) {
+				done = 1;
+				return 0;
+			}
+		}
+
+		factory.printMap(renderer, vehicles, generatedPath);
+
+		/* Got everything on rendering surface,
+		now Update the drawing image on window screen */
+		SDL_UpdateWindowSurface(window);
 	}
 
 	SDL_DestroyWindow(window);

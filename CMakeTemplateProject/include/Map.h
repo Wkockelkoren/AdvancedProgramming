@@ -3,6 +3,8 @@
 
 #include "PointOfInterest.h"
 #include "Vehicle.h"
+#include "SDL.h"
+#undef main
 
 struct Coordinate {
 	int x = 0;
@@ -25,8 +27,8 @@ public:
 
 	PointOfInterest& getPointOfInterest(int x, int y);
 
-	void printMap(std::vector<Vehicle> vehicles, std::vector<Coordinate> path);
-	void printMap();
+	void printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles, std::vector<Coordinate> path);
+	void printMap(SDL_Renderer * renderer);
 	
 };
 
