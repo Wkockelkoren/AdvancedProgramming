@@ -4,7 +4,7 @@
 #include "Map.h"
 #include "PointOfInterest.h"
 #include "Vehicle.h"
-
+#include "PathManager.h"
 
 
 Map::Map(int width, int height) : width(width), height(height) {
