@@ -19,6 +19,7 @@ endif(MSVC)
 
 SET(HEADERFILES
 	include/Map.h
+	include/PathManager.h
 	include/PointOfInterest.h
 	include/Vehicle.h
 )
@@ -27,6 +28,7 @@ SOURCE_GROUP("Header Files" FILES ${HEADERFILES})
 SET(SOURCEFILES
 	main.cpp
 	include/Map.cpp
+	include/PathManager.cpp
 	include/PointOfInterest.cpp
 	include/Vehicle.cpp
 )
