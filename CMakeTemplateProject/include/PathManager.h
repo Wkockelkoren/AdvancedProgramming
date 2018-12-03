@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <iostream>
-#include "map.h"
+#include "Map.h"
 
 struct Boundary {
 	int xUpper = 0;
@@ -25,5 +25,5 @@ public:
 	std::vector<Coordinate> editPath(std::vector<Coordinate> path);
 	void deletePath(std::vector <Coordinate> path);
 };
-	
+
 #endif
