@@ -42,13 +42,6 @@ std::vector<Coordinate> PathManager::generateListOfPaths(Map *map, Position star
 		*/
 		std::vector<Coordinate> pathList;
 		Coordinate coordinate;
-		Boundary boundary;
-
-		//define boundary
-		boundary.xUpper = map->width - 1; //upper bound is biggest permissable x coordinate
-		boundary.xLower = 0;
-		boundary.yUpper = map->height - 1;
-		boundary.yLower = 0;
 
 		//control variables
 		bool startPointReached = false;
@@ -73,119 +66,35 @@ std::vector<Coordinate> PathManager::generateListOfPaths(Map *map, Position star
 				if (pathList[i].counter == highestCounter) { //only add coordinates add the 'newest' coordinates
 
 					//obtain new coordinate to the right of current coordinate
-					if ((pathList[i].x + 1) <= boundary.xUpper) { //check iff new coordinate doesn't move outside the map
+					if ((pathList[i].x + 1) <= map->width - 1) { //check if coordinate is not higher than the upper boundary (upper boundary x= map width - 1)
 						coordinate.x = pathList[i].x + 1;
 						coordinate.y = pathList[i].y;
 						addNewCoordinate(map, coordinate, endPosition, i, pathList, startPointReached, coordinateAdded, existsAlready);
-						}
-						/*
-						//checkNewCoordinate(map, coordinate, startPosition
-						coordinate.counter = highestCounter + 1;
-						for (int it = 0; it < pathList.size(); it++) {
-							if ((coordinate.x == pathList[i].x) && (coordinate.y == pathList[i].y)) {
-								existsAlready = true;
-							}
-						}
-						//now check if there is no obstacle at the new coordinate on the map
-						for (int it = 0; it < pathList.size(); it++) {
-							if ((coordinate.x == pathList[it].x) && (coordinate.y == pathList[it].y)) {
-								existsAlready = true;
-							}
-						}
-						if (map->getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false && existsAlready == false) {
-							pathList.push_back(coordinate);
-							coordinateAdded = true;
-							//stop looping when the right location is found
-							if ((coordinate.x == endPosition.x) && (coordinate.y == endPosition.y)) {
-								startPointReached = true;
-							}
-						}
-						existsAlready = false;
 					}
-					*/
 					//obtain new coordinate above current coordinate
-					if ((pathList[i].y + 1) <= boundary.yUpper) { //check iff new coordinate doesn't move outside the map
+					if ((pathList[i].y + 1) <= map->height - 1) { //check if coordinate is not higher than the upper boundary (upper boundary y= map height - 1)
 						coordinate.x = pathList[i].x;
 						coordinate.y = pathList[i].y + 1;
 						coordinate.counter = highestCounter + 1;
 						addNewCoordinate(map, coordinate, endPosition, i, pathList, startPointReached, coordinateAdded, existsAlready);
-						/*
-						//now check if there is no obstacle at the new coordinate on the map
-						for (int it = 0; it < pathList.size(); it++) {
-							if ((coordinate.x == pathList[it].x) && (coordinate.y == pathList[it].y)) {
-								existsAlready = true;
-							}
-						}
-						if (map->getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false && existsAlready == false) {
-							pathList.push_back(coordinate);
-							coordinateAdded = true;
-							//stop looping when the right location is found
-							if ((coordinate.x == endPosition.x) && (coordinate.y == endPosition.y)) {
-								startPointReached = true;
-							}
-						}
-						existsAlready = false;
 					}
-					*/
-					}
-
 					//obtain new coordinate left to current coordinate
-						if ((pathList[i].x - 1) >= boundary.xLower) { //check iff new coordinate doesn't move outside the map
-							coordinate.x = pathList[i].x - 1;
-							coordinate.y = pathList[i].y;
-							coordinate.counter = highestCounter + 1;
-							addNewCoordinate(map, coordinate, endPosition, i, pathList, startPointReached, coordinateAdded, existsAlready);
-							//now check if there is no obstacle at the new coordinate on the map
-							/*for (int it = 0; it < pathList.size(); it++) {
-								if ((coordinate.x == pathList[it].x) && (coordinate.y == pathList[it].y)) {
-									existsAlready = true;
-								}
-							}
-							if (map->getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false && existsAlready == false) {
-								pathList.push_back(coordinate);
-								coordinateAdded = true;
-								//stop looping when the right location is found
-								if ((coordinate.x == endPosition.x) && (coordinate.y == endPosition.y)) {
-									startPointReached = true;
-								}
-							}
-							existsAlready = false;
-						}
-						*/
-						}
-					//obtain new coordinae beneath the current coordinate
-						if ((pathList[i].y - 1) >= boundary.yLower) { //check iff new coordinate doesn't move outside the map
-							coordinate.x = pathList[i].x;
-							coordinate.y = pathList[i].y - 1;
-							coordinate.counter = highestCounter + 1;
-							addNewCoordinate(map, coordinate, endPosition, i, pathList, startPointReached, coordinateAdded, existsAlready);
-						}
-						/*
-						//now check if there is no obstacle at the new coordinate on the map
-						for (int it = 0; it < pathList.size(); it++) {
-							if ((coordinate.x == pathList[it].x) && (coordinate.y == pathList[it].y)) {
-								existsAlready = true;
-							}
-						}
-						if (map->getPointOfInterest(coordinate.x, coordinate.y).getIsObstacle() == false && existsAlready == false) {
-							pathList.push_back(coordinate);
-							coordinateAdded = true;
-							//stop looping when the right location is found
-							if ((coordinate.x == endPosition.x) && (coordinate.y == endPosition.y)) {
-								startPointReached = true;
-							}
-						}
-						existsAlready = false;
+					if ((pathList[i].x - 1) >= 0) { //check if coordinate is not higher than the upper boundary (lower boundary = 0)
+						coordinate.x = pathList[i].x - 1;
+						coordinate.y = pathList[i].y;
+						coordinate.counter = highestCounter + 1;
+						addNewCoordinate(map, coordinate, endPosition, i, pathList, startPointReached, coordinateAdded, existsAlready);
 					}
-					*/
-					
+					//obtain new coordinae beneath the current coordinate
+					if ((pathList[i].y - 1) >= 0) { //check if coordinate is not higher than the upper boundary (lower boundary = 0)
+						coordinate.x = pathList[i].x;
+						coordinate.y = pathList[i].y - 1;
+						coordinate.counter = highestCounter + 1;
+						addNewCoordinate(map, coordinate, endPosition, i, pathList, startPointReached, coordinateAdded, existsAlready);
+					}
 				}
 			}
-			highestCounter++;
-			//	if (coordinateAdded == false) {
-		//			noPathPossible = true;
-			//		throw std::runtime_error("No path found");
-			//	}
+			highestCounter++; //this counter is being used to add the neighbours next to the last added coordinates
 		}
 		return pathList;
 	}

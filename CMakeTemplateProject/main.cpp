@@ -30,7 +30,7 @@ int main(int argc, char*argv[]){
 	}
 
 	std::vector<Vehicle> vehicles;
-	Vehicle vehicle(3,7);
+	Vehicle vehicle(0,4);
 	vehicles.push_back(vehicle);
 
 	//get start position and dropoff position
@@ -39,8 +39,8 @@ int main(int argc, char*argv[]){
 	startPosition.y = vehicle.getPosition().y;
 
 	Position dropOff;
-	dropOff.x = 6;
-	dropOff.y = 1;
+	dropOff.x = 9;
+	dropOff.y =4;
 
 	//path finding algorithm (sample algorithm)
 	std::vector<Coordinate> generatedPath = pathManager.createPath(startPosition, dropOff, factory);
