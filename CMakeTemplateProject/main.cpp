@@ -17,7 +17,7 @@ int main(int argc, char*argv[]){
 
 	try {
 		factory.getPointOfInterest(0, 5).setPointOfInterestType(pointOfInterestType::DropOff);
-		factory.getPointOfInterest(9, 6).setPointOfInterestType(pointOfInterestType::DropOff);
+		factory.getPointOfInterest(9, 5).setPointOfInterestType(pointOfInterestType::DropOff);
 		factory.getPointOfInterest(4, 2).setPointOfInterestType(pointOfInterestType::Wall);
 		factory.getPointOfInterest(4, 3).setPointOfInterestType(pointOfInterestType::Wall);
 		factory.getPointOfInterest(4, 4).setPointOfInterestType(pointOfInterestType::Wall);
@@ -30,7 +30,7 @@ int main(int argc, char*argv[]){
 	}
 
 	std::vector<Vehicle> vehicles;
-	Vehicle vehicle(1,4);
+	Vehicle vehicle(1,5);
 	vehicles.push_back(vehicle);
 
 	//get start position and dropoff position
@@ -40,7 +40,7 @@ int main(int argc, char*argv[]){
 
 	Position dropOff;
 	dropOff.x = 9;
-	dropOff.y = 4;
+	dropOff.y = 6;
 
 	//path finding algorithm (sample algorithm)
 	std::vector<Coordinate> generatedPath = pathManager.createPath(startPosition, dropOff, factory);
