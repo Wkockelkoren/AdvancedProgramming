@@ -12,11 +12,19 @@ struct Boundary {
 	int yLower = 0;
 };
 
+enum checkNewCoordinateResponses { 
+	check, 
+	obstacleFound, 
+	startCoordinateReached 
+};
+
 class PathManager
 {
 private:
 	std::vector<Coordinate> generateListOfPaths(Map *map, Position startPosition, Position endPosition);
 	std::vector<Coordinate> generatePath(std::vector<Coordinate> &pathList, Position &start);
+	void PathManager::addNewCoordinate(Map *map, const Coordinate newCoordinate, const Position endPosition, const int &iterator,
+		std::vector<Coordinate> &pathList, bool &startPointReached, bool &coordinateAdded, bool &existsAlready);
 public:
 	PathManager();
 	~PathManager();
