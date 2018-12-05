@@ -4,11 +4,8 @@
 #include "Map.h"
 #include "PathManager.h"
 #include "Vehicle.h"
+#include "Window.h"
 #include "SDL.h"
-
-SDL_Window *window;
-SDL_Renderer *renderer;
-SDL_Surface *surface;
 
 int main(int argc, char*argv[]){
 
@@ -44,39 +41,14 @@ int main(int argc, char*argv[]){
 
 	//path finding algorithm (sample algorithm)
 	std::vector<Coordinate> generatedPath = pathManager.createPath(startPosition, dropOff, factory);
-	
 
-	if (SDL_Init(SDL_INIT_VIDEO) != 0)
-	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_Init fail : %s\n", SDL_GetError());
-		return 1;
-	}
+	SDL_Window* window;
+	SDL_Surface* surface;
+	SDL_Renderer* renderer;
 
-	window = SDL_CreateWindow(
-		"Path Planner",
-		SDL_WINDOWPOS_UNDEFINED,
-		SDL_WINDOWPOS_UNDEFINED,
-		640,
-		480,
-		0
-	);
-	if (!window)
-	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Window creation fail : %s\n", SDL_GetError());
-		return 1;
-	}
-
-	surface = SDL_GetWindowSurface(window);
-	renderer = SDL_CreateSoftwareRenderer(surface);
-	if (!renderer)
-	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Render creation for surface fail : %s\n", SDL_GetError());
-		return 1;
-	}
-
-	/* Clear the rendering surface with the specified color */
-	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-	SDL_RenderClear(renderer);
+	// Create a window, surface and renderer. Continue when no errors occured, otherwise stop the program
+	if (!loadWindow(&window, 640, 480, &surface, &renderer))
+		return 0;
 
 	/* Draw the Image on rendering surface */
 	int done = 0;
