@@ -2,10 +2,18 @@
 
 
 PathManager::PathManager(){
+	
 }
 
 
 PathManager::~PathManager(){
+}
+
+void PathManager::addVehicle(const int xPosition, const int yPosition,const double vehicleSpeed) {
+
+	Vehicle vehicle(xPosition, yPosition, vehicleSpeed);
+	listOfVehicles.push_back(vehicle);
+	numberOfVehicles++;
 }
 
 void PathManager::addNewCoordinate(Map *map, const Coordinate newCoordinate,const Position endPosition, const int &iterator,
@@ -100,7 +108,7 @@ std::vector<Coordinate> PathManager::generateListOfPaths(Map *map, Position star
 	}
 
 
-std::vector<Coordinate> PathManager::generatePath(std::vector<Coordinate> &pathList, Position &start) {
+std::vector<Coordinate> PathManager::generatePath(std::vector<Coordinate> &pathList, Position start) {
 		//Reduce the pathList to list with steps to take
 		int currentCounter;
 		bool added = false;
@@ -161,7 +169,7 @@ std::vector<Coordinate> PathManager::generatePath(std::vector<Coordinate> &pathL
 	}
 
 
-std::vector<Coordinate> PathManager::createPath(Position startPosition, Position dropOff, Map &map) {
+std::vector<Coordinate> PathManager::createPath(const Position startPosition,const Position dropOff, Map &map) {
 	/* 
 	this public function can be called in order to generate a path. it uses the private function 
 	"ListOfPaths" to generate a vector with 1 path from start to end, and with paths that dont lead

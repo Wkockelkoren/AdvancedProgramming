@@ -25,9 +25,12 @@ int main(int argc, char*argv[]){
 	catch (std::exception const& e) {// will be removed later is just for testing exeptions
 		std::cout << e.what();
 	}
+	pathManager.addVehicle(0, 2, 0);
+	pathManager.addVehicle(0, 2, 6);
+	pathManager.addVehicle(1, 2, 0);
 
 	std::vector<Vehicle> vehicles;
-	Vehicle vehicle(0,4);
+	Vehicle vehicle(0,0);
 	vehicles.push_back(vehicle);
 
 	//get start position and dropoff position
