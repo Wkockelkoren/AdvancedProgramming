@@ -6,6 +6,7 @@
 #include "Vehicle.h"
 #include "Window.h"
 #include "SDL.h"
+#include <nanogui/nanogui.h>
 
 int main(int argc, char*argv[]){
 
