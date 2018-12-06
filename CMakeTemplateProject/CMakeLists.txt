@@ -23,6 +23,7 @@ SET(HEADERFILES
 	include/PointOfInterest.h
 	include/Vehicle.h
 	include/Window.h
+	include/Structures.h
 )
 SOURCE_GROUP("Header Files" FILES ${HEADERFILES})
 
