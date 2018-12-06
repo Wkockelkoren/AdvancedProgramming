@@ -4,13 +4,10 @@
 #include "PointOfInterest.h"
 #include "Vehicle.h"
 #include "SDL.h"
+#include "Structures.h"
 #undef main
 
-struct Coordinate {
-	int x = 0;
-	int y = 0;
-	int counter = 0;
-};
+
 
 class Map {
 private:

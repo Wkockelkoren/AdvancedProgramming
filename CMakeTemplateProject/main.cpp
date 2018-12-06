@@ -7,8 +7,13 @@
 #include "Window.h"
 #include "SDL.h"
 #include <nanogui/nanogui.h>
+#include "time.h"
 
 int main(int argc, char*argv[]){
+	// Timing stuff
+		clock_t this_time = clock();
+		clock_t last_time = this_time;
+	//
 
 	Map factory(10, 10);
 	PathManager pathManager;
@@ -28,7 +33,7 @@ int main(int argc, char*argv[]){
 	}
 
 	std::vector<Vehicle> vehicles;
-	Vehicle vehicle(1,5);
+	Vehicle vehicle(0,4);
 	vehicles.push_back(vehicle);
 
 	//get start position and dropoff position
@@ -38,7 +43,7 @@ int main(int argc, char*argv[]){
 
 	Position dropOff;
 	dropOff.x = 9;
-	dropOff.y = 6;
+	dropOff.y =4;
 
 	//path finding algorithm (sample algorithm)
 	std::vector<Coordinate> generatedPath = pathManager.createPath(startPosition, dropOff, factory);
@@ -77,6 +82,19 @@ int main(int argc, char*argv[]){
 			if ((e.type == SDL_KEYDOWN) && (e.key.keysym.sym == SDLK_ESCAPE)) {
 				done = 1;
 				return 0;
+			}
+		}
+
+		//program functions that are time based and need to be repeated
+		this_time = clock();
+
+		//every second the following if statement will be triggered
+		if ((this_time - last_time) >= 1000) {
+			last_time = this_time;
+
+			//Move all vehicles to the next place on the path
+			for (int i = 0; i < vehicles.size(); i++) {
+				vehicles.at(i).moveNextPathPosition(generatedPath);
 			}
 		}
 
