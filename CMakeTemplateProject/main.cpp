@@ -6,8 +6,13 @@
 #include "Vehicle.h"
 #include "Window.h"
 #include "SDL.h"
+#include "time.h"
 
 int main(int argc, char*argv[]){
+	// Timing stuff
+		clock_t this_time = clock();
+		clock_t last_time = this_time;
+	//
 
 	Map factory(10, 10);
 	PathManager pathManager;
@@ -79,6 +84,19 @@ int main(int argc, char*argv[]){
 			if ((e.type == SDL_KEYDOWN) && (e.key.keysym.sym == SDLK_ESCAPE)) {
 				done = 1;
 				return 0;
+			}
+		}
+
+		//program functions that are time based and need to be repeated
+		this_time = clock();
+
+		//every second the following if statement will be triggered
+		if ((this_time - last_time) >= 1000) {
+			last_time = this_time;
+
+			//Move all vehicles to the next place on the path
+			for (int i = 0; i < vehicles.size(); i++) {
+				vehicles.at(i).moveNextPathPosition(generatedPath);
 			}
 		}
 

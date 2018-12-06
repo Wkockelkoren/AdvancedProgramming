@@ -1,6 +1,8 @@
 #ifndef VEHICLE_H
 #define VEHICLE_H
 
+#include "Structures.h"
+
 struct Position {
 	int x = 0;
 	int y = 0;
@@ -26,6 +28,8 @@ public:
 	void setMaxSpeed(int maxSpeed1);
 
 	double getMaxSpeed();
+
+	void moveNextPathPosition(std::vector<Coordinate> &path);
 };
 
 #endif
