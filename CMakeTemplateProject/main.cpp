@@ -13,6 +13,8 @@
 #include <nanogui/layout.h>
 #include <nanogui/button.h>
 
+// https://github.com/wjakob/nanogui/issues/47
+
 int main(int argc, char*argv[]){
 
 	nanogui::init();
@@ -21,19 +23,22 @@ int main(int argc, char*argv[]){
 	nanogui::Window window{&screen, "Window"};
     window.setPosition({15, 15});
     window.setLayout(new nanogui::GroupLayout());
-	nanogui::Button *b =new nanogui::Button(&window, "My Button");
-    b->setCallback([] { std::cout << "Button pressed!" << std::endl; });
+
+	nanogui::Button *butStart = new nanogui::Button(&window, "Start");
+	nanogui::Button *butStop = new nanogui::Button(&window, "Stop");
+
+	butStart->setCallback([] { 
+		std::cout << "Start" << std::endl;
+	});
+
+	butStop->setCallback([] { 
+		std::cout << "Stop" << std::endl;
+	});
 
     screen.performLayout();
 
     screen.drawAll();
     screen.setVisible(true);
-
-    nanogui::mainloop();
-
-    nanogui::shutdown();
-    exit(EXIT_SUCCESS);
-
 
 
 	// Timing stuff
@@ -85,6 +90,8 @@ int main(int argc, char*argv[]){
 	/* Draw the Image on rendering surface */
 	int done = 0;
 	while (!done) {
+		screen.drawAll();
+
 		SDL_Event e;
 		while (SDL_PollEvent(&e)) {
 
@@ -133,6 +140,9 @@ int main(int argc, char*argv[]){
 
 	SDL_DestroyWindow(mapWindow);
 	SDL_Quit();
+
+	nanogui::shutdown();
+	exit(EXIT_SUCCESS);
 
 	return 0;
 }
