@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "Vehicle.h"
+#include "Map.h"
 
 Vehicle::Vehicle(int x, int y, double maxSpeed) : x(x), y(y), maxSpeed(maxSpeed) {
 
@@ -32,4 +33,28 @@ void Vehicle::setMaxSpeed(int maxSpeed1) {
 
 double Vehicle::getMaxSpeed() {
 	return maxSpeed;
+}
+
+void Vehicle::moveNextPathPosition(std::vector<Coordinate> &path) {
+	if (!path.empty()) {
+		if (path.at(0).x == x && path.at(0).y == y) { // Check if the vehicle is on the expected position
+			if (path.size() > 1) { // Check if there is a next position to move to
+				x = path.at(1).x; // move to the next position
+				y = path.at(1).y;
+				path.erase(path.begin()); // delete the previous position of the path
+			}
+			else {
+				path.erase(path.begin());
+				//TODO: vehicle is in last position of the path and the path list is empty, but the path still exists. 
+				//This needs to be fixed. 
+			}
+		}
+		else {
+			throw std::runtime_error("Vehicle is not in the expected position of the path given. - class Vehicle moveNextPathPosition()\n");
+			//This probably means the start position of the generated path was different than the vehicle position.
+		}
+	}
+	else {
+		std::cout << "Path is empty\n";
+	}
 }
