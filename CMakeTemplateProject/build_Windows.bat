@@ -1,3 +1,6 @@
+cd ext
+git clone --recurse-submodules https://github.com/wjakob/nanogui
+cd ..
 mkdir build_x86
 cd build_x86
 mkdir Debug

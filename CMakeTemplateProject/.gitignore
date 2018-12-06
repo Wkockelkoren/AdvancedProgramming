@@ -2,3 +2,4 @@ build_x86/
 build_x64/
 build/
 documentation/
+ext/nanogui/
