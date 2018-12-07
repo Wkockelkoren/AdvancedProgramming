@@ -1,0 +1,3 @@
+[submodule "CMakeTemplateProject/ext/nanogui"]
+	path = CMakeTemplateProject/ext/nanogui
+	url = https://github.com/wjakob/nanogui

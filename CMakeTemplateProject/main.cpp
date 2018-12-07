@@ -8,7 +8,39 @@
 #include "SDL.h"
 #include "time.h"
 
+#include <nanogui/screen.h>
+#include <nanogui/window.h>
+#include <nanogui/layout.h>
+#include <nanogui/button.h>
+
+// https://github.com/wjakob/nanogui/issues/47
+
 int main(int argc, char*argv[]){
+
+	nanogui::init();
+
+	nanogui::Screen screen{{600, 420}, "Screen"};
+	nanogui::Window window{&screen, "Window"};
+    window.setPosition({15, 15});
+    window.setLayout(new nanogui::GroupLayout());
+
+	nanogui::Button *butStart = new nanogui::Button(&window, "Start");
+	nanogui::Button *butStop = new nanogui::Button(&window, "Stop");
+
+	butStart->setCallback([] { 
+		std::cout << "Start" << std::endl;
+	});
+
+	butStop->setCallback([] { 
+		std::cout << "Stop" << std::endl;
+	});
+
+    screen.performLayout();
+
+    screen.drawAll();
+    screen.setVisible(true);
+
+
 	// Timing stuff
 		clock_t this_time = clock();
 		clock_t last_time = this_time;
@@ -47,17 +79,19 @@ int main(int argc, char*argv[]){
 	//path finding algorithm (sample algorithm)
 	std::vector<Coordinate> generatedPath = pathManager.createPath(startPosition, dropOff, factory);
 
-	SDL_Window* window;
+	SDL_Window* mapWindow;
 	SDL_Surface* surface;
 	SDL_Renderer* renderer;
 
 	// Create a window, surface and renderer. Continue when no errors occured, otherwise stop the program
-	if (!loadWindow(&window, 640, 480, &surface, &renderer))
+	if (!loadWindow(&mapWindow, 640, 480, &surface, &renderer))
 		return 0;
 
 	/* Draw the Image on rendering surface */
 	int done = 0;
 	while (!done) {
+		screen.drawAll();
+
 		SDL_Event e;
 		while (SDL_PollEvent(&e)) {
 
@@ -66,7 +100,7 @@ int main(int argc, char*argv[]){
 
 				SDL_DestroyRenderer(renderer);
 
-				surface = SDL_GetWindowSurface(window);
+				surface = SDL_GetWindowSurface(mapWindow);
 				renderer = SDL_CreateSoftwareRenderer(surface);
 				/* Clear the rendering surface with the specified color */
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -101,11 +135,14 @@ int main(int argc, char*argv[]){
 
 		/* Got everything on rendering surface,
 		now Update the drawing image on window screen */
-		SDL_UpdateWindowSurface(window);
+		SDL_UpdateWindowSurface(mapWindow);
 	}
 
-	SDL_DestroyWindow(window);
+	SDL_DestroyWindow(mapWindow);
 	SDL_Quit();
+
+	nanogui::shutdown();
+	exit(EXIT_SUCCESS);
 
 	return 0;
 }
