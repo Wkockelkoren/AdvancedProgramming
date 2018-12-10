@@ -1,7 +1,10 @@
 #pragma once
 
-struct Coordinate {
+struct Position {
 	int x = 0;
 	int y = 0;
-	int counter = 0;
+};
+
+struct Task {
+	Position goalPosition; 
 };

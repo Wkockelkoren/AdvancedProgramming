@@ -3,6 +3,7 @@
 #include <array>
 #include "Map.h"
 #include "PathManager.h"
+#include "structures.h"
 #include "Vehicle.h"
 #include "Window.h"
 #include "SDL.h"
@@ -16,6 +17,13 @@ int main(int argc, char*argv[]){
 
 	Map factory(10, 10);
 	PathManager pathManager;
+
+	//make tasks
+	Task task;
+	std::vector<Task> currentTasks;
+	task.goalPosition.x = 9;
+	task.goalPosition.y = 9;
+	currentTasks.push_back(task);
 
 	try {
 		factory.getPointOfInterest(0, 5).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -34,9 +42,11 @@ int main(int argc, char*argv[]){
 	pathManager.addVehicle(0, 2, 6);
 	pathManager.addVehicle(1, 2, 0);
 
+	
 	std::vector<Vehicle> vehicles;
-	Vehicle vehicle(0,0);
+	Vehicle vehicle(3,6);
 	vehicles.push_back(vehicle);
+	
 
 	//get start position and dropoff position
 	Position startPosition;
@@ -46,9 +56,9 @@ int main(int argc, char*argv[]){
 	Position dropOff;
 	dropOff.x = 9;
 	dropOff.y =4;
-
+	
 	//path finding algorithm (sample algorithm)
-	std::vector<Coordinate> generatedPath = pathManager.createPath(startPosition, dropOff, factory);
+	std::vector<Position> generatedPath = pathManager.createPath(startPosition, dropOff, factory);
 
 	SDL_Window* window;
 	SDL_Surface* surface;
@@ -93,6 +103,12 @@ int main(int argc, char*argv[]){
 		//every second the following if statement will be triggered
 		if ((this_time - last_time) >= 1000) {
 			last_time = this_time;
+
+			//assign vehicle to pointer
+			//if task and vehicle available
+		//	Vehicle availableVehicle = pathManager.getAvailableVehicle();
+		//	pathManager.createPath()
+			
 
 			//Move all vehicles to the next place on the path
 			for (int i = 0; i < vehicles.size(); i++) {

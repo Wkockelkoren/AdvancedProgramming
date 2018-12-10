@@ -3,9 +3,7 @@
 #include "Vehicle.h"
 #include "Map.h"
 
-Vehicle::Vehicle(int x, int y, double maxSpeed) : x(x), y(y), maxSpeed(maxSpeed) {
-
-}
+Vehicle::Vehicle(int x, int y, double maxSpeed) : x(x), y(y), maxSpeed(maxSpeed) {}
 
 void Vehicle::printCoords() {
 	std::cout << "(" << x << "," << y << ")\n";
@@ -35,12 +33,16 @@ double Vehicle::getMaxSpeed() {
 	return maxSpeed;
 }
 
-void Vehicle::moveNextPathPosition(std::vector<Coordinate> &path) {
+bool Vehicle::checkIfWorking() {
+	return working;
+}
+void Vehicle::moveNextPathPosition(std::vector<Position> &path) {
 	if (!path.empty()) {
 		if (path.at(0).x == x && path.at(0).y == y) { // Check if the vehicle is on the expected position
 			if (path.size() > 1) { // Check if there is a next position to move to
 				x = path.at(1).x; // move to the next position
 				y = path.at(1).y;
+				working = true;
 				path.erase(path.begin()); // delete the previous position of the path
 			}
 			else {
@@ -55,6 +57,7 @@ void Vehicle::moveNextPathPosition(std::vector<Coordinate> &path) {
 		}
 	}
 	else {
+		working = false;
 		std::cout << "Path is empty\n";
 	}
 }

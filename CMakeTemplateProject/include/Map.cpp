@@ -42,11 +42,11 @@ PointOfInterest& Map::getPointOfInterest(int x, int y) {
 void Map::printMap(SDL_Renderer * renderer) {
 	// If we have no vehicles we send an empty vector to the function
 	std::vector<Vehicle> vehicles{};
-	std::vector< Coordinate > path{};
+	std::vector< Position > path{};
 	printMap(renderer, vehicles, path);
 }
 
-void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles, std::vector<Coordinate> path) {
+void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles, std::vector<Position> path) {
 
 	// Pre allocate memory for variables used in the function
 	bool v = false;
@@ -79,7 +79,7 @@ void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles, std::
 
 			// Iterate over all the paths in the vector
 			if (v == false) {
-				for (Coordinate coordinate : path) {
+				for (Position coordinate : path) {
 					if (coordinate.x == x && coordinate.y == y) { // Check whether the position of the path is equal to the current map position in the iteration
 						SDL_SetRenderDrawColor(renderer, 200, 160, 40, 0xFF);  // Print that there is a path
 						v = true; // There is a path, so we don't want to print the point of interest type

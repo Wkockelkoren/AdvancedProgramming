@@ -16,6 +16,7 @@ void PathManager::addVehicle(const int xPosition, const int yPosition,const doub
 	numberOfVehicles++;
 }
 
+
 void PathManager::addNewCoordinate(Map *map, const Coordinate newCoordinate,const Position endPosition, const int &iterator,
 	std::vector<Coordinate> &pathList, bool &startPointReached,bool &coordinateAdded, bool &existsAlready) {
 	//this function checks if the requested coordinate is the start coordinate of if there is an obstacle at the requested position
@@ -108,20 +109,21 @@ std::vector<Coordinate> PathManager::generateListOfPaths(Map *map, Position star
 	}
 
 
-std::vector<Coordinate> PathManager::generatePath(std::vector<Coordinate> &pathList, Position start) {
+std::vector<Position> PathManager::generatePath(std::vector<Coordinate> &pathList, Position start) {
 		//Reduce the pathList to list with steps to take
 		int currentCounter;
 		bool added = false;
-		Coordinate currentCoordinate;
-		std::vector<Coordinate> generatedPath;
+		Position currentPosition;
+		std::vector<Position> generatedPath;
 
 		//Find startposition and counter by looping through pathList and comparing to startposition
 		for (int i = 0; i < pathList.size(); i++) {
 			if (pathList[i].x == start.x) {
 				if (pathList[i].y == start.y) {
 					currentCounter = pathList[i].counter;
-					currentCoordinate = pathList[i];
-					generatedPath.push_back(currentCoordinate);
+					currentPosition.x = pathList[i].x;
+					currentPosition.y = pathList[i].y;
+					generatedPath.push_back(currentPosition);
 				}
 			}
 		}
@@ -130,36 +132,32 @@ std::vector<Coordinate> PathManager::generatePath(std::vector<Coordinate> &pathL
 			for (int i = 0; i < pathList.size(); i++) {
 				added = false;
 				if (pathList[i].counter < currentCounter) {
-					if ((pathList[i].x == (currentCoordinate.x + 1)) && (pathList[i].y == currentCoordinate.y) && added == false) {
-						currentCoordinate.x = pathList[i].x;
-						currentCoordinate.y = pathList[i].y;
-						currentCoordinate.counter = pathList[i].counter;
+					if ((pathList[i].x == (currentPosition.x + 1)) && (pathList[i].y == currentPosition.y) && added == false) {
+						currentPosition.x = pathList[i].x;
+						currentPosition.y = pathList[i].y;
 						currentCounter = pathList[i].counter;
-						generatedPath.push_back(currentCoordinate);
+						generatedPath.push_back(currentPosition);
 						added = true;
 					}
-					if ((pathList[i].x == (currentCoordinate.x - 1)) && (pathList[i].y == currentCoordinate.y) && added == false) {
-						currentCoordinate.x = pathList[i].x;
-						currentCoordinate.y = pathList[i].y;
-						currentCoordinate.counter = pathList[i].counter;
+					if ((pathList[i].x == (currentPosition.x - 1)) && (pathList[i].y == currentPosition.y) && added == false) {
+						currentPosition.x = pathList[i].x;
+						currentPosition.y = pathList[i].y;
 						currentCounter = pathList[i].counter;
-						generatedPath.push_back(currentCoordinate);
+						generatedPath.push_back(currentPosition);
 						added = true;
 					}
-					if ((pathList[i].y == (currentCoordinate.y + 1)) && (pathList[i].x == currentCoordinate.x) && added == false) {
-						currentCoordinate.x = pathList[i].x;
-						currentCoordinate.y = pathList[i].y;
-						currentCoordinate.counter = pathList[i].counter;
+					if ((pathList[i].y == (currentPosition.y + 1)) && (pathList[i].x == currentPosition.x) && added == false) {
+						currentPosition.x = pathList[i].x;
+						currentPosition.y = pathList[i].y;
 						currentCounter = pathList[i].counter;
-						generatedPath.push_back(currentCoordinate);
+						generatedPath.push_back(currentPosition);
 						added = true;
 					}
-					if ((pathList[i].y == (currentCoordinate.y - 1)) && (pathList[i].x == currentCoordinate.x) && added == false) {
-						currentCoordinate.x = pathList[i].x;
-						currentCoordinate.y = pathList[i].y;
-						currentCoordinate.counter = pathList[i].counter;
+					if ((pathList[i].y == (currentPosition.y - 1)) && (pathList[i].x == currentPosition.x) && added == false) {
+						currentPosition.x = pathList[i].x;
+						currentPosition.y = pathList[i].y;
 						currentCounter = pathList[i].counter;
-						generatedPath.push_back(currentCoordinate);
+						generatedPath.push_back(currentPosition);
 						added = true;
 					}
 				}
@@ -169,13 +167,32 @@ std::vector<Coordinate> PathManager::generatePath(std::vector<Coordinate> &pathL
 	}
 
 
-std::vector<Coordinate> PathManager::createPath(const Position startPosition,const Position dropOff, Map &map) {
+std::vector<Position> PathManager::createPath(const Position startPosition,const Position dropOff, Map &map) {
 	/* 
 	this public function can be called in order to generate a path. it uses the private function 
 	"ListOfPaths" to generate a vector with 1 path from start to end, and with paths that dont lead
 	to the right location. The function generatePath uses this list and returns only the correct path
 	*/
-	std::vector<Coordinate>	listOfPaths = generateListOfPaths(&map, dropOff, startPosition);
-	std::vector<Coordinate> generatedPath = generatePath(listOfPaths, startPosition);
-	return generatedPath;
+	/**/
+std::vector<Position> blabla;
+	return blabla;
 }
+
+void PathManager::setTasks(Task newTask) {
+	listOfTasks.push_back(newTask);
+	numberOfTasks++;
+}
+
+Vehicle PathManager::getAvailableVehicle() {
+	std::vector<Vehicle> availableVehicles;
+	std::vector<Position> generatedPath;
+
+	//check how many vehicles are available
+	for (int currentVehicle = 0; currentVehicle < numberOfVehicles; currentVehicle++) {
+		if (listOfVehicles[currentVehicle].checkIfWorking() == true) {
+			return listOfVehicles[currentVehicle];
+		}
+	}
+	return 0;
+}
+
