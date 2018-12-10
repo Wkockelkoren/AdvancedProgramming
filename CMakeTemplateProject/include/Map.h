@@ -24,7 +24,11 @@ public:
 
 	PointOfInterest& getPointOfInterest(int x, int y);
 
+<<<<<<< HEAD
 	void printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles);
+=======
+	void printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles, std::vector<Position> path);
+>>>>>>> ft_pathplanning
 	void printMap(SDL_Renderer * renderer);
 	
 };

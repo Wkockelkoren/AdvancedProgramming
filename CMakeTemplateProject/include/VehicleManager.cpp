@@ -1,14 +1,22 @@
-#include "PathManager.h"
+#include "VehicleManager.h"
 
 
-PathManager::PathManager(){
+VehicleManager::VehicleManager(){
+	
 }
 
 
-PathManager::~PathManager(){
+VehicleManager::~VehicleManager(){
 }
 
-void PathManager::addNewCoordinate(Map *map, const Coordinate newCoordinate,const Position endPosition, const int &iterator,
+void VehicleManager::addVehicle(const int xPosition, const int yPosition,const double vehicleSpeed) {
+
+	Vehicle vehicle(xPosition, yPosition, vehicleSpeed);
+	listOfVehicles.push_back(vehicle);
+}
+
+
+void VehicleManager::addNewCoordinate(Map &map, const Coordinate newCoordinate,const Position endPosition, const int &iterator,
 	std::vector<Coordinate> &pathList, bool &startPointReached,bool &coordinateAdded, bool &existsAlready) {
 	//this function checks if the requested coordinate is the start coordinate of if there is an obstacle at the requested position
 	for (int it = 0; it < pathList.size(); it++) {
@@ -22,7 +30,7 @@ void PathManager::addNewCoordinate(Map *map, const Coordinate newCoordinate,cons
 			existsAlready = true;
 		}
 	}
-	if (map->getPointOfInterest(newCoordinate.x, newCoordinate.y).getIsObstacle() == false && existsAlready == false) {
+	if (map.getPointOfInterest(newCoordinate.x, newCoordinate.y).getIsObstacle() == false && existsAlready == false) {
 		pathList.push_back(newCoordinate);
 		coordinateAdded = true;
 		//stop looping when the right location is found
@@ -34,7 +42,7 @@ void PathManager::addNewCoordinate(Map *map, const Coordinate newCoordinate,cons
 }
 
 
-std::vector<Coordinate> PathManager::generateListOfPaths(Map *map, Position startPosition, Position endPosition) {
+std::vector<Coordinate> VehicleManager::calculateListOfPaths(Map &map, Position startPosition, Position endPosition) {
 		/*This function generates a vector of coordinates. It starts with the start coordinate and
 		then it checks every coordinate adjacent to the start coordinate. If the coordinate is no
 		obstacle and within boundaries it adds the coordinate to a list. Next, this action also happens
@@ -66,13 +74,13 @@ std::vector<Coordinate> PathManager::generateListOfPaths(Map *map, Position star
 				if (pathList[i].counter == highestCounter) { //only add coordinates add the 'newest' coordinates
 
 					//obtain new coordinate to the right of current coordinate
-					if ((pathList[i].x + 1) <= map->width - 1) { //check if coordinate is not higher than the upper boundary (upper boundary x= map width - 1)
+					if ((pathList[i].x + 1) <= map.width - 1) { //check if coordinate is not higher than the upper boundary (upper boundary x= map width - 1)
 						coordinate.x = pathList[i].x + 1;
 						coordinate.y = pathList[i].y;
 						addNewCoordinate(map, coordinate, endPosition, i, pathList, startPointReached, coordinateAdded, existsAlready);
 					}
 					//obtain new coordinate above current coordinate
-					if ((pathList[i].y + 1) <= map->height - 1) { //check if coordinate is not higher than the upper boundary (upper boundary y= map height - 1)
+					if ((pathList[i].y + 1) <= map.height - 1) { //check if coordinate is not higher than the upper boundary (upper boundary y= map height - 1)
 						coordinate.x = pathList[i].x;
 						coordinate.y = pathList[i].y + 1;
 						coordinate.counter = highestCounter + 1;
@@ -100,20 +108,21 @@ std::vector<Coordinate> PathManager::generateListOfPaths(Map *map, Position star
 	}
 
 
-std::vector<Coordinate> PathManager::generatePath(std::vector<Coordinate> &pathList, Position &start) {
+std::vector<Position> VehicleManager::getSinglePath(std::vector<Coordinate> &pathList, Position start) {
 		//Reduce the pathList to list with steps to take
 		int currentCounter;
 		bool added = false;
-		Coordinate currentCoordinate;
-		std::vector<Coordinate> generatedPath;
+		Position currentPosition;
+		std::vector<Position> generatedPath;
 
 		//Find startposition and counter by looping through pathList and comparing to startposition
 		for (int i = 0; i < pathList.size(); i++) {
 			if (pathList[i].x == start.x) {
 				if (pathList[i].y == start.y) {
 					currentCounter = pathList[i].counter;
-					currentCoordinate = pathList[i];
-					generatedPath.push_back(currentCoordinate);
+					currentPosition.x = pathList[i].x;
+					currentPosition.y = pathList[i].y;
+					generatedPath.push_back(currentPosition);
 				}
 			}
 		}
@@ -122,36 +131,32 @@ std::vector<Coordinate> PathManager::generatePath(std::vector<Coordinate> &pathL
 			for (int i = 0; i < pathList.size(); i++) {
 				added = false;
 				if (pathList[i].counter < currentCounter) {
-					if ((pathList[i].x == (currentCoordinate.x + 1)) && (pathList[i].y == currentCoordinate.y) && added == false) {
-						currentCoordinate.x = pathList[i].x;
-						currentCoordinate.y = pathList[i].y;
-						currentCoordinate.counter = pathList[i].counter;
+					if ((pathList[i].x == (currentPosition.x + 1)) && (pathList[i].y == currentPosition.y) && added == false) {
+						currentPosition.x = pathList[i].x;
+						currentPosition.y = pathList[i].y;
 						currentCounter = pathList[i].counter;
-						generatedPath.push_back(currentCoordinate);
+						generatedPath.push_back(currentPosition);
 						added = true;
 					}
-					if ((pathList[i].x == (currentCoordinate.x - 1)) && (pathList[i].y == currentCoordinate.y) && added == false) {
-						currentCoordinate.x = pathList[i].x;
-						currentCoordinate.y = pathList[i].y;
-						currentCoordinate.counter = pathList[i].counter;
+					if ((pathList[i].x == (currentPosition.x - 1)) && (pathList[i].y == currentPosition.y) && added == false) {
+						currentPosition.x = pathList[i].x;
+						currentPosition.y = pathList[i].y;
 						currentCounter = pathList[i].counter;
-						generatedPath.push_back(currentCoordinate);
+						generatedPath.push_back(currentPosition);
 						added = true;
 					}
-					if ((pathList[i].y == (currentCoordinate.y + 1)) && (pathList[i].x == currentCoordinate.x) && added == false) {
-						currentCoordinate.x = pathList[i].x;
-						currentCoordinate.y = pathList[i].y;
-						currentCoordinate.counter = pathList[i].counter;
+					if ((pathList[i].y == (currentPosition.y + 1)) && (pathList[i].x == currentPosition.x) && added == false) {
+						currentPosition.x = pathList[i].x;
+						currentPosition.y = pathList[i].y;
 						currentCounter = pathList[i].counter;
-						generatedPath.push_back(currentCoordinate);
+						generatedPath.push_back(currentPosition);
 						added = true;
 					}
-					if ((pathList[i].y == (currentCoordinate.y - 1)) && (pathList[i].x == currentCoordinate.x) && added == false) {
-						currentCoordinate.x = pathList[i].x;
-						currentCoordinate.y = pathList[i].y;
-						currentCoordinate.counter = pathList[i].counter;
+					if ((pathList[i].y == (currentPosition.y - 1)) && (pathList[i].x == currentPosition.x) && added == false) {
+						currentPosition.x = pathList[i].x;
+						currentPosition.y = pathList[i].y;
 						currentCounter = pathList[i].counter;
-						generatedPath.push_back(currentCoordinate);
+						generatedPath.push_back(currentPosition);
 						added = true;
 					}
 				}
@@ -160,14 +165,49 @@ std::vector<Coordinate> PathManager::generatePath(std::vector<Coordinate> &pathL
 		return generatedPath;
 	}
 
+Vehicle VehicleManager::getAvailableVehicle() {
+	std::vector<Vehicle> availableVehicles;
+	std::vector<Position> generatedPath;
+	int numberOfVehicles = listOfVehicles.size();
+	//check how many vehicles are available
+	for (int currentVehicle = 0; currentVehicle < numberOfVehicles; currentVehicle++) {
+		if (listOfVehicles[currentVehicle].checkIfWorking() == true) {
+			return listOfVehicles[currentVehicle];
+		}
+	}
+	return 0;
+}
 
-std::vector<Coordinate> PathManager::createPath(Position startPosition, Position dropOff, Map &map) {
+void VehicleManager::countAvailableVehicles() {
+	int numberOfVehicles = listOfVehicles.size();
+	numberOfAvailableVehicles = 0;
+	for (int currentVehicle = 0; currentVehicle < listOfVehicles.size(); currentVehicle++) {
+		if (listOfVehicles[currentVehicle].checkIfWorking() == true) {
+			numberOfAvailableVehicles++;
+		}
+	}
+}
+
+void VehicleManager::assignPathToVehicle(const std::vector<Task> &currentTasks,const Position dropOff, Map &map) {
 	/* 
 	this public function can be called in order to generate a path. it uses the private function 
 	"ListOfPaths" to generate a vector with 1 path from start to end, and with paths that dont lead
 	to the right location. The function generatePath uses this list and returns only the correct path
 	*/
-	std::vector<Coordinate>	listOfPaths = generateListOfPaths(&map, dropOff, startPosition);
-	std::vector<Coordinate> generatedPath = generatePath(listOfPaths, startPosition);
-	return generatedPath;
+	countAvailableVehicles();
+
+	if (currentTasks.size() >= numberOfAvailableVehicles && numberOfAvailableVehicles > 0) {
+		Vehicle availableVehicle = getAvailableVehicle(); //first a vehicle that is not doing work is needed
+		std::vector<Coordinate> pathList = calculateListOfPaths(map, availableVehicle.getPosition(), dropOff); //next, a list with 1 correct path and a couple of unfinished paths will be created
+		std::vector<Position> generatedPath = getSinglePath(pathList, availableVehicle.getPosition()); //clean pathlist and only get the correct path.
+		availableVehicle.moveNextPathPosition(generatedPath);
+	}
 }
+
+void VehicleManager::setTasks(Task newTask) {
+	listOfTasks.push_back(newTask);
+	numberOfTasks++;
+}
+
+
+

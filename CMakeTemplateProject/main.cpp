@@ -2,7 +2,8 @@
 #include <vector>
 #include <array>
 #include "Map.h"
-#include "PathManager.h"
+#include "VehicleManager.h"
+#include "structures.h"
 #include "Vehicle.h"
 #include "Window.h"
 #include "SDL.h"
@@ -47,7 +48,17 @@ int main(int argc, char*argv[]){
 	//
 
 	Map factory(10, 10);
-	PathManager pathManager;
+	VehicleManager VehicleManager;
+
+	//make tasks
+	Task task;
+	std::vector<Task> currentTasks;
+	task.goalPosition.x = 9;
+	task.goalPosition.y = 9;
+	currentTasks.push_back(task);
+	task.goalPosition.x = 0;
+	task.goalPosition.y = 0;
+	currentTasks.push_back(task);
 
 	try {
 		factory.getPointOfInterest(0, 5).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -62,22 +73,23 @@ int main(int argc, char*argv[]){
 	catch (std::exception const& e) {// will be removed later is just for testing exeptions
 		std::cout << e.what();
 	}
+	VehicleManager.addVehicle(0, 2, 0);
+	VehicleManager.addVehicle(0, 2, 6);
+	VehicleManager.addVehicle(1, 2, 0);
 
+	
 	std::vector<Vehicle> vehicles;
-	Vehicle vehicle(0,4);
+	Vehicle vehicle(3,6);
 	vehicles.push_back(vehicle);
-
-	//get start position and dropoff position
-	Position startPosition;
-	startPosition.x = vehicle.getPosition().x;
-	startPosition.y = vehicle.getPosition().y;
+	
 
 	Position dropOff;
 	dropOff.x = 9;
 	dropOff.y =4;
-
+	
 	//path finding algorithm (sample algorithm)
-	std::vector<Coordinate> generatedPath = pathManager.createPath(startPosition, dropOff, factory);
+	VehicleManager.assignPathToVehicle(currentTasks, dropOff, factory);
+	std::vector<Position> generatedPath;
 
 	SDL_Window* mapWindow;
 	SDL_Surface* surface;
@@ -125,6 +137,12 @@ int main(int argc, char*argv[]){
 		if ((this_time - last_time) >= 1000) {
 			last_time = this_time;
 
+			//assign vehicle to pointer
+			//if task and vehicle available
+		//	Vehicle availableVehicle = VehicleManager.getAvailableVehicle();
+		//	VehicleManager.createPath()
+		//	VehicleManager.assignPathToVehicle(currentTasks,)
+			
 			//Move all vehicles to the next place on the path
 			for (int i = 0; i < vehicles.size(); i++) {
 				vehicles.at(i).moveNextPathPosition();

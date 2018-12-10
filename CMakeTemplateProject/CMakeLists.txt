@@ -36,7 +36,7 @@ endif(MSVC)
 
 SET(HEADERFILES
 	include/Map.h
-	include/PathManager.h
+	include/VehicleManager.h
 	include/PointOfInterest.h
 	include/Vehicle.h
 	include/Window.h
@@ -48,7 +48,7 @@ SOURCE_GROUP("Header Files" FILES ${HEADERFILES})
 SET(SOURCEFILES
 	main.cpp
 	include/Map.cpp
-	include/PathManager.cpp
+	include/VehicleManager.cpp
 	include/PointOfInterest.cpp
 	include/Vehicle.cpp
 	include/Window.cpp

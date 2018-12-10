@@ -3,10 +3,7 @@
 
 #include "Structures.h"
 
-struct Position {
-	int x = 0;
-	int y = 0;
-};
+
 
 class Vehicle {
 private:
@@ -16,6 +13,7 @@ private:
 	std::vector<Position> path;
 public:
 	Vehicle(int x1 = 0, int y1 = 0, double maxSpeed1 = 1);
+	bool working = false;
 
 	void printCoords();
 
@@ -29,12 +27,18 @@ public:
 
 	double getMaxSpeed();
 
+<<<<<<< HEAD
 	void moveNextPathPosition();
 
 	void setPath(std::vector<Position> &generatedpath);
 
 	std::vector<Position>* getPath();
 
+=======
+	bool checkIfWorking();
+
+	void moveNextPathPosition(std::vector<Position> &path);
+>>>>>>> ft_pathplanning
 };
 
 #endif
