@@ -10,11 +10,11 @@ struct Position {
 
 class Vehicle {
 private:
-
-public:
 	int x;
 	int y;
 	double maxSpeed;
+	std::vector<Position> path;
+public:
 	Vehicle(int x1 = 0, int y1 = 0, double maxSpeed1 = 1);
 
 	void printCoords();
@@ -29,7 +29,12 @@ public:
 
 	double getMaxSpeed();
 
-	void moveNextPathPosition(std::vector<Coordinate> &path);
+	void moveNextPathPosition();
+
+	void setPath(std::vector<Position> &generatedpath);
+
+	std::vector<Position>* getPath();
+
 };
 
 #endif

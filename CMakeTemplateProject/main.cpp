@@ -127,11 +127,11 @@ int main(int argc, char*argv[]){
 
 			//Move all vehicles to the next place on the path
 			for (int i = 0; i < vehicles.size(); i++) {
-				vehicles.at(i).moveNextPathPosition(generatedPath);
+				vehicles.at(i).moveNextPathPosition();
 			}
 		}
 
-		factory.printMap(renderer, vehicles, generatedPath);
+		factory.printMap(renderer, vehicles);
 
 		/* Got everything on rendering surface,
 		now Update the drawing image on window screen */

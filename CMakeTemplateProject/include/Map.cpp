@@ -42,16 +42,16 @@ PointOfInterest& Map::getPointOfInterest(int x, int y) {
 void Map::printMap(SDL_Renderer * renderer) {
 	// If we have no vehicles we send an empty vector to the function
 	std::vector<Vehicle> vehicles{};
-	std::vector< Coordinate > path{};
-	printMap(renderer, vehicles, path);
+	printMap(renderer, vehicles);
 }
 
-void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles, std::vector<Coordinate> path) {
+void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles) {
 
 	// Pre allocate memory for variables used in the function
 	bool v = false;
 	pointOfInterestType type = pointOfInterestType::Floor;
 	Position pos;
+	std::vector<Position> path;
 	pos.x = 0;
 	pos.y = 0;
 
@@ -75,18 +75,21 @@ void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles, std::
 					v = true; // There is a vehicle, so we don't want to print the point of interest type
 					break; // Stop the for loop because there shouldn't be multiple vehicles on a position.
 				}
-			}
 
-			// Iterate over all the paths in the vector
-			if (v == false) {
-				for (Coordinate coordinate : path) {
-					if (coordinate.x == x && coordinate.y == y) { // Check whether the position of the path is equal to the current map position in the iteration
-						SDL_SetRenderDrawColor(renderer, 200, 160, 40, 0xFF);  // Print that there is a path
-						v = true; // There is a path, so we don't want to print the point of interest type
-						break; // Stop the for loop because there shouldn't be multiple paths on a position.
+				// Iterate over all the paths in the vector
+				if (v == false) {
+					path = *vehicle.getPath();
+					for (Position coordinate : path) {
+						if (coordinate.x == x && coordinate.y == y) { // Check whether the position of the path is equal to the current map position in the iteration
+							SDL_SetRenderDrawColor(renderer, 200, 160, 40, 0xFF);  // Print that there is a path
+							v = true; // There is a path, so we don't want to print the point of interest type
+							break; // Stop the for loop because there shouldn't be multiple paths on a position.
+						}
 					}
 				}
 			}
+
+			
 
 			if (v == false) { // If there is no vehicle on the current position, then we print the point of interest type
 				if (type == pointOfInterestType::Floor) {

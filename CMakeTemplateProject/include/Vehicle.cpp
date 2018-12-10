@@ -35,7 +35,7 @@ double Vehicle::getMaxSpeed() {
 	return maxSpeed;
 }
 
-void Vehicle::moveNextPathPosition(std::vector<Coordinate> &path) {
+void Vehicle::moveNextPathPosition() {
 	if (!path.empty()) {
 		if (path.at(0).x == x && path.at(0).y == y) { // Check if the vehicle is on the expected position
 			if (path.size() > 1) { // Check if there is a next position to move to
@@ -57,4 +57,12 @@ void Vehicle::moveNextPathPosition(std::vector<Coordinate> &path) {
 	else {
 		std::cout << "Path is empty\n";
 	}
+}
+
+void Vehicle::setPath(std::vector<Position> &generatedpath) {
+	path = generatedpath;
+}
+
+std::vector<Position>* Vehicle::getPath() {
+	return &path;
 }
