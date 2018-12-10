@@ -2,7 +2,7 @@
 #include <vector>
 #include <array>
 #include "Map.h"
-#include "PathManager.h"
+#include "VehicleManager.h"
 #include "structures.h"
 #include "Vehicle.h"
 #include "Window.h"
@@ -48,13 +48,16 @@ int main(int argc, char*argv[]){
 	//
 
 	Map factory(10, 10);
-	PathManager pathManager;
+	VehicleManager VehicleManager;
 
 	//make tasks
 	Task task;
 	std::vector<Task> currentTasks;
 	task.goalPosition.x = 9;
 	task.goalPosition.y = 9;
+	currentTasks.push_back(task);
+	task.goalPosition.x = 0;
+	task.goalPosition.y = 0;
 	currentTasks.push_back(task);
 
 	try {
@@ -70,9 +73,9 @@ int main(int argc, char*argv[]){
 	catch (std::exception const& e) {// will be removed later is just for testing exeptions
 		std::cout << e.what();
 	}
-	pathManager.addVehicle(0, 2, 0);
-	pathManager.addVehicle(0, 2, 6);
-	pathManager.addVehicle(1, 2, 0);
+	VehicleManager.addVehicle(0, 2, 0);
+	VehicleManager.addVehicle(0, 2, 6);
+	VehicleManager.addVehicle(1, 2, 0);
 
 	
 	std::vector<Vehicle> vehicles;
@@ -80,17 +83,13 @@ int main(int argc, char*argv[]){
 	vehicles.push_back(vehicle);
 	
 
-	//get start position and dropoff position
-	Position startPosition;
-	startPosition.x = vehicle.getPosition().x;
-	startPosition.y = vehicle.getPosition().y;
-
 	Position dropOff;
 	dropOff.x = 9;
 	dropOff.y =4;
 	
 	//path finding algorithm (sample algorithm)
-	std::vector<Position> generatedPath = pathManager.createPath(startPosition, dropOff, factory);
+	VehicleManager.assignPathToVehicle(currentTasks, dropOff, factory);
+	std::vector<Position> generatedPath;
 
 	SDL_Window* mapWindow;
 	SDL_Surface* surface;
@@ -140,10 +139,10 @@ int main(int argc, char*argv[]){
 
 			//assign vehicle to pointer
 			//if task and vehicle available
-		//	Vehicle availableVehicle = pathManager.getAvailableVehicle();
-		//	pathManager.createPath()
+		//	Vehicle availableVehicle = VehicleManager.getAvailableVehicle();
+		//	VehicleManager.createPath()
+		//	VehicleManager.assignPathToVehicle(currentTasks,)
 			
-
 			//Move all vehicles to the next place on the path
 			for (int i = 0; i < vehicles.size(); i++) {
 				vehicles.at(i).moveNextPathPosition(generatedPath);
