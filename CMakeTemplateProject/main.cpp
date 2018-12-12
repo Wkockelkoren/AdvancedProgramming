@@ -43,12 +43,13 @@ int main(int argc, char*argv[]){
 
 
 	// Timing stuff
-		clock_t this_time = clock();
-		clock_t last_time = this_time;
+	clock_t this_time = clock();
+	clock_t last_time = this_time;
 	//
 
 	Map factory(10, 10);
 	VehicleManager VehicleManager;
+
 
 	//make tasks
 	Task task;
@@ -73,6 +74,8 @@ int main(int argc, char*argv[]){
 	catch (std::exception const& e) {// will be removed later is just for testing exeptions
 		std::cout << e.what();
 	}
+
+
 	VehicleManager.addVehicle(0, 2, 0);
 	VehicleManager.addVehicle(0, 2, 6);
 	VehicleManager.addVehicle(1, 2, 0);
@@ -80,16 +83,21 @@ int main(int argc, char*argv[]){
 	
 	std::vector<Vehicle> vehicles;
 	Vehicle vehicle(3,6);
-	vehicles.push_back(vehicle);
 	
 
 	Position dropOff;
 	dropOff.x = 9;
 	dropOff.y =4;
 	
+
 	//path finding algorithm (sample algorithm)
 	VehicleManager.assignPathToVehicle(currentTasks, dropOff, factory);
-	std::vector<Position> generatedPath;
+
+
+	std::vector<Position> generatedPath = VehicleManager.createPath(vehicle.getPosition(), dropOff, factory);
+	vehicle.setPath(generatedPath);
+	vehicles.push_back(vehicle);
+
 
 	SDL_Window* mapWindow;
 	SDL_Surface* surface;

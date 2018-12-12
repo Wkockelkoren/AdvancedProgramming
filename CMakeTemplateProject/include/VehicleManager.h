@@ -28,10 +28,10 @@ private:
 
 	std::vector<Position> getSinglePath(std::vector<Coordinate> &pathList, Position start);
 
-	void VehicleManager::addNewCoordinate(Map &map, const Coordinate newCoordinate, const Position endPosition, const int &iterator,
-	std::vector<Coordinate> &pathList, bool &startPointReached, bool &coordinateAdded, bool &existsAlready);
+	void addNewCoordinate(Map &map, const Coordinate newCoordinate, const Position endPosition, const int &iterator,
+		std::vector<Coordinate> &pathList, bool &startPointReached, bool &coordinateAdded, bool &existsAlready);
 
-	void VehicleManager::setTasks(Task newTask);
+	void setTasks(Task newTask);
 
 	void countAvailableVehicles();
 
@@ -46,6 +46,8 @@ public:
 	void assignPathToVehicle(const std::vector<Task> &currentTasks,const Position dropOff, Map &map);
 
 	Vehicle getAvailableVehicle();
+
+	std::vector<Position> VehicleManager::createPath(const Position startPosition, const Position dropOff, Map &map);
 };
 
 #endif

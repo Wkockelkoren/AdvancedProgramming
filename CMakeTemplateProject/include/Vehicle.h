@@ -27,18 +27,14 @@ public:
 
 	double getMaxSpeed();
 
-<<<<<<< HEAD
 	void moveNextPathPosition();
 
 	void setPath(std::vector<Position> &generatedpath);
 
 	std::vector<Position>* getPath();
 
-=======
 	bool checkIfWorking();
 
-	void moveNextPathPosition(std::vector<Position> &path);
->>>>>>> ft_pathplanning
 };
 
 #endif

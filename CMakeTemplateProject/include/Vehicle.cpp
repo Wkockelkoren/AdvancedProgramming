@@ -33,14 +33,11 @@ double Vehicle::getMaxSpeed() {
 	return maxSpeed;
 }
 
-<<<<<<< HEAD
-void Vehicle::moveNextPathPosition() {
-=======
 bool Vehicle::checkIfWorking() {
 	return working;
 }
-void Vehicle::moveNextPathPosition(std::vector<Position> &path) {
->>>>>>> ft_pathplanning
+
+void Vehicle::moveNextPathPosition() {
 	if (!path.empty()) {
 		if (path.at(0).x == x && path.at(0).y == y) { // Check if the vehicle is on the expected position
 			if (path.size() > 1) { // Check if there is a next position to move to
