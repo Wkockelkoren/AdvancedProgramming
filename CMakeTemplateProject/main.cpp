@@ -49,17 +49,25 @@ int main(int argc, char*argv[]){
 
 	Map factory(10, 10);
 	VehicleManager VehicleManager;
+	std::vector<Vehicle> vehicles;
 
 
 	//make tasks
 	Task task;
 	std::vector<Task> currentTasks;
-	task.goalPosition.x = 9;
-	task.goalPosition.y = 9;
+	task.goalPosition.x = 8;
+	task.goalPosition.y = 8;
 	currentTasks.push_back(task);
-	task.goalPosition.x = 0;
-	task.goalPosition.y = 0;
+	task.goalPosition.x = 1;
+	task.goalPosition.y = 1;
 	currentTasks.push_back(task);
+	task.goalPosition.x = 5;
+	task.goalPosition.y = 6;
+	currentTasks.push_back(task);
+
+	VehicleManager.addVehicle(1, 2, 1);
+	//VehicleManager.addVehicle(5, 2, 1);
+	//VehicleManager.addVehicle(1, 2, 0);
 
 	try {
 		factory.getPointOfInterest(0, 5).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -76,27 +84,24 @@ int main(int argc, char*argv[]){
 	}
 
 
-	VehicleManager.addVehicle(0, 2, 0);
-	VehicleManager.addVehicle(0, 2, 6);
-	VehicleManager.addVehicle(1, 2, 0);
-
+	//Position dropOff;
+	//
+	//Vehicle vehicle(3,6);
+	//dropOff.x = 9;
+	//dropOff.y = 4;
+	//
+	//std::vector<Position> generatedPath = VehicleManager.createPath(vehicle.getPosition(), dropOff, factory);
+	//vehicle.setPath(generatedPath);
+	//vehicles.push_back(vehicle);
 	
-	std::vector<Vehicle> vehicles;
-	Vehicle vehicle(3,6);
+	//Vehicle car(6, 5);
+	//dropOff.x = 0;
+	//dropOff.y = 2;
+	//
+	//std::vector<Position> generatedPath1 = VehicleManager.createPath(car.getPosition(), dropOff, factory);
+	//car.setPath(generatedPath1);
+	//vehicles.push_back(car);
 	
-
-	Position dropOff;
-	dropOff.x = 9;
-	dropOff.y =4;
-	
-
-	//path finding algorithm (sample algorithm)
-	VehicleManager.assignPathToVehicle(currentTasks, dropOff, factory);
-
-
-	std::vector<Position> generatedPath = VehicleManager.createPath(vehicle.getPosition(), dropOff, factory);
-	vehicle.setPath(generatedPath);
-	vehicles.push_back(vehicle);
 
 
 	SDL_Window* mapWindow;
@@ -145,19 +150,17 @@ int main(int argc, char*argv[]){
 		if ((this_time - last_time) >= 1000) {
 			last_time = this_time;
 
-			//assign vehicle to pointer
-			//if task and vehicle available
-		//	Vehicle availableVehicle = VehicleManager.getAvailableVehicle();
-		//	VehicleManager.createPath()
-		//	VehicleManager.assignPathToVehicle(currentTasks,)
+			VehicleManager.assignPathToVehicle(currentTasks, factory);
 			
 			//Move all vehicles to the next place on the path
-			for (int i = 0; i < vehicles.size(); i++) {
-				vehicles.at(i).moveNextPathPosition();
+			for (int i = 0; i < VehicleManager.getVehicles().size(); i++) {
+				VehicleManager.getVehicles().at(i).moveNextPathPosition();
+				std::cout << "move: " << VehicleManager.getVehicles().at(i).getPosition().x <<", "<< VehicleManager.getVehicles().at(i).getPosition().y << "\n";
+				std::cout << "work: " << VehicleManager.getVehicles().at(i).checkIfWorking() << "\n";
 			}
 		}
 
-		factory.printMap(renderer, vehicles);
+		factory.printMap(renderer, VehicleManager.getVehicles());
 
 		/* Got everything on rendering surface,
 		now Update the drawing image on window screen */

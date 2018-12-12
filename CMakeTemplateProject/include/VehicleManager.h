@@ -21,7 +21,6 @@ private:
 	std::vector<Vehicle> listOfVehicles;
 	std::vector<Task> listOfTasks;
 	std::vector<Position> listOfPaths;
-	int numberOfAvailableVehicles = 0;
 	int numberOfTasks = 0;
 
 	std::vector<Coordinate> calculateListOfPaths(Map &map, Position startPosition, Position endPosition);
@@ -33,7 +32,7 @@ private:
 
 	void setTasks(Task newTask);
 
-	void countAvailableVehicles();
+	int countAvailableVehicles();
 
 
 public:
@@ -43,11 +42,13 @@ public:
 
 	void addVehicle(const int xPosition, const int yPosition, const double vehicleSpeed);
 
-	void assignPathToVehicle(const std::vector<Task> &currentTasks,const Position dropOff, Map &map);
+	void assignPathToVehicle( std::vector<Task> &currentTasks, Map &map);
 
 	Vehicle getAvailableVehicle();
 
-	std::vector<Position> VehicleManager::createPath(const Position startPosition, const Position dropOff, Map &map);
+	std::vector<Vehicle>& getVehicles();
+
+	std::vector<Position> createPath(const Position startPosition, const Position dropOff, Map &map);
 };
 
 #endif

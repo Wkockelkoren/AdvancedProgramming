@@ -9,6 +9,7 @@ VehicleManager::VehicleManager(){
 VehicleManager::~VehicleManager(){
 }
 
+
 void VehicleManager::addVehicle(const int xPosition, const int yPosition,const double vehicleSpeed) {
 
 	Vehicle vehicle(xPosition, yPosition, vehicleSpeed);
@@ -165,6 +166,7 @@ std::vector<Position> VehicleManager::getSinglePath(std::vector<Coordinate> &pat
 		return generatedPath;
 	}
 
+
 Vehicle VehicleManager::getAvailableVehicle() {
 	std::vector<Vehicle> availableVehicles;
 	std::vector<Position> generatedPath;
@@ -178,31 +180,40 @@ Vehicle VehicleManager::getAvailableVehicle() {
 	return 0;
 }
 
-void VehicleManager::countAvailableVehicles() {
+
+int VehicleManager::countAvailableVehicles() {
 	int numberOfVehicles = listOfVehicles.size();
-	numberOfAvailableVehicles = 0;
+	int numberOfAvailableVehicles = 0;
 	for (int currentVehicle = 0; currentVehicle < listOfVehicles.size(); currentVehicle++) {
-		if (listOfVehicles[currentVehicle].checkIfWorking() == true) {
+		if (listOfVehicles[currentVehicle].checkIfWorking() == false) {
 			numberOfAvailableVehicles++;
 		}
 	}
+	return numberOfAvailableVehicles;
 }
 
-void VehicleManager::assignPathToVehicle(const std::vector<Task> &currentTasks,const Position dropOff, Map &map) {
+
+void VehicleManager::assignPathToVehicle( std::vector<Task> &currentTasks, Map &map) {
 	/* 
 	this public function can be called in order to generate a path. it uses the private function 
 	"ListOfPaths" to generate a vector with 1 path from start to end, and with paths that dont lead
 	to the right location. The function generatePath uses this list and returns only the correct path
 	*/
-	countAvailableVehicles();
 
-	if (currentTasks.size() >= numberOfAvailableVehicles && numberOfAvailableVehicles > 0) {
+	int numberOfAvailableVehicles = countAvailableVehicles();
+
+	std::cout <<"Number of Vehicles: "<< numberOfAvailableVehicles<<"\n";
+
+	while (numberOfAvailableVehicles > 0 && currentTasks.size() > 0) {
 		Vehicle availableVehicle = getAvailableVehicle(); //first a vehicle that is not doing work is needed
-		std::vector<Coordinate> pathList = calculateListOfPaths(map, availableVehicle.getPosition(), dropOff); //next, a list with 1 correct path and a couple of unfinished paths will be created
-		std::vector<Position> generatedPath = getSinglePath(pathList, availableVehicle.getPosition()); //clean pathlist and only get the correct path.
-		availableVehicle.moveNextPathPosition();
+		std::vector<Position> generatedPath = createPath(availableVehicle.getPosition(), currentTasks.front().goalPosition, map);
+		availableVehicle.setPath(generatedPath);
+
+		numberOfAvailableVehicles--;
+		currentTasks.erase(currentTasks.begin());
 	}
 }
+
 
 void VehicleManager::setTasks(Task newTask) {
 	listOfTasks.push_back(newTask);
@@ -210,14 +221,17 @@ void VehicleManager::setTasks(Task newTask) {
 }
 
 
-
 std::vector<Position> VehicleManager::createPath(const Position startPosition, const Position dropOff, Map &map) {
-		/*
-		this public function can be called in order to generate a path. it uses the private function
-		"ListOfPaths" to generate a vector with 1 path from start to end, and with paths that dont lead
-		to the right location. The function generatePath uses this list and returns only the correct path
-		*/
-		std::vector<Coordinate>	listOfPaths = calculateListOfPaths(map, dropOff, startPosition);
-		std::vector<Position> generatedPath = getSinglePath(listOfPaths, startPosition);
-		return generatedPath;
-	}
+	/*
+	this public function can be called in order to generate a path. it uses the private function
+	"ListOfPaths" to generate a vector with 1 path from start to end, and with paths that dont lead
+	to the right location. The function generatePath uses this list and returns only the correct path
+	*/
+	std::vector<Coordinate>	listOfPaths = calculateListOfPaths(map, dropOff, startPosition);
+	std::vector<Position> generatedPath = getSinglePath(listOfPaths, startPosition);
+	return generatedPath;
+}
+
+std::vector<Vehicle>& VehicleManager::getVehicles() {
+	return listOfVehicles;
+}
