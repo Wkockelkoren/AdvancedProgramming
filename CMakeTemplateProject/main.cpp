@@ -7,6 +7,8 @@
   * \section install_sec Installation
   *
   *		it's absolutely great!
+  *		heeft dit hiermee te maken?
+  *
   * \subsection step1 Step 1: Opening the box
   *
   * you see?

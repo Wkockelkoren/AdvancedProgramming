@@ -8,6 +8,9 @@
 
 
 Map::Map(int width, int height) : width(width), height(height) {
+	/**
+	Constructor for map
+	*/
 	map = new PointOfInterest[width*height];
 
 	// Iterate over each position and fill in the coordinates in the point of interest
@@ -20,11 +23,20 @@ Map::Map(int width, int height) : width(width), height(height) {
 }
 
 Map::~Map() {
+	/**
+	Destructor for map
+	*/
+
 	delete[] map;
 }
 
 
 PointOfInterest& Map::getPointOfInterest(int x, int y) {
+	/***
+	Get point of interest from position on map
+	*/
+
+
 	//Check wether the requested point is within the map
 	if (!(x < width) || !(x >= 0)) {
 		throw std::runtime_error("Requested point of interest is not within the map - class Map getPointOfInterest()\n");
@@ -40,12 +52,20 @@ PointOfInterest& Map::getPointOfInterest(int x, int y) {
 
 // TODO: find a method that we dont need to use multiple fuctions
 void Map::printMap(SDL_Renderer * renderer) {
+	/**
+	Prints only Points of Interests and no vehicles
+	*/
+
 	// If we have no vehicles we send an empty vector to the function
 	std::vector<Vehicle> vehicles{};
 	printMap(renderer, vehicles);
 }
 
 void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles) {
+	/**
+	Prints Points of Interests and vehicles
+	*/
+
 	// Pre allocate memory for variables used in the function
 	bool v = false;
 	pointOfInterestType type = pointOfInterestType::Floor;
