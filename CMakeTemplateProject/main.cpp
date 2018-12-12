@@ -1,3 +1,17 @@
+ /*! \mainpage My Personal Index Page
+  *
+  * \section intro_sec Introduction
+  *
+  *  our main is fantastic
+  *
+  * \section install_sec Installation
+  *
+  *		it's absolutely great!
+  * \subsection step1 Step 1: Opening the box
+  *
+  * you see?
+  */
+
 #include <iostream>
 #include <vector>
 #include <array>
@@ -17,7 +31,9 @@
 // https://github.com/wjakob/nanogui/issues/47
 
 int main(int argc, char*argv[]){
-
+	/**
+	Unbelievebly great.
+	*/
 	nanogui::init();
 
 	nanogui::Screen screen{{600, 420}, "Screen"};
@@ -62,7 +78,7 @@ int main(int argc, char*argv[]){
 	currentTasks.push_back(task);
 
 	try {
-		factory.getPointOfInterest(0, 5).setPointOfInterestType(pointOfInterestType::DropOff);
+		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
 		factory.getPointOfInterest(9, 5).setPointOfInterestType(pointOfInterestType::DropOff);
 		factory.getPointOfInterest(4, 2).setPointOfInterestType(pointOfInterestType::Wall);
 		factory.getPointOfInterest(4, 3).setPointOfInterestType(pointOfInterestType::Wall);
@@ -83,20 +99,44 @@ int main(int argc, char*argv[]){
 	
 	std::vector<Vehicle> vehicles;
 	Vehicle vehicle(3,6);
-	
+	Vehicle vehicle2(2, 6);
+	Vehicle vehicle3(3, 6);
+	Vehicle vehicle4(2, 6);
 
 	Position dropOff;
 	dropOff.x = 9;
-	dropOff.y =4;
+	dropOff.y =9;
 	
+	Position dropOff2;
+	dropOff2.x = 0;
+	dropOff2.y = 0;
+
+	Position dropOff3;
+	dropOff3.x = 0;
+	dropOff3.y = 9;
+
+	Position dropOff4;
+	dropOff4.x = 9;
+	dropOff4.y = 0;
 
 	//path finding algorithm (sample algorithm)
-	VehicleManager.assignPathToVehicle(currentTasks, dropOff, factory);
+//	VehicleManager.assignPathToVehicle(currentTasks, dropOff, factory);
 
 
 	std::vector<Position> generatedPath = VehicleManager.createPath(vehicle.getPosition(), dropOff, factory);
+	std::vector<Position> generatedPath2 = VehicleManager.createPath(vehicle2.getPosition(), dropOff2, factory);
+	std::vector<Position> generatedPath3 = VehicleManager.createPath(vehicle3.getPosition(), dropOff3, factory);
+	std::vector<Position> generatedPath4 = VehicleManager.createPath(vehicle4.getPosition(), dropOff4, factory);
+
 	vehicle.setPath(generatedPath);
+	vehicle2.setPath(generatedPath2);
+	vehicle3.setPath(generatedPath3);
+	vehicle4.setPath(generatedPath4);
+
 	vehicles.push_back(vehicle);
+	vehicles.push_back(vehicle2);
+	vehicles.push_back(vehicle3);
+	vehicles.push_back(vehicle4);
 
 
 	SDL_Window* mapWindow;

@@ -38,6 +38,9 @@ bool Vehicle::checkIfWorking() {
 }
 
 void Vehicle::moveNextPathPosition() {
+	/**
+	A vehicle uses this function to change its position by usage of an assigned path
+	*/
 	if (!path.empty()) {
 		if (path.at(0).x == x && path.at(0).y == y) { // Check if the vehicle is on the expected position
 			if (path.size() > 1) { // Check if there is a next position to move to
@@ -64,9 +67,15 @@ void Vehicle::moveNextPathPosition() {
 }
 
 void Vehicle::setPath(std::vector<Position> &generatedpath) {
+	/**
+	Pass generated path to vehicle
+	*/
 	path = generatedpath;
 }
 
 std::vector<Position>* Vehicle::getPath() {
+	/**
+	Returns path assigned to current vehicle
+	*/
 	return &path;
 }
