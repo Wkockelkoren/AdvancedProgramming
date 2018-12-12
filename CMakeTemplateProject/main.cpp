@@ -13,27 +13,28 @@
 #include <nanogui/layout.h>
 #include <nanogui/button.h>
 
+#include <nanogui/nanogui.h>
+
 // https://github.com/wjakob/nanogui/issues/47
 
 int main(int argc, char*argv[]){
+	bool mapEditMode = false;
 
 	nanogui::init();
 
-	nanogui::Screen screen{{600, 420}, "Screen"};
-	nanogui::Window window{&screen, "Window"};
-    window.setPosition({15, 15});
-    window.setLayout(new nanogui::GroupLayout());
+	nanogui::Screen screen{{900, 650}, "Screen", false};
+	screen.setSize({ 900 / screen.pixelRatio(), 650 / screen.pixelRatio() });
+	
+	nanogui::Window mainWindow{ &screen, "Main Window" };
+	mainWindow.setPosition({ 15, 15 });
+	mainWindow.setLayout(new nanogui::GroupLayout());
 
-	nanogui::Button *butStart = new nanogui::Button(&window, "Start");
-	nanogui::Button *butStop = new nanogui::Button(&window, "Stop");
+	nanogui::Window mapEditorWindow{ &screen, "Map-Editor Window" };
+	mapEditorWindow.setPosition({ 15, 15 });
+	mapEditorWindow.setLayout(new nanogui::GroupLayout());
+	mapEditorWindow.setVisible(false);
 
-	butStart->setCallback([] { 
-		std::cout << "Start" << std::endl;
-	});
-
-	butStop->setCallback([] { 
-		std::cout << "Stop" << std::endl;
-	});
+	createButtons(&screen, &mainWindow, &mapEditorWindow, mapEditMode);
 
     screen.performLayout();
 
@@ -90,6 +91,15 @@ int main(int argc, char*argv[]){
 	/* Draw the Image on rendering surface */
 	int done = 0;
 	while (!done) {
+		if (mapEditMode == true) {
+			mainWindow.setVisible(false);
+			mapEditorWindow.setVisible(true);
+		}
+		else {
+			mapEditorWindow.setVisible(false);
+			mainWindow.setVisible(true);
+		}
+		
 		screen.drawAll();
 
 		SDL_Event e;
