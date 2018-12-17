@@ -18,7 +18,19 @@
 // https://github.com/wjakob/nanogui/issues/47
 
 int main(int argc, char*argv[]){
-	bool mapEditMode = false;
+	int menuMode = 0;
+	
+	int buttonMode = 0;
+	int poiXField = 0;
+	int poiYField = 0;
+	
+	bool vehicleAdded = false;
+	int vehicleXField = 0;
+	int vehicleYFIeld = 0;
+
+	bool taskAdded = false;
+	int newTaskXField = 0;
+	int newTaskYField = 0;
 
 	nanogui::init();
 
@@ -34,7 +46,20 @@ int main(int argc, char*argv[]){
 	mapEditorWindow.setLayout(new nanogui::GroupLayout());
 	mapEditorWindow.setVisible(false);
 
-	createButtons(&screen, &mainWindow, &mapEditorWindow, mapEditMode);
+	nanogui::Window vehicleEditorWindow{ &screen, "Vehicle-Editor Window" };
+	vehicleEditorWindow.setPosition({ 15, 15 });
+	vehicleEditorWindow.setLayout(new nanogui::GroupLayout());
+	vehicleEditorWindow.setVisible(false);
+
+	nanogui::Window taskManagerWindow{ &screen, "Task-Manager Window" };
+	taskManagerWindow.setPosition({ 15, 15 });
+	taskManagerWindow.setLayout(new nanogui::GroupLayout());
+	taskManagerWindow.setVisible(false);
+
+	createMainButtons(&screen, &mainWindow, menuMode);
+	createMapEditButtons(&screen, &mapEditorWindow, menuMode, buttonMode, poiXField, poiYField);
+	createVehicleEditButtons(&screen, &vehicleEditorWindow, menuMode, vehicleAdded, vehicleXField, vehicleYFIeld);
+	createTaskManagerButtons(&screen, &taskManagerWindow, menuMode, taskAdded, newTaskXField, newTaskYField);
 
     screen.performLayout();
 
@@ -90,16 +115,69 @@ int main(int argc, char*argv[]){
 
 	/* Draw the Image on rendering surface */
 	int done = 0;
-	while (!done) {
-		if (mapEditMode == true) {
-			mainWindow.setVisible(false);
-			mapEditorWindow.setVisible(true);
+	while (!done) {		
+		/*Switch cases for button actions, not nice code look further into closures, button functionality should be fully in buttoncallback*/
+		switch (menuMode) {
+			case 1:
+				mapEditorWindow.setVisible(false);
+				vehicleEditorWindow.setVisible(false);
+				taskManagerWindow.setVisible(false);
+				mainWindow.setVisible(true);
+				break;
+			case 2:
+				mainWindow.setVisible(false);
+				vehicleEditorWindow.setVisible(false);
+				taskManagerWindow.setVisible(false);
+				mapEditorWindow.setVisible(true);
+				switch (buttonMode) {
+					case 1: //NewFLoorButton
+						factory.getPointOfInterest(poiXField, poiYField).setPointOfInterestType(pointOfInterestType::Floor);
+						buttonMode = 0;
+						break;
+					case 2: //NewWallButton
+						factory.getPointOfInterest(poiXField, poiYField).setPointOfInterestType(pointOfInterestType::Wall);
+						buttonMode = 0;
+						break;
+					case 3: //NewDropOffButton
+						factory.getPointOfInterest(poiXField, poiYField).setPointOfInterestType(pointOfInterestType::DropOff);
+						buttonMode = 0;
+						break;
+					case 4: //New MapButton
+						//Empty for now
+						buttonMode = 0;
+						break;
+					default:
+						break;
+				}
+				break;
+			case 3:
+				mainWindow.setVisible(false);
+				mapEditorWindow.setVisible(false);
+				taskManagerWindow.setVisible(false);
+				vehicleEditorWindow.setVisible(true);
+				if (vehicleAdded == true) {
+					//newvehicle met vehX en Yfield
+					vehicleAdded = false;
+				}
+				break;
+			case 4:
+				mainWindow.setVisible(false);
+				mapEditorWindow.setVisible(false);
+				vehicleEditorWindow.setVisible(false);
+				taskManagerWindow.setVisible(true);
+				if (taskAdded == true) {
+					//add task met X en Y fields
+					taskAdded = false;
+				}
+				break;
+			default:
+				mapEditorWindow.setVisible(false);
+				vehicleEditorWindow.setVisible(false);
+				taskManagerWindow.setVisible(false);
+				mainWindow.setVisible(true);
+				break;
 		}
-		else {
-			mapEditorWindow.setVisible(false);
-			mainWindow.setVisible(true);
-		}
-		
+	
 		screen.drawAll();
 
 		SDL_Event e;
