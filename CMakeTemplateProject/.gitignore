@@ -3,3 +3,4 @@ build_x64/
 build/
 documentation/
 ext/nanogui/
+ext/.gitmodules
