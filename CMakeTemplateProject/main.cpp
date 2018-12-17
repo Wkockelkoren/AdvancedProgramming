@@ -1,3 +1,48 @@
+ /*! \mainpage Installation of software
+  * \section install_sec1 Installation Windows
+  *
+  * \subsection step1 Step 1:
+  * Install CMake and add it to your system path variable.
+
+  * \subsection step2 Step 2:
+	* Make sure you have installed Visual Studio 2017.
+
+  * \subsection step3 Step 3:
+	* Run the “build_Windows.bat” file to generate a Visual Studio 2017 project (double-click).
+
+  * \subsection step4 Step 4:
+	* Start the “PathPlanner.sln” from the build directory (32-bit version or 64-bit version).
+
+  * \subsection step5 Step 5:
+	* Set the “PathPlanner” project as StartUp project by right clicking on it.
+
+  * \subsection step6 Step 6:
+	* Build and run the program.Install CMake and add it to your system path variable.
+
+
+  * \section install_sec2 Installation Linux
+  * \subsection step1 Step 1: 
+	* Install CMake:	
+
+*			sudo apt install cmake libsdl2-dev g++
+  * 
+  *  \subsection step2 Step 2: run build
+
+	* Run the build file:
+
+*			build_Linux.sh
+  *	To compile the program bash
+
+*			 ./build_Linux.sh
+  *
+  *	 \subsection step3 Step 3: 
+
+	 *Run the program using:
+
+*			./ build/PathPlanner
+ 
+ */
+
 #include <iostream>
 #include <vector>
 #include <array>
@@ -17,7 +62,9 @@
 // https://github.com/wjakob/nanogui/issues/47
 
 int main(int argc, char*argv[]){
-
+	/**
+	Unbelievebly great.
+	*/
 	nanogui::init();
 
 	nanogui::Screen screen{{600, 420}, "Screen"};
@@ -49,7 +96,7 @@ int main(int argc, char*argv[]){
 
 	Map factory(10, 10);
 	VehicleManager VehicleManager;
-	std::vector<Vehicle> vehicles;
+	//std::vector<Vehicle> vehicles;
 
 
 	//make tasks
@@ -81,7 +128,7 @@ int main(int argc, char*argv[]){
 	//VehicleManager.addVehicle(1, 2, 0);
 
 	try {
-		factory.getPointOfInterest(0, 5).setPointOfInterestType(pointOfInterestType::DropOff);
+		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
 		factory.getPointOfInterest(9, 5).setPointOfInterestType(pointOfInterestType::DropOff);
 		factory.getPointOfInterest(4, 2).setPointOfInterestType(pointOfInterestType::Wall);
 		factory.getPointOfInterest(4, 3).setPointOfInterestType(pointOfInterestType::Wall);
@@ -93,6 +140,7 @@ int main(int argc, char*argv[]){
 	catch (std::exception const& e) {// will be removed later is just for testing exeptions
 		std::cout << e.what();
 	}
+
 
 	SDL_Window* mapWindow;
 	SDL_Surface* surface;
