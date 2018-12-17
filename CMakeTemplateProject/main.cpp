@@ -1,45 +1,42 @@
  /*! \mainpage Installation of software
   * \section install_sec1 Installation Windows
   *
-  * \subsection step1 Step 1:
+  * \subsection step1_1 Step 1:
   * Install CMake and add it to your system path variable.
 
-  * \subsection step2 Step 2:
+  * \subsection step1_2 Step 2:
 	* Make sure you have installed Visual Studio 2017.
 
-  * \subsection step3 Step 3:
+  * \subsection step1_3 Step 3:
 	* Run the “build_Windows.bat” file to generate a Visual Studio 2017 project (double-click).
 
-  * \subsection step4 Step 4:
+  * \subsection step1_4 Step 4:
 	* Start the “PathPlanner.sln” from the build directory (32-bit version or 64-bit version).
 
-  * \subsection step5 Step 5:
+  * \subsection step1_5 Step 5:
 	* Set the “PathPlanner” project as StartUp project by right clicking on it.
 
-  * \subsection step6 Step 6:
+  * \subsection step1_6 Step 6:
 	* Build and run the program.Install CMake and add it to your system path variable.
 
 
   * \section install_sec2 Installation Linux
-  * \subsection step1 Step 1: 
+  * \subsection step2_1 Step 1: 
 	* Install CMake:	
 
-*			sudo apt install cmake libsdl2-dev g++
+	*			sudo apt install cmake libsdl2-dev g++
   * 
-  *  \subsection step2 Step 2: run build
+  * \subsection step2_2 Step 2: run build
 
-	* Run the build file:
+	* Run the build file build_Linux.sh to compile the program:
 
-*			build_Linux.sh
-  *	To compile the program bash
-
-*			 ./build_Linux.sh
+	*			bash ./build_Linux.sh
   *
-  *	 \subsection step3 Step 3: 
+  * \subsection step2_3 Step 3: 
 
-	 *Run the program using:
+	* Run the program using:
 
-*			./ build/PathPlanner
+	*			./ build/PathPlanner
  
  */
 
