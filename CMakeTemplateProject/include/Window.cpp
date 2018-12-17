@@ -60,7 +60,7 @@ void createMainButtons( nanogui::Screen* screen, nanogui::Window* mainWindow, in
 	mainButVehicleEditor->setCallback([&] {
 		menuMode = 3;
 	});
-	
+
 	mainButTaskManager->setCallback([&] {
 		menuMode = 4;
 	});
@@ -137,9 +137,9 @@ void createMapEditButtons(nanogui::Screen* screen, nanogui::Window* mapEditorWin
 }
 
 void createVehicleEditButtons(nanogui::Screen* screen, nanogui::Window* vehicleEditorWindow, int &menuMode, bool &vehicleAdded, int &vehicleXField, int &vehicleYField) {
-	
+
 	nanogui::IntBox<int> *placeVehicleXfield = new nanogui::IntBox<int>(vehicleEditorWindow);
-	placeVehicleXfield->setUnits("Y");
+	placeVehicleXfield->setUnits("X");
 	placeVehicleXfield->setValue(5);
 	placeVehicleXfield->setEditable(true);
 	placeVehicleXfield->setMinValue(1);
@@ -153,7 +153,7 @@ void createVehicleEditButtons(nanogui::Screen* screen, nanogui::Window* vehicleE
 	placeVehicleYfield->setMinValue(1);
 	placeVehicleYfield->setSpinnable(true);
 	placeVehicleYfield->setValueIncrement(1);
-	
+
 	nanogui::Button *vehicleEditorButPlaceVehicle = new nanogui::Button(vehicleEditorWindow, "New Vehicle");
 	nanogui::Button *vehicleEditorButBack = new nanogui::Button(vehicleEditorWindow, "Back");
 
@@ -169,9 +169,9 @@ void createVehicleEditButtons(nanogui::Screen* screen, nanogui::Window* vehicleE
 }
 
 void createTaskManagerButtons(nanogui::Screen* screen, nanogui::Window* taskManagerWindow, int &menuMode, bool &taskAdded, int &newTaskXField, int &newTaskYField) {
-	
+
 	nanogui::IntBox<int> *newTaskXfield = new nanogui::IntBox<int>(taskManagerWindow);
-	newTaskXfield->setUnits("Y");
+	newTaskXfield->setUnits("X");
 	newTaskXfield->setValue(5);
 	newTaskXfield->setEditable(true);
 	newTaskXfield->setMinValue(1);
