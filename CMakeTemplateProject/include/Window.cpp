@@ -3,14 +3,16 @@
 #include <vector>
 #include "Window.h"
 
-bool loadWindow(SDL_Window** window, int width, int height, SDL_Surface** surface, SDL_Renderer** renderer) {
+bool loadWindow(SDL_Window** sdlWindow, int width, int height, SDL_Surface** surface, SDL_Renderer** renderer) {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_Init fail : %s\n", SDL_GetError());
 		return false;
 	}
 
-	*window = SDL_CreateWindow(
+
+	//*sdlWindow = SDL_CreateWindowFrom(mapWindow);
+	*sdlWindow = SDL_CreateWindow(
 		"Path Planner",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
@@ -18,13 +20,14 @@ bool loadWindow(SDL_Window** window, int width, int height, SDL_Surface** surfac
 		height,
 		0
 	);
-	if (!*window)
+	if (!*sdlWindow)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Window creation fail : %s\n", SDL_GetError());
+		std::cout << SDL_GetError();
 		return false;
 	}
 
-	*surface = SDL_GetWindowSurface(*window);
+	*surface = SDL_GetWindowSurface(*sdlWindow);
 	*renderer = SDL_CreateSoftwareRenderer(*surface);
 	if (!renderer)
 	{

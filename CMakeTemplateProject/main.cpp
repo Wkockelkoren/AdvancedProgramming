@@ -8,22 +8,72 @@
 #include "SDL.h"
 #include "time.h"
 
-#include <nanogui/screen.h>
-#include <nanogui/window.h>
-#include <nanogui/layout.h>
-#include <nanogui/button.h>
+#include <nanogui/nanogui.h>
+#include <nanogui/opengl.h>
+#include <nanogui/glutil.h>
 
-// https://github.com/wjakob/nanogui/issues/47
+// Includes for the GLTexture class.
+#include <cstdint>
+#include <memory>
+#include <utility>
 
-int main(int argc, char*argv[]){
+#if defined(__GNUC__)
+#  pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+#endif
+#if defined(_WIN32)
+#  pragma warning(push)
+#  pragma warning(disable: 4457 4456 4005 4312)
+#endif
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
+#if defined(_WIN32)
+#  pragma warning(pop)
+#endif
+#if defined(_WIN32)
+#  if defined(APIENTRY)
+#    undef APIENTRY
+#  endif
+#  include <windows.h>
+#endif
+
+int main(int argc, char*argv[]) {
+
+	/* initialize nanogui */
 	nanogui::init();
 
-	nanogui::Screen screen{{600, 420}, "Screen"};
-	nanogui::Window window{&screen, "Window"};
-    window.setPosition({15, 15});
-    window.setLayout(new nanogui::GroupLayout());
+	/* define the screen size based on your screen resolution*/
+	nanogui::Screen screen{ {900, 650}, "Path Planner", false };
+	screen.setSize({ 900 / screen.pixelRatio(), 650 / screen.pixelRatio() });
 
+	/* define the button window */
+	nanogui::Window window{ &screen, "Window" };
+	window.setPosition({ 0, 0 });
+	window.setLayout(new nanogui::GroupLayout());
+
+	/* define the map window */
+	nanogui::Window mapWindow{ &screen, "Map" };
+	mapWindow.setPosition({ 100, 0 });
+	mapWindow.setLayout(new nanogui::GroupLayout());
+	mapWindow.setFixedSize({ 300, 300 });
+	
+	nanogui::GLCanvas *mapCanvas1 = new nanogui::GLCanvas(&mapWindow);
+	nanogui::GLCanvas *mapCanvas2 = new nanogui::GLCanvas(&mapWindow);
+	nanogui::GLCanvas *mapCanvas3 = new nanogui::GLCanvas(&mapWindow);
+	nanogui::GLCanvas *mapCanvas4 = new nanogui::GLCanvas(&mapWindow);
+
+	mapCanvas1->setFixedSize({ 100, 100 });
+	mapCanvas2->setFixedSize({ 100, 100 });
+	mapCanvas3->setFixedSize({ 100, 100 });
+	mapCanvas4->setFixedSize({ 100, 100 });
+
+	mapCanvas1->setBackgroundColor({ 0, 0, 256, 255 });
+	mapCanvas2->setBackgroundColor({ 100, 100, 0, 255 });
+	mapCanvas3->setBackgroundColor({ 0, 100, 0, 255 });
+	mapCanvas4->setBackgroundColor({ 100, 0, 0, 255 });	
+
+	/* create some buttons on the window */
 	nanogui::Button *butStart = new nanogui::Button(&window, "Start");
 	nanogui::Button *butStop = new nanogui::Button(&window, "Stop");
 
@@ -74,22 +124,27 @@ int main(int argc, char*argv[]){
 
 	Position dropOff;
 	dropOff.x = 9;
-	dropOff.y =4;
+	dropOff.y = 4;
 
 	//path finding algorithm (sample algorithm)
 	std::vector<Coordinate> generatedPath = pathManager.createPath(startPosition, dropOff, factory);
 
-	SDL_Window* mapWindow;
+	SDL_Window* sdlWindow;
 	SDL_Surface* surface;
 	SDL_Renderer* renderer;
 
 	// Create a window, surface and renderer. Continue when no errors occured, otherwise stop the program
-	if (!loadWindow(&mapWindow, 640, 480, &surface, &renderer))
+	if (!loadWindow(&sdlWindow, 640, 480, &surface, &renderer))
 		return 0;
+
+	int X_Map = 0;
+	int Y_Map = 0;
 
 	/* Draw the Image on rendering surface */
 	int done = 0;
 	while (!done) {
+
+		/* Draw nanogui window */
 		screen.drawAll();
 
 		SDL_Event e;
@@ -100,7 +155,7 @@ int main(int argc, char*argv[]){
 
 				SDL_DestroyRenderer(renderer);
 
-				surface = SDL_GetWindowSurface(mapWindow);
+				surface = SDL_GetWindowSurface(sdlWindow);
 				renderer = SDL_CreateSoftwareRenderer(surface);
 				/* Clear the rendering surface with the specified color */
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -135,10 +190,10 @@ int main(int argc, char*argv[]){
 
 		/* Got everything on rendering surface,
 		now Update the drawing image on window screen */
-		SDL_UpdateWindowSurface(mapWindow);
+		SDL_UpdateWindowSurface(sdlWindow);
 	}
 
-	SDL_DestroyWindow(mapWindow);
+	SDL_DestroyWindow(sdlWindow);
 	SDL_Quit();
 
 	nanogui::shutdown();
