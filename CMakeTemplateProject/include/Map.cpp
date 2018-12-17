@@ -1,13 +1,18 @@
+/**
+	Contains the classes Map and PointOfInterest.
+*/
 
 #include <iostream>
 #include <vector>
 #include "Map.h"
 #include "PointOfInterest.h"
 #include "Vehicle.h"
-#include "PathManager.h"
-
+#include "VehicleManager.h"
 
 Map::Map(int width, int height) : width(width), height(height) {
+	/**
+	Constructor for map
+	*/
 	map = new PointOfInterest[width*height];
 
 	// Iterate over each position and fill in the coordinates in the point of interest
@@ -20,11 +25,20 @@ Map::Map(int width, int height) : width(width), height(height) {
 }
 
 Map::~Map() {
+	/**
+	Destructor for map
+	*/
+
 	delete[] map;
 }
 
 
 PointOfInterest& Map::getPointOfInterest(int x, int y) {
+	/***
+	Get point of interest from position on map
+	*/
+
+
 	//Check wether the requested point is within the map
 	if (!(x < width) || !(x >= 0)) {
 		throw std::runtime_error("Requested point of interest is not within the map - class Map getPointOfInterest()\n");
@@ -38,20 +52,28 @@ PointOfInterest& Map::getPointOfInterest(int x, int y) {
 	return pointOfInterest;
 }
 
+
 // TODO: find a method that we dont need to use multiple fuctions
 void Map::printMap(SDL_Renderer * renderer) {
+	/**
+	Prints only Points of Interests and no vehicles
+	*/
+
 	// If we have no vehicles we send an empty vector to the function
 	std::vector<Vehicle> vehicles{};
-	std::vector< Coordinate > path{};
-	printMap(renderer, vehicles, path);
+	printMap(renderer, vehicles);
 }
 
-void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles, std::vector<Coordinate> path) {
+void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles) {
+	/**
+	Prints Points of Interests and vehicles
+	*/
 
 	// Pre allocate memory for variables used in the function
 	bool v = false;
 	pointOfInterestType type = pointOfInterestType::Floor;
 	Position pos;
+	std::vector<Position> path;
 	pos.x = 0;
 	pos.y = 0;
 
@@ -75,18 +97,21 @@ void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles, std::
 					v = true; // There is a vehicle, so we don't want to print the point of interest type
 					break; // Stop the for loop because there shouldn't be multiple vehicles on a position.
 				}
-			}
 
-			// Iterate over all the paths in the vector
-			if (v == false) {
-				for (Coordinate coordinate : path) {
-					if (coordinate.x == x && coordinate.y == y) { // Check whether the position of the path is equal to the current map position in the iteration
-						SDL_SetRenderDrawColor(renderer, 200, 160, 40, 0xFF);  // Print that there is a path
-						v = true; // There is a path, so we don't want to print the point of interest type
-						break; // Stop the for loop because there shouldn't be multiple paths on a position.
+				// Iterate over all the paths in the vector
+				if (v == false) {
+					path = *vehicle.getPath();
+					for (Position coordinate : path) {
+						if (coordinate.x == x && coordinate.y == y) { // Check whether the position of the path is equal to the current map position in the iteration
+							SDL_SetRenderDrawColor(renderer, 200, 160, 40, 0xFF);  // Print that there is a path
+							v = true; // There is a path, so we don't want to print the point of interest type
+							break; // Stop the for loop because there shouldn't be multiple paths on a position.
+						}
 					}
 				}
 			}
+
+			
 
 			if (v == false) { // If there is no vehicle on the current position, then we print the point of interest type
 				if (type == pointOfInterestType::Floor) {
