@@ -167,17 +167,21 @@ std::vector<Position> VehicleManager::getSinglePath(std::vector<Coordinate> &pat
 	}
 
 
-Vehicle VehicleManager::getAvailableVehicle() {
-	std::vector<Vehicle> availableVehicles;
-	std::vector<Position> generatedPath;
+Vehicle& VehicleManager::getAvailableVehicle() {
+	//std::vector<Vehicle> availableVehicles;
+	//std::vector<Position> generatedPath; 
+	
 	int numberOfVehicles = listOfVehicles.size();
+	
 	//check how many vehicles are available
 	for (int currentVehicle = 0; currentVehicle < numberOfVehicles; currentVehicle++) {
-		if (listOfVehicles[currentVehicle].checkIfWorking() == true) {
-			return listOfVehicles[currentVehicle];
+		if (listOfVehicles[currentVehicle].checkIfWorking() == false) {
+			Vehicle& availableVehicle = listOfVehicles[currentVehicle];
+			return availableVehicle;  // listOfVehicles[currentVehicle];
 		}
 	}
-	return 0;
+	//return should have an been triggered in the for loop. Otherwise the countAvailableVehicles was not used before.
+	throw std::runtime_error("No available vehicle to return - class VehicleManager GetAvailableVehicle()\n");
 }
 
 
@@ -203,10 +207,17 @@ void VehicleManager::assignPathToVehicle( std::vector<Task> &currentTasks, Map &
 	int numberOfAvailableVehicles = countAvailableVehicles();
 
 	std::cout <<"Number of Vehicles: "<< numberOfAvailableVehicles<<"\n";
+	std::cout << "Number of tasks: " << currentTasks.size() << "\n";
 
 	while (numberOfAvailableVehicles > 0 && currentTasks.size() > 0) {
 		Vehicle availableVehicle = getAvailableVehicle(); //first a vehicle that is not doing work is needed
 		std::vector<Position> generatedPath = createPath(availableVehicle.getPosition(), currentTasks.front().goalPosition, map);
+
+		for (Position path : generatedPath) {
+			std::cout << "(" << path.x << "," << path.y << ") ";
+		}
+		std::cout << "\n";
+		
 		availableVehicle.setPath(generatedPath);
 
 		numberOfAvailableVehicles--;
@@ -220,8 +231,11 @@ void VehicleManager::setTasks(Task newTask) {
 	numberOfTasks++;
 }
 
+//std::shared_ptr<std::vector<Position>>
+//std::vector<std::shared_ptr<Position>> VehicleManager::createPath(const Position startPosition, const Position dropOff, Map &map) {
 
 std::vector<Position> VehicleManager::createPath(const Position startPosition, const Position dropOff, Map &map) {
+	
 	/*
 	this public function can be called in order to generate a path. it uses the private function
 	"ListOfPaths" to generate a vector with 1 path from start to end, and with paths that dont lead

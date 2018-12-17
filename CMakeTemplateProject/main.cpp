@@ -55,12 +55,15 @@ int main(int argc, char*argv[]){
 	//make tasks
 	Task task;
 	std::vector<Task> currentTasks;
+
 	task.goalPosition.x = 8;
 	task.goalPosition.y = 8;
 	currentTasks.push_back(task);
+
 	task.goalPosition.x = 1;
 	task.goalPosition.y = 1;
 	currentTasks.push_back(task);
+
 	task.goalPosition.x = 5;
 	task.goalPosition.y = 6;
 	currentTasks.push_back(task);
@@ -154,9 +157,14 @@ int main(int argc, char*argv[]){
 			
 			//Move all vehicles to the next place on the path
 			for (int i = 0; i < VehicleManager.getVehicles().size(); i++) {
+				std::vector< Position> test = *VehicleManager.getVehicles().at(i).getPath();
+				std::cout << "test: ";
+				for ( Position path :  test) {
+					std::cout << "(" << path.x << "," << path.y << ") ";
+				}
+				std::cout << "\n";
 				VehicleManager.getVehicles().at(i).moveNextPathPosition();
-				std::cout << "move: " << VehicleManager.getVehicles().at(i).getPosition().x <<", "<< VehicleManager.getVehicles().at(i).getPosition().y << "\n";
-				std::cout << "work: " << VehicleManager.getVehicles().at(i).checkIfWorking() << "\n";
+				//std::cout << "move: " << VehicleManager.getVehicles().at(i).getPosition().x <<", "<< VehicleManager.getVehicles().at(i).getPosition().y << "\n";
 			}
 		}
 

@@ -44,11 +44,13 @@ public:
 
 	void assignPathToVehicle( std::vector<Task> &currentTasks, Map &map);
 
-	Vehicle getAvailableVehicle();
+	Vehicle& getAvailableVehicle();
 
 	std::vector<Vehicle>& getVehicles();
 
 	std::vector<Position> createPath(const Position startPosition, const Position dropOff, Map &map);
+	//std::vector<std::shared_ptr<Position>> createPath(const Position startPosition, const Position dropOff, Map &map);
+
 };
 
 #endif
