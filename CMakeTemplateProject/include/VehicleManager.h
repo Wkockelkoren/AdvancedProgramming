@@ -26,6 +26,7 @@ private:
 	std::vector<Coordinate> calculateListOfPaths(Map &map, Position startPosition, Position endPosition);
 
 	std::vector<Position> getSinglePath(std::vector<Coordinate> &pathList, Position start);
+	//std::shared_ptr<std::vector<Position>> VehicleManager::getSinglePath(std::vector<Coordinate> &pathList, Position start);
 
 	void addNewCoordinate(Map &map, const Coordinate newCoordinate, const Position endPosition, const int &iterator,
 		std::vector<Coordinate> &pathList, bool &startPointReached, bool &coordinateAdded, bool &existsAlready);
@@ -49,7 +50,7 @@ public:
 	std::vector<Vehicle>& getVehicles();
 
 	std::vector<Position> createPath(const Position startPosition, const Position dropOff, Map &map);
-	//std::vector<std::shared_ptr<Position>> createPath(const Position startPosition, const Position dropOff, Map &map);
+	//std::shared_ptr<std::vector<Position>> createPath(const Position startPosition, const Position dropOff, Map &map);
 
 };
 

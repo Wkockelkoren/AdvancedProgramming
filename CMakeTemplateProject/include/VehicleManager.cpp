@@ -110,11 +110,14 @@ std::vector<Coordinate> VehicleManager::calculateListOfPaths(Map &map, Position 
 
 
 std::vector<Position> VehicleManager::getSinglePath(std::vector<Coordinate> &pathList, Position start) {
+//std::shared_ptr<std::vector<Position>> VehicleManager::getSinglePath(std::vector<Coordinate> &pathList, Position start) {
 		//Reduce the pathList to list with steps to take
 		int currentCounter;
 		bool added = false;
 		Position currentPosition;
+		//std::vector<Position> generatedPath = new std::vector<Position>;
 		std::vector<Position> generatedPath;
+		//auto generatedPath = std::make_shared<std::vector<Position>>;
 
 		//Find startposition and counter by looping through pathList and comparing to startposition
 		for (int i = 0; i < pathList.size(); i++) {
@@ -123,6 +126,7 @@ std::vector<Position> VehicleManager::getSinglePath(std::vector<Coordinate> &pat
 					currentCounter = pathList[i].counter;
 					currentPosition.x = pathList[i].x;
 					currentPosition.y = pathList[i].y;
+					
 					generatedPath.push_back(currentPosition);
 				}
 			}
@@ -163,6 +167,7 @@ std::vector<Position> VehicleManager::getSinglePath(std::vector<Coordinate> &pat
 				}
 			}
 		}
+		//auto path = std::make_shared<std::vector<Position>>(generatedPath);
 		return generatedPath;
 	}
 
@@ -206,19 +211,18 @@ void VehicleManager::assignPathToVehicle( std::vector<Task> &currentTasks, Map &
 
 	int numberOfAvailableVehicles = countAvailableVehicles();
 
-	std::cout <<"Number of Vehicles: "<< numberOfAvailableVehicles<<"\n";
-	std::cout << "Number of tasks: " << currentTasks.size() << "\n";
+	//std::cout <<"Number of Vehicles: "<< numberOfAvailableVehicles<<"\n";
+	//std::cout << "Number of tasks: " << currentTasks.size() << "\n";
 
 	while (numberOfAvailableVehicles > 0 && currentTasks.size() > 0) {
 		Vehicle availableVehicle = getAvailableVehicle(); //first a vehicle that is not doing work is needed
+		//std::shared_ptr<std::vector<Position>> generatedPath = createPath(availableVehicle.getPosition(), currentTasks.front().goalPosition, map);
 		std::vector<Position> generatedPath = createPath(availableVehicle.getPosition(), currentTasks.front().goalPosition, map);
-
-		for (Position path : generatedPath) {
-			std::cout << "(" << path.x << "," << path.y << ") ";
-		}
-		std::cout << "\n";
-		
-		availableVehicle.setPath(generatedPath);
+		//for (Position path : generatedPath) {
+			//std::cout << "(" << path.x << "," << path.y << ") ";
+		//}
+		//std::cout << "\n";
+		getAvailableVehicle().setPath(generatedPath);
 
 		numberOfAvailableVehicles--;
 		currentTasks.erase(currentTasks.begin());
@@ -232,7 +236,7 @@ void VehicleManager::setTasks(Task newTask) {
 }
 
 //std::shared_ptr<std::vector<Position>>
-//std::vector<std::shared_ptr<Position>> VehicleManager::createPath(const Position startPosition, const Position dropOff, Map &map) {
+//std::shared_ptr<std::vector<Position>> VehicleManager::createPath(const Position startPosition, const Position dropOff, Map &map) {
 
 std::vector<Position> VehicleManager::createPath(const Position startPosition, const Position dropOff, Map &map) {
 	

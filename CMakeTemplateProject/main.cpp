@@ -56,12 +56,20 @@ int main(int argc, char*argv[]){
 	Task task;
 	std::vector<Task> currentTasks;
 
-	task.goalPosition.x = 8;
-	task.goalPosition.y = 8;
-	currentTasks.push_back(task);
-
 	task.goalPosition.x = 1;
 	task.goalPosition.y = 1;
+	currentTasks.push_back(task);
+
+	task.goalPosition.x = 5;
+	task.goalPosition.y = 1;
+	currentTasks.push_back(task);
+
+	task.goalPosition.x = 9;
+	task.goalPosition.y = 9;
+	currentTasks.push_back(task);
+
+	task.goalPosition.x = 2;
+	task.goalPosition.y = 9;
 	currentTasks.push_back(task);
 
 	task.goalPosition.x = 5;
@@ -69,7 +77,7 @@ int main(int argc, char*argv[]){
 	currentTasks.push_back(task);
 
 	VehicleManager.addVehicle(1, 2, 1);
-	//VehicleManager.addVehicle(5, 2, 1);
+	VehicleManager.addVehicle(5, 2, 1);
 	//VehicleManager.addVehicle(1, 2, 0);
 
 	try {
@@ -85,27 +93,6 @@ int main(int argc, char*argv[]){
 	catch (std::exception const& e) {// will be removed later is just for testing exeptions
 		std::cout << e.what();
 	}
-
-
-	//Position dropOff;
-	//
-	//Vehicle vehicle(3,6);
-	//dropOff.x = 9;
-	//dropOff.y = 4;
-	//
-	//std::vector<Position> generatedPath = VehicleManager.createPath(vehicle.getPosition(), dropOff, factory);
-	//vehicle.setPath(generatedPath);
-	//vehicles.push_back(vehicle);
-	
-	//Vehicle car(6, 5);
-	//dropOff.x = 0;
-	//dropOff.y = 2;
-	//
-	//std::vector<Position> generatedPath1 = VehicleManager.createPath(car.getPosition(), dropOff, factory);
-	//car.setPath(generatedPath1);
-	//vehicles.push_back(car);
-	
-
 
 	SDL_Window* mapWindow;
 	SDL_Surface* surface;
@@ -158,11 +145,11 @@ int main(int argc, char*argv[]){
 			//Move all vehicles to the next place on the path
 			for (int i = 0; i < VehicleManager.getVehicles().size(); i++) {
 				std::vector< Position> test = *VehicleManager.getVehicles().at(i).getPath();
-				std::cout << "test: ";
-				for ( Position path :  test) {
-					std::cout << "(" << path.x << "," << path.y << ") ";
-				}
-				std::cout << "\n";
+				//std::cout << "test: ";
+				//for ( Position path :  test) {
+				//	std::cout << "(" << path.x << "," << path.y << ") ";
+				//}
+				//std::cout << "\n";
 				VehicleManager.getVehicles().at(i).moveNextPathPosition();
 				//std::cout << "move: " << VehicleManager.getVehicles().at(i).getPosition().x <<", "<< VehicleManager.getVehicles().at(i).getPosition().y << "\n";
 			}

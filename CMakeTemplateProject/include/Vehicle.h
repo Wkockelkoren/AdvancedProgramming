@@ -13,6 +13,7 @@ private:
 	std::vector<Position> path;
 public:
 	Vehicle(int x1 = 0, int y1 = 0, double maxSpeed1 = 1);
+	
 	bool working = false;
 
 	void printCoords();

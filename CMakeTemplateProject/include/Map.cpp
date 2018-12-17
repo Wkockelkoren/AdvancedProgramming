@@ -38,6 +38,7 @@ PointOfInterest& Map::getPointOfInterest(int x, int y) {
 	return pointOfInterest;
 }
 
+
 // TODO: find a method that we dont need to use multiple fuctions
 void Map::printMap(SDL_Renderer * renderer) {
 	// If we have no vehicles we send an empty vector to the function
