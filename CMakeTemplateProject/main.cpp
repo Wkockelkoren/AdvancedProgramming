@@ -1,4 +1,4 @@
- /*! \mainpage My Personal Index Page
+ /*! \mainpage Installation of software
   * \section install_sec1 Installation Windows
   *
   * \subsection step1 Step 1:
