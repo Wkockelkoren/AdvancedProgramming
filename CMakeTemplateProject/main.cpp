@@ -1,18 +1,47 @@
  /*! \mainpage My Personal Index Page
+  * \section install_sec Installation Windows
   *
-  * \section intro_sec Introduction
+  * \subsection step1 Step 1:
+  * Install CMake and add it to your system path variable.
+
+  * \subsection step2 Step 2:
+	* Make sure you have installed Visual Studio 2017.
+
+  * \subsection step3 Step 3:
+	* Run the “build_Windows.bat” file to generate a Visual Studio 2017 project (double-click).
+
+  * \subsection step4 Step 4:
+	* Start the “PathPlanner.sln” from the build directory (32-bit version or 64-bit version).
+
+  * \subsection step5 Step 5:
+	* Set the “PathPlanner” project as StartUp project by right clicking on it.
+
+  * \subsection step6 Step 6:
+	* Build and run the program.Install CMake and add it to your system path variable.
+
+
+  * \section install_sec Installation Linux
+  * \subsection step1 Step 1: 
+	* Install CMake:	
+
+*			sudo apt install cmake libsdl2-dev g++
+  * 
+  *  \subsection step2 Step 2: run build
+
+	* Run the build file:
+
+*			build_Linux.sh
+  *	To compile the program bash
+
+*			 ./build_Linux.sh
   *
-  *  our main is fantastic
-  *
-  * \section install_sec Installation
-  *
-  *		it's absolutely great!
-  *		heeft dit hiermee te maken?
-  *
-  * \subsection step1 Step 1: Opening the box
-  *
-  * you see?
-  */
+  *	 \subsection step3 Step 3: 
+
+	 *Run the program using:
+
+*			./ build/PathPlanner
+ 
+ */
 
 #include <iostream>
 #include <vector>
@@ -106,8 +135,8 @@ int main(int argc, char*argv[]){
 	Vehicle vehicle4(2, 6);
 
 	Position dropOff;
-	dropOff.x = 9;
-	dropOff.y =9;
+	dropOff.x = 6;
+	dropOff.y =6;
 	
 	Position dropOff2;
 	dropOff2.x = 0;

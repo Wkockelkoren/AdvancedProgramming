@@ -3,6 +3,16 @@
 #include "Vehicle.h"
 #include "Map.h"
 
+/**
+* @brief
+* Has a position on the Map, a maximum speed and contains a path that was generated 
+* by the VehicleManager. A Path consists out of multiple Positions (vector of Positions)
+* where the first element in the vector will be the start position and the last element 
+* the end position. In the Editor view it is possible to add and edit multiple vehicles
+* with each a different start and end position. Furthermore, it is possible to assign a
+* maximum speed to a specific vehicle.
+* @endcode
+*/
 Vehicle::Vehicle(int x, int y, double maxSpeed) : x(x), y(y), maxSpeed(maxSpeed) {}
 
 void Vehicle::printCoords() {

@@ -1,5 +1,7 @@
 #include "VehicleManager.h"
-
+/**
+Generates paths and assigns it to a vehicle when the Go button is pressed.
+*/
 
 VehicleManager::VehicleManager(){
 	

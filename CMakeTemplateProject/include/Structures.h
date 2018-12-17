@@ -1,5 +1,7 @@
 #pragma once
-
+/**
+These are the structures used in the program
+*/
 struct Position {
 	/***
 	A position contains a value for both the x- and y direction.
