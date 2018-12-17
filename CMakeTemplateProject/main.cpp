@@ -1,5 +1,5 @@
  /*! \mainpage My Personal Index Page
-  * \section install_sec Installation Windows
+  * \section install_sec1 Installation Windows
   *
   * \subsection step1 Step 1:
   * Install CMake and add it to your system path variable.
@@ -20,7 +20,7 @@
 	* Build and run the program.Install CMake and add it to your system path variable.
 
 
-  * \section install_sec Installation Linux
+  * \section install_sec2 Installation Linux
   * \subsection step1 Step 1: 
 	* Install CMake:	
 
