@@ -62,38 +62,33 @@ int main(){
 	clock_t last_time = this_time;
 	//
 
+
 	Map factory(10, 10);
-	VehicleManager VehicleManager;
-	//std::vector<Vehicle> vehicles;
+	VehicleManager vehicleManager;
 
 
 	//make tasks
 	Task task;
 	std::vector<Task> currentTasks;
 
-	task.goalPosition.x = 1;
-	task.goalPosition.y = 1;
+	task.goalPosition = {1,1};
 	currentTasks.push_back(task);
 
-	task.goalPosition.x = 5;
-	task.goalPosition.y = 1;
+	task.goalPosition = {5,1};
 	currentTasks.push_back(task);
 
-	task.goalPosition.x = 9;
-	task.goalPosition.y = 9;
+	task.goalPosition = {9,9};
 	currentTasks.push_back(task);
 
-	task.goalPosition.x = 2;
-	task.goalPosition.y = 9;
+	task.goalPosition = {2,9};
 	currentTasks.push_back(task);
 
-	task.goalPosition.x = 5;
-	task.goalPosition.y = 6;
+	task.goalPosition = {5,6};
 	currentTasks.push_back(task);
 
-	VehicleManager.addVehicle(1, 2, 1);
-	VehicleManager.addVehicle(5, 2, 1);
-	//VehicleManager.addVehicle(1, 2, 0);
+	vehicleManager.addVehicle({2,2}, 1);
+	vehicleManager.addVehicle({5,2}, 1);
+	//vehicleManager.addVehicle({1,2}, 0);
 
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -155,28 +150,23 @@ int main(){
 		if ((this_time - last_time) >= 1000) {
 			last_time = this_time;
 
-			VehicleManager.assignPathToVehicle(currentTasks, factory);
+			vehicleManager.assignPathToVehicle(currentTasks, factory);
 
 			//Move all vehicles to the next place on the path
 			for (size_t i = 0; i < VehicleManager.getVehicles().size(); i++) {
 				std::vector< Position> test = *VehicleManager.getVehicles().at(i).getPath();
-				//std::cout << "test: ";
-				//for ( Position path :  test) {
-				//	std::cout << "(" << path.x << "," << path.y << ") ";
-				//}
-				//std::cout << "\n";
+        
 				try {
-					VehicleManager.getVehicles().at(i).moveNextPathPosition();
+					vehicleManager.getVehicles().at(i).moveNextPathPosition();
 				}
 				catch (std::exception const& e) {
 					std::cout << e.what();
 				}
-				//std::cout << "move: " << VehicleManager.getVehicles().at(i).getPosition().x <<", "<< VehicleManager.getVehicles().at(i).getPosition().y << "\n";
 			}
 		}
 
 		try {
-			factory.printMap(renderer, VehicleManager.getVehicles());
+			factory.printMap(renderer, vehicleManager.getVehicles());
 		}
 		catch (std::exception const& e) {
 			std::cout << e.what();

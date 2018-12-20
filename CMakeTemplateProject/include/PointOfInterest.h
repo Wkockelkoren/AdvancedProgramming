@@ -1,17 +1,21 @@
 #ifndef POINTOFINTEREST_H
 #define POINTOFINTEREST_H
 
+#include "Structures.h"
+
 enum pointOfInterestType { Floor, Wall, DropOff };
 
 class PointOfInterest {
 private:
 	bool isObstacle;
 	pointOfInterestType type;
+	Position position;
 
 public:
-	size_t x;
-	size_t y;
-	PointOfInterest(size_t x1 = 0, size_t y1 = 0, pointOfInterestType pointType = pointOfInterestType::Floor, bool obstacle = false);
+
+	PointOfInterest(Position position = {0,0}, pointOfInterestType pointType = pointOfInterestType::Floor, bool obstacle = false);
+
+	void setPosition(Position pos);
 
 	void printCoords();
 
