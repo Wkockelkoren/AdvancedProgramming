@@ -4,7 +4,7 @@ Generates paths and assigns it to a vehicle when the Go button is pressed.
 */
 
 VehicleManager::VehicleManager(){
-	
+
 }
 
 
@@ -22,7 +22,7 @@ void VehicleManager::addVehicle(const size_t xPosition, const size_t yPosition,c
 
 void VehicleManager::addNewCoordinate(Map &map, const Coordinate newCoordinate,const Position endPosition, const size_t &iterator,
 	std::vector<Coordinate> &pathList, bool &startPointReached,bool &coordinateAdded, bool &existsAlready) {
-	/**this function checks if the requested coordinate is the start coordinate or if there is an obstacle at the requested position. 
+	/**this function checks if the requested coordinate is the start coordinate or if there is an obstacle at the requested position.
 	If both is not the case the coordinate gets added to the argument pathlist
 	*/
 	for (size_t it = 0; it < pathList.size(); it++) {
@@ -84,33 +84,33 @@ std::vector<Coordinate> VehicleManager::calculateListOfPaths(Map &map, Position 
 		while ((startPointReached == false) && (noPathPossible == false)) { //loop as long a the start point is nog reached
 			size_t listSize = pathList.size(); // get the list size in order to loop through every index
 			coordinateAdded = false;
-	
+
 			for (size_t i = 0; i < listSize ; i++) { //loop through every index in the pathlist
 				if (pathList[i].counter == highestCounter) { //only add coordinates add the 'newest' coordinates
 
 					//obtain new coordinate to the right of current coordinate
-					if ((pathList[i].x + 1) <= map.width - 1) { //check if coordinate is not higher than the upper boundary (upper boundary x= map width - 1)
+					if (pathList[i].x < (map.width - 1)) { //check if coordinate is not higher than the upper boundary (upper boundary x= map width - 1)
 						coordinate.x = pathList[i].x + 1;
 						coordinate.y = pathList[i].y;
 						coordinate.counter = highestCounter + 1;
 						addNewCoordinate(map, coordinate, endPosition, i, pathList, startPointReached, coordinateAdded, existsAlready);
 					}
-					//obtain new coordinate above current coordinate
-					if ((pathList[i].y + 1) <= map.height - 1) { //check if coordinate is not higher than the upper boundary (upper boundary y= map height - 1)
+					//obtain new coordinate beneath current coordinate
+					if (pathList[i].y < (map.height - 1)) { //check if coordinate is not higher than the upper boundary (upper boundary y= map height - 1)
 						coordinate.x = pathList[i].x;
 						coordinate.y = pathList[i].y + 1;
 						coordinate.counter = highestCounter + 1;
 						addNewCoordinate(map, coordinate, endPosition, i, pathList, startPointReached, coordinateAdded, existsAlready);
 					}
 					//obtain new coordinate left to current coordinate
-					if ((pathList[i].x - 1) >= 0) { //check if coordinate is not higher than the upper boundary (lower boundary = 0)
+					if (pathList[i].x > 0) { //check if coordinate is not higher than the upper boundary (lower boundary = 0)
 						coordinate.x = pathList[i].x - 1;
 						coordinate.y = pathList[i].y;
 						coordinate.counter = highestCounter + 1;
 						addNewCoordinate(map, coordinate, endPosition, i, pathList, startPointReached, coordinateAdded, existsAlready);
 					}
-					//obtain new coordinae beneath the current coordinate
-					if ((pathList[i].y - 1) >= 0) { //check if coordinate is not higher than the upper boundary (lower boundary = 0)
+					//obtain new coordinae above the current coordinate
+					if (pathList[i].y > 0) { //check if coordinate is not higher than the upper boundary (lower boundary = 0)
 						coordinate.x = pathList[i].x;
 						coordinate.y = pathList[i].y - 1;
 						coordinate.counter = highestCounter + 1;
@@ -127,8 +127,8 @@ std::vector<Coordinate> VehicleManager::calculateListOfPaths(Map &map, Position 
 std::vector<Position> VehicleManager::getSinglePath(std::vector<Coordinate> &pathList, Position start) {
 		//Reduce the pathList to list with steps to take
 
-		/** This function returns a generated path from the output of the calculateListOfPahts function. 
-		The output of the calcaluteListOfPaths is a vector that contains the actual path and 
+		/** This function returns a generated path from the output of the calculateListOfPahts function.
+		The output of the calcaluteListOfPaths is a vector that contains the actual path and
 		a set of unfinished path that don't lead to the right direction. This function searches
 		for the actual path and returns that.
 		*/
@@ -147,7 +147,7 @@ std::vector<Position> VehicleManager::getSinglePath(std::vector<Coordinate> &pat
 					currentCounter = pathList[i].counter;
 					currentPosition.x = pathList[i].x;
 					currentPosition.y = pathList[i].y;
-					
+
 					generatedPath.push_back(currentPosition);
 				}
 			}
@@ -197,9 +197,9 @@ Vehicle& VehicleManager::getAvailableVehicle() {
 	/** This function searches for a vehicle that is not working and returns it
 	*/
 	//std::vector<Vehicle> availableVehicles;
-	//std::vector<Position> generatedPath; 
+	//std::vector<Position> generatedPath;
 	size_t numberOfVehicles = listOfVehicles.size();
-	
+
 	//check how many vehicles are available
 	for (size_t currentVehicle = 0; currentVehicle < numberOfVehicles; currentVehicle++) {
 		if (listOfVehicles[currentVehicle].checkIfWorking() == false) {
@@ -227,12 +227,12 @@ size_t VehicleManager::countAvailableVehicles() {
 
 
 void VehicleManager::assignPathToVehicle( std::vector<Task> &currentTasks, Map &map) {
-	/** 
-	this public function can be called in order to generate a path for a specific vehicle. 
+	/**
+	this public function can be called in order to generate a path for a specific vehicle.
 
 	*/
-	/* 
-	this public function can be called in order to generate a path. it uses the private function 
+	/*
+	this public function can be called in order to generate a path. it uses the private function
 	"ListOfPaths" to generate a vector with 1 path from start to end, and with paths that dont lead
 	to the right location. The function generatePath uses this list and returns only the correct path
 	*/
@@ -278,7 +278,7 @@ void VehicleManager::setTasks(Task newTask) {
 
 std::vector<Position> VehicleManager::createPath(const Position startPosition, const Position dropOff, Map &map) {
 	/**
-		this public function can be called in order to generate a path. 
+		this public function can be called in order to generate a path.
 	*/
 	/*
 	this public function can be called in order to generate a path. it uses the private function
