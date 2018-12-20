@@ -14,5 +14,5 @@ struct Task {
 	/**
 	A Task is an object that can be passed to an vehicle.
 	*/
-	Position goalPosition; 
+	Position goalPosition;
 };

@@ -3,7 +3,6 @@
 
 #include "Structures.h"
 
-
 class Vehicle {
 private:
 	Position position;
@@ -12,7 +11,7 @@ private:
 
 public:
 	Vehicle(Position pos = {0,0}, size_t maxSpeed1 = 1);
-		
+
 	bool working = false;
 
 	void printCoords();

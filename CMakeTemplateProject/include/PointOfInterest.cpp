@@ -2,8 +2,7 @@
 #include <vector>
 #include "PointOfInterest.h"
 
-
-PointOfInterest::PointOfInterest(Position position, pointOfInterestType type, bool obstacle) : position(position), type(type), isObstacle(obstacle) {
+PointOfInterest::PointOfInterest(Position pos, pointOfInterestType type, bool obstacle) : position(pos), type(type), isObstacle(obstacle) {
 	/**
 	Constructor for Point of Interest.
 	*/
@@ -20,23 +19,6 @@ void PointOfInterest::printCoords() {
 	*/
 	std::cout << "(" << position.x << "," << position.y << ")\n";
 }
-
-
-bool PointOfInterest::getIsObstacle() {
-	/**
-	Check if Point of Interest is an obstacle.
-	*/
-	return isObstacle;
-}
-
-
-void PointOfInterest::setIsObstacle(bool obstacle) {
-	/**
-		Set if Point of Interest is an obstacle.
-	*/
-	isObstacle = obstacle;
-}
-
 
 pointOfInterestType PointOfInterest::getPointOfInterestType() {
 	/**
@@ -55,4 +37,19 @@ void PointOfInterest::setPointOfInterestType(pointOfInterestType pointType) {
 	}
 
 	type = pointType;
+}
+
+bool PointOfInterest::getIsObstacle() {
+	/**
+	Check if Point of Interest is an obstacle.
+	*/
+	return isObstacle;
+}
+
+
+void PointOfInterest::setIsObstacle(bool obstacle) {
+	/**
+		Set if Point of Interest is an obstacle.
+	*/
+	isObstacle = obstacle;
 }
