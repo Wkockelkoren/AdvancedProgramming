@@ -236,9 +236,6 @@ void VehicleManager::assignPathToVehicle( std::vector<Task> &currentTasks, Map &
 
 	size_t numberOfAvailableVehicles = countAvailableVehicles();
 
-	//std::cout <<"Number of Vehicles: "<< numberOfAvailableVehicles<<"\n";
-	//std::cout << "Number of tasks: " << currentTasks.size() << "\n";
-
 	while (numberOfAvailableVehicles > 0 && currentTasks.size() > 0) {
 		Vehicle availableVehicle;
 		try {
@@ -248,27 +245,14 @@ void VehicleManager::assignPathToVehicle( std::vector<Task> &currentTasks, Map &
 			std::cout << e.what();
 		}
 
-		//std::shared_ptr<std::vector<Position>> generatedPath = createPath(availableVehicle.getPosition(), currentTasks.front().goalPosition, map);
 		std::vector<Position> generatedPath = createPath(availableVehicle.getPosition(), currentTasks.front().goalPosition, map);
-		//for (Position path : generatedPath) {
-			//std::cout << "(" << path.x << "," << path.y << ") ";
-		//}
-		//std::cout << "\n";
+		
 		getAvailableVehicle().setPath(generatedPath);
 
 		numberOfAvailableVehicles--;
 		currentTasks.erase(currentTasks.begin());
 	}
 }
-
-
-void VehicleManager::setTasks(Task newTask) {
-	/** This setter can be used to assign a path to a vehicle
-	*/
-	listOfTasks.push_back(newTask);
-	numberOfTasks++;
-}
-
 
 std::vector<Position> VehicleManager::createPath(const Position startPosition, const Position dropOff, Map &map) {
 	/**

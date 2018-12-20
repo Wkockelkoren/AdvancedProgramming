@@ -15,9 +15,20 @@ TaskManager::~TaskManager() {
 	
 }
 
-void TaskManager::createTask(Position goalPosition, Position startPosition = {NULL,NULL}) {
+void TaskManager::createTask(Position goalPosition) {
 	/**
-	This function adds a task to the taskList. 
+	This function adds a task without a start position to the taskList.
+	*/
+	Task task;
+	task.startPosition = { NULL,NULL };
+	task.goalPosition = goalPosition;
+	taskList.push_back(task);
+}
+
+
+void TaskManager::createTask(Position startPosition,Position goalPosition) {
+	/**
+	This function adds a task with both a start and goal position to the taskList. 
 	*/
 	Task task;
 	task.startPosition = startPosition;
@@ -25,11 +36,11 @@ void TaskManager::createTask(Position goalPosition, Position startPosition = {NU
 	taskList.push_back(task);
 }
 
-const std::vector<Task>* const TaskManager::getTaskList() const {
+ std::vector<Task>&  TaskManager::getTaskList()  {
 	/**
 	This function returns ann reference to the taskList
 	*/
-	return &taskList;
+	return taskList;
 }
 
 void TaskManager::deleteTask(size_t iterator) {
