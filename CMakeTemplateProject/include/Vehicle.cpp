@@ -13,35 +13,44 @@
 * maximum speed to a specific vehicle.
 * @endcode
 */
-Vehicle::Vehicle(Position pos, double maxSpeed) : position(pos), maxSpeed(maxSpeed) {}
+
+Vehicle::Vehicle(Position pos, size_t maxSpeed) : position(pos), maxSpeed(maxSpeed) {}
+
 
 void Vehicle::printCoords() {
 	std::cout << "(" << position.x << "," << position.y << ")\n";
 }
 
+
 void Vehicle::setPosition(Position pos) {
 	position = pos;
 }
+
 
 Position Vehicle::getPosition() {
 	return position;
 }
 
+
 void Vehicle::printMaxSpeed() {
 	std::cout << maxSpeed<< "\n";
 }
 
-void Vehicle::setMaxSpeed(int maxSpeed1) {
+
+void Vehicle::setMaxSpeed(size_t maxSpeed1) {
 	maxSpeed = maxSpeed1;
 }
 
-double Vehicle::getMaxSpeed() {
+
+size_t Vehicle::getMaxSpeed() {
 	return maxSpeed;
 }
+
 
 bool Vehicle::checkIfWorking() {
 	return working;
 }
+
 
 void Vehicle::moveNextPathPosition() {
 	/**
@@ -72,12 +81,14 @@ void Vehicle::moveNextPathPosition() {
 	}
 }
 
+
 void Vehicle::setPath(std::vector<Position> &generatedpath) {
 	/**
 	Pass generated path to vehicle
 	*/
 	path = generatedpath;
 }
+
 
 std::vector<Position>* Vehicle::getPath() {
 	/**

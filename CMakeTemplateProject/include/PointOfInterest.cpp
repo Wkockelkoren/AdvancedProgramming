@@ -2,6 +2,7 @@
 #include <vector>
 #include "PointOfInterest.h"
 
+
 PointOfInterest::PointOfInterest(Position position, pointOfInterestType type, bool obstacle) : position(position), type(type), isObstacle(obstacle) {
 	/**
 	Constructor for Point of Interest.

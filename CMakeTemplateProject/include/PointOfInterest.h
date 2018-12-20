@@ -12,6 +12,7 @@ private:
 	Position position;
 
 public:
+
 	PointOfInterest(Position position = {0,0}, pointOfInterestType pointType = pointOfInterestType::Floor, bool obstacle = false);
 
 	void setPosition(Position pos);

@@ -14,14 +14,14 @@ private:
 	PointOfInterest *map;
 
 public:
-	const int width;
-	const int height;
+	const size_t width;
+	const size_t height;
 
-	Map(int width, int height);
+	Map(size_t width, size_t height);
 
 	~Map();
 
-	PointOfInterest& getPointOfInterest(int x, int y);
+	PointOfInterest& getPointOfInterest(size_t x, size_t y);
 
 	void printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles);
 };

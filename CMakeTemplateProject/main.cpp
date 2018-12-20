@@ -1,45 +1,42 @@
  /*! \mainpage Installation of software
   * \section install_sec1 Installation Windows
   *
-  * \subsection step1 Step 1:
+  * \subsection step1_1 Step 1:
   * Install CMake and add it to your system path variable.
 
-  * \subsection step2 Step 2:
+  * \subsection step1_2 Step 2:
 	* Make sure you have installed Visual Studio 2017.
 
-  * \subsection step3 Step 3:
+  * \subsection step1_3 Step 3:
 	* Run the “build_Windows.bat” file to generate a Visual Studio 2017 project (double-click).
 
-  * \subsection step4 Step 4:
+  * \subsection step1_4 Step 4:
 	* Start the “PathPlanner.sln” from the build directory (32-bit version or 64-bit version).
 
-  * \subsection step5 Step 5:
+  * \subsection step1_5 Step 5:
 	* Set the “PathPlanner” project as StartUp project by right clicking on it.
 
-  * \subsection step6 Step 6:
+  * \subsection step1_6 Step 6:
 	* Build and run the program.Install CMake and add it to your system path variable.
 
 
   * \section install_sec2 Installation Linux
-  * \subsection step1 Step 1: 
+  * \subsection step2_1 Step 1: 
 	* Install CMake:	
 
-*			sudo apt install cmake libsdl2-dev g++
+	*			sudo apt install cmake libsdl2-dev g++
   * 
-  *  \subsection step2 Step 2: run build
+  * \subsection step2_2 Step 2: run build
 
-	* Run the build file:
+	* Run the build file build_Linux.sh to compile the program:
 
-*			build_Linux.sh
-  *	To compile the program bash
-
-*			 ./build_Linux.sh
+	*			bash ./build_Linux.sh
   *
-  *	 \subsection step3 Step 3: 
+  * \subsection step2_3 Step 3: 
 
-	 *Run the program using:
+	* Run the program using:
 
-*			./ build/PathPlanner
+	*			./ build/PathPlanner
  
  */
 
@@ -54,69 +51,11 @@
 #include "SDL.h"
 #include "time.h"
 
-#include <nanogui/screen.h>
-#include <nanogui/window.h>
-#include <nanogui/layout.h>
-#include <nanogui/button.h>
-
-#include <nanogui/nanogui.h>
-
-// https://github.com/wjakob/nanogui/issues/47
-
-int main(int argc, char*argv[]){
+int main(){
 
 	/**
 	Unbelievebly great.
 	*/
-
-	int menuMode = 0;
-	
-	int buttonMode = 0;
-	int poiXField = 0;
-	int poiYField = 0;
-	
-	bool vehicleAdded = false;
-	int vehicleXField = 0;
-	int vehicleYFIeld = 0;
-
-	bool taskAdded = false;
-	int newTaskXField = 0;
-	int newTaskYField = 0;
-
-	nanogui::init();
-
-	nanogui::Screen screen{{900, 650}, "Screen", false};
-	screen.setSize({ 900 / screen.pixelRatio(), 650 / screen.pixelRatio() });
-	
-	nanogui::Window mainWindow{ &screen, "Main Window" };
-	mainWindow.setPosition({ 15, 15 });
-	mainWindow.setLayout(new nanogui::GroupLayout());
-
-	nanogui::Window mapEditorWindow{ &screen, "Map-Editor Window" };
-	mapEditorWindow.setPosition({ 15, 15 });
-	mapEditorWindow.setLayout(new nanogui::GroupLayout());
-	mapEditorWindow.setVisible(false);
-
-	nanogui::Window vehicleEditorWindow{ &screen, "Vehicle-Editor Window" };
-	vehicleEditorWindow.setPosition({ 15, 15 });
-	vehicleEditorWindow.setLayout(new nanogui::GroupLayout());
-	vehicleEditorWindow.setVisible(false);
-
-	nanogui::Window taskManagerWindow{ &screen, "Task-Manager Window" };
-	taskManagerWindow.setPosition({ 15, 15 });
-	taskManagerWindow.setLayout(new nanogui::GroupLayout());
-	taskManagerWindow.setVisible(false);
-
-	createMainButtons(&screen, &mainWindow, menuMode);
-	createMapEditButtons(&screen, &mapEditorWindow, menuMode, buttonMode, poiXField, poiYField);
-	createVehicleEditButtons(&screen, &vehicleEditorWindow, menuMode, vehicleAdded, vehicleXField, vehicleYFIeld);
-	createTaskManagerButtons(&screen, &taskManagerWindow, menuMode, taskAdded, newTaskXField, newTaskYField);
-
-    screen.performLayout();
-
-    screen.drawAll();
-    screen.setVisible(true);
-
 
 	// Timing stuff
 	clock_t this_time = clock();
@@ -161,7 +100,7 @@ int main(int argc, char*argv[]){
 		factory.getPointOfInterest(4, 6).setPointOfInterestType(pointOfInterestType::Wall);
 		factory.getPointOfInterest(4, 7).setPointOfInterestType(pointOfInterestType::Wall);
 	}
-	catch (std::exception const& e) {// will be removed later is just for testing exeptions
+	catch (std::exception const& e) {
 		std::cout << e.what();
 	}
 
@@ -175,71 +114,8 @@ int main(int argc, char*argv[]){
 		return 0;
 
 	/* Draw the Image on rendering surface */
-	int done = 0;
+	size_t done = 0;
 	while (!done) {		
-		/*Switch cases for button actions, not nice code look further into closures, button functionality should be fully in buttoncallback*/
-		switch (menuMode) {
-			case 1:
-				mapEditorWindow.setVisible(false);
-				vehicleEditorWindow.setVisible(false);
-				taskManagerWindow.setVisible(false);
-				mainWindow.setVisible(true);
-				break;
-			case 2:
-				mainWindow.setVisible(false);
-				vehicleEditorWindow.setVisible(false);
-				taskManagerWindow.setVisible(false);
-				mapEditorWindow.setVisible(true);
-				switch (buttonMode) {
-					case 1: //NewFLoorButton
-						factory.getPointOfInterest(poiXField, poiYField).setPointOfInterestType(pointOfInterestType::Floor);
-						buttonMode = 0;
-						break;
-					case 2: //NewWallButton
-						factory.getPointOfInterest(poiXField, poiYField).setPointOfInterestType(pointOfInterestType::Wall);
-						buttonMode = 0;
-						break;
-					case 3: //NewDropOffButton
-						factory.getPointOfInterest(poiXField, poiYField).setPointOfInterestType(pointOfInterestType::DropOff);
-						buttonMode = 0;
-						break;
-					case 4: //New MapButton
-						//Empty for now
-						buttonMode = 0;
-						break;
-					default:
-						break;
-				}
-				break;
-			case 3:
-				mainWindow.setVisible(false);
-				mapEditorWindow.setVisible(false);
-				taskManagerWindow.setVisible(false);
-				vehicleEditorWindow.setVisible(true);
-				if (vehicleAdded == true) {
-					//newvehicle met vehX en Yfield
-					vehicleAdded = false;
-				}
-				break;
-			case 4:
-				mainWindow.setVisible(false);
-				mapEditorWindow.setVisible(false);
-				vehicleEditorWindow.setVisible(false);
-				taskManagerWindow.setVisible(true);
-				if (taskAdded == true) {
-					//add task met X en Y fields
-					taskAdded = false;
-				}
-				break;
-			default:
-				mapEditorWindow.setVisible(false);
-				vehicleEditorWindow.setVisible(false);
-				taskManagerWindow.setVisible(false);
-				mainWindow.setVisible(true);
-				break;
-		}
-	
-		screen.drawAll();
 
 		SDL_Event e;
 		while (SDL_PollEvent(&e)) {
@@ -278,11 +154,21 @@ int main(int argc, char*argv[]){
 			
 			//Move all vehicles to the next place on the path
 			for (int i = 0; i < vehicleManager.getVehicles().size(); i++) {
-				vehicleManager.getVehicles().at(i).moveNextPathPosition();
+				try {
+					vehicleManager.getVehicles().at(i).moveNextPathPosition();
+				}
+				catch (std::exception const& e) {
+					std::cout << e.what();
+				}
 			}
 		}
 
-		factory.printMap(renderer, vehicleManager.getVehicles());
+		try {
+			factory.printMap(renderer, vehicleManager.getVehicles());
+		}
+		catch (std::exception const& e) {
+			std::cout << e.what();
+		}
 
 		/* Got everything on rendering surface,
 		now Update the drawing image on window screen */
@@ -291,9 +177,6 @@ int main(int argc, char*argv[]){
 
 	SDL_DestroyWindow(mapWindow);
 	SDL_Quit();
-
-	nanogui::shutdown();
-	exit(EXIT_SUCCESS);
 
 	return 0;
 }
