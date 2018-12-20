@@ -1,0 +1,41 @@
+In file included from /home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.cpp:3:0:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.h: In constructor ‘PointOfInterest::PointOfInterest(size_t, size_t, pointOfInterestType, bool)’:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.h:13:9: error: ‘PointOfInterest::y’ will be initialized after [-Werror=reorder]
+  size_t y;
+         ^
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.h:9:22: error:   ‘pointOfInterestType PointOfInterest::type’ [-Werror=reorder]
+  pointOfInterestType type;
+                      ^~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.cpp:5:1: error:   when initialized here [-Werror=reorder]
+ PointOfInterest::PointOfInterest(size_t x, size_t y, pointOfInterestType type, bool obstacle) : x(x), y(y), type(type), isObstacle(obstacle) {
+ ^~~~~~~~~~~~~~~
+In file included from /home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.cpp:3:0:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.h:9:22: error: ‘PointOfInterest::type’ will be initialized after [-Werror=reorder]
+  pointOfInterestType type;
+                      ^~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.h:8:7: error:   ‘bool PointOfInterest::isObstacle’ [-Werror=reorder]
+  bool isObstacle;
+       ^~~~~~~~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.cpp:5:1: error:   when initialized here [-Werror=reorder]
+ PointOfInterest::PointOfInterest(size_t x, size_t y, pointOfInterestType type, bool obstacle) : x(x), y(y), type(type), isObstacle(obstacle) {
+ ^~~~~~~~~~~~~~~
+cc1plus: all warnings being treated as errors
+CMakeFiles/PathPlanner.dir/build.make:134: recipe for target 'CMakeFiles/PathPlanner.dir/include/PointOfInterest.cpp.o' failed
+make[2]: *** [CMakeFiles/PathPlanner.dir/include/PointOfInterest.cpp.o] Error 1
+make[2]: *** Waiting for unfinished jobs....
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Map.cpp: In member function ‘PointOfInterest& Map::getPointOfInterest(size_t, size_t)’:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Map.cpp:43:26: error: comparison of unsigned expression >= 0 is always true [-Werror=type-limits]
+  if (!(x < width) || !(x >= 0)) {
+                        ~~^~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Map.cpp:46:27: error: comparison of unsigned expression >= 0 is always true [-Werror=type-limits]
+  if (!(y < height) || !(y >= 0)) {
+                         ~~^~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/VehicleManager.cpp: In member function ‘std::vector<Coordinate> VehicleManager::calculateListOfPaths(Map&, Position, Position)’:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/VehicleManager.cpp:106:30: error: comparison of unsigned expression >= 0 is always true [-Werror=type-limits]
+      if ((pathList[i].x - 1) >= 0) { //check if coordinate is not higher than the upper boundary (lower boundary = 0)
+          ~~~~~~~~~~~~~~~~~~~~^~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/VehicleManager.cpp:113:30: error: comparison of unsigned expression >= 0 is always true [-Werror=type-limits]
+      if ((pathList[i].y - 1) >= 0) { //check if coordinate is not higher than the upper boundary (lower boundary = 0)
+          ~~~~~~~~~~~~~~~~~~~~^~~~
+cc1plus: all warnings being treated as errors
+
