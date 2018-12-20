@@ -123,13 +123,10 @@ std::vector<Position> VehicleManager::getSinglePath(std::vector<Coordinate> &pat
 		a set of unfinished path that don't lead to the right direction. This function searches
 		for the actual path and returns that.
 		*/
-//std::shared_ptr<std::vector<Position>> VehicleManager::getSinglePath(std::vector<Coordinate> &pathList, Position start) {
 		int currentCounter;
 		bool added = false;
 		Position currentPosition;
-		//std::vector<Position> generatedPath = new std::vector<Position>;
 		std::vector<Position> generatedPath;
-		//auto generatedPath = std::make_shared<std::vector<Position>>;
 
 		//Find startposition and counter by looping through pathList and comparing to startposition
 		for (int i = 0; i < pathList.size(); i++) {
@@ -179,7 +176,6 @@ std::vector<Position> VehicleManager::getSinglePath(std::vector<Coordinate> &pat
 				}
 			}
 		}
-		//auto path = std::make_shared<std::vector<Position>>(generatedPath);
 		return generatedPath;
 	}
 
@@ -215,7 +211,6 @@ int VehicleManager::countAvailableVehicles() {
 	}
 	return numberOfAvailableVehicles;
 }
-
 
 
 void VehicleManager::assignPathToVehicle( std::vector<Task> &currentTasks, Map &map) {
@@ -259,9 +254,6 @@ void VehicleManager::setTasks(Task newTask) {
 }
 
 
-//std::shared_ptr<std::vector<Position>>
-//std::shared_ptr<std::vector<Position>> VehicleManager::createPath(const Position startPosition, const Position dropOff, Map &map) {
-
 std::vector<Position> VehicleManager::createPath(const Position startPosition, const Position dropOff, Map &map) {
 	/**
 		this public function can be called in order to generate a path. 
@@ -275,6 +267,7 @@ std::vector<Position> VehicleManager::createPath(const Position startPosition, c
 	std::vector<Position> generatedPath = getSinglePath(listOfPaths, startPosition);
 	return generatedPath;
 }
+
 
 std::vector<Vehicle>& VehicleManager::getVehicles() {
 	return listOfVehicles;

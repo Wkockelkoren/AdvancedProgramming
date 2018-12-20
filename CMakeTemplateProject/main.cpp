@@ -124,8 +124,7 @@ int main(int argc, char*argv[]){
 	//
 
 	Map factory(10, 10);
-	VehicleManager VehicleManager;
-	//std::vector<Vehicle> vehicles;
+	VehicleManager vehicleManager;
 
 
 	//make tasks
@@ -152,9 +151,9 @@ int main(int argc, char*argv[]){
 	task.goalPosition.y = 6;
 	currentTasks.push_back(task);
 
-	VehicleManager.addVehicle(1, 2, 1);
-	VehicleManager.addVehicle(5, 2, 1);
-	//VehicleManager.addVehicle(1, 2, 0);
+	vehicleManager.addVehicle(1, 2, 1);
+	vehicleManager.addVehicle(5, 2, 1);
+	//vehicleManager.addVehicle(1, 2, 0);
 
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -279,22 +278,15 @@ int main(int argc, char*argv[]){
 		if ((this_time - last_time) >= 1000) {
 			last_time = this_time;
 
-			VehicleManager.assignPathToVehicle(currentTasks, factory);
+			vehicleManager.assignPathToVehicle(currentTasks, factory);
 			
 			//Move all vehicles to the next place on the path
-			for (int i = 0; i < VehicleManager.getVehicles().size(); i++) {
-				std::vector< Position> test = *VehicleManager.getVehicles().at(i).getPath();
-				//std::cout << "test: ";
-				//for ( Position path :  test) {
-				//	std::cout << "(" << path.x << "," << path.y << ") ";
-				//}
-				//std::cout << "\n";
-				VehicleManager.getVehicles().at(i).moveNextPathPosition();
-				//std::cout << "move: " << VehicleManager.getVehicles().at(i).getPosition().x <<", "<< VehicleManager.getVehicles().at(i).getPosition().y << "\n";
+			for (int i = 0; i < vehicleManager.getVehicles().size(); i++) {
+				vehicleManager.getVehicles().at(i).moveNextPathPosition();
 			}
 		}
 
-		factory.printMap(renderer, VehicleManager.getVehicles());
+		factory.printMap(renderer, vehicleManager.getVehicles());
 
 		/* Got everything on rendering surface,
 		now Update the drawing image on window screen */
