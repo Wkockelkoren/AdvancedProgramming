@@ -8,36 +8,36 @@
 	* Make sure you have installed Visual Studio 2017.
 
   * \subsection step1_3 Step 3:
-	* Run the “build_Windows.bat” file to generate a Visual Studio 2017 project (double-click).
+	* Run the ï¿½build_Windows.batï¿½ file to generate a Visual Studio 2017 project (double-click).
 
   * \subsection step1_4 Step 4:
-	* Start the “PathPlanner.sln” from the build directory (32-bit version or 64-bit version).
+	* Start the ï¿½PathPlanner.slnï¿½ from the build directory (32-bit version or 64-bit version).
 
   * \subsection step1_5 Step 5:
-	* Set the “PathPlanner” project as StartUp project by right clicking on it.
+	* Set the ï¿½PathPlannerï¿½ project as StartUp project by right clicking on it.
 
   * \subsection step1_6 Step 6:
 	* Build and run the program.Install CMake and add it to your system path variable.
 
 
   * \section install_sec2 Installation Linux
-  * \subsection step2_1 Step 1: 
-	* Install CMake:	
+  * \subsection step2_1 Step 1:
+	* Install CMake:
 
 	*			sudo apt install cmake libsdl2-dev g++
-  * 
+  *
   * \subsection step2_2 Step 2: run build
 
 	* Run the build file build_Linux.sh to compile the program:
 
 	*			bash ./build_Linux.sh
   *
-  * \subsection step2_3 Step 3: 
+  * \subsection step2_3 Step 3:
 
 	* Run the program using:
 
 	*			./ build/PathPlanner
- 
+
  */
 
 #include <iostream>
@@ -45,7 +45,7 @@
 #include <array>
 #include "Map.h"
 #include "VehicleManager.h"
-#include "structures.h"
+#include "Structures.h"
 #include "Vehicle.h"
 #include "Window.h"
 #include "SDL.h"
@@ -120,7 +120,7 @@ int main(){
 
 	/* Draw the Image on rendering surface */
 	size_t done = 0;
-	while (!done) {		
+	while (!done) {
 
 		SDL_Event e;
 		while (SDL_PollEvent(&e)) {
@@ -156,7 +156,7 @@ int main(){
 			last_time = this_time;
 
 			VehicleManager.assignPathToVehicle(currentTasks, factory);
-			
+
 			//Move all vehicles to the next place on the path
 			for (size_t i = 0; i < VehicleManager.getVehicles().size(); i++) {
 				std::vector< Position> test = *VehicleManager.getVehicles().at(i).getPath();
@@ -192,4 +192,3 @@ int main(){
 
 	return 0;
 }
-
