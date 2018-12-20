@@ -123,6 +123,7 @@ int main(int argc, char*argv[]){
 	clock_t last_time = this_time;
 	//
 
+
 	Map factory(10, 10);
 	VehicleManager vehicleManager;
 
@@ -131,29 +132,24 @@ int main(int argc, char*argv[]){
 	Task task;
 	std::vector<Task> currentTasks;
 
-	task.goalPosition.x = 1;
-	task.goalPosition.y = 1;
+	task.goalPosition = {1,1};
 	currentTasks.push_back(task);
 
-	task.goalPosition.x = 5;
-	task.goalPosition.y = 1;
+	task.goalPosition = {5,1};
 	currentTasks.push_back(task);
 
-	task.goalPosition.x = 9;
-	task.goalPosition.y = 9;
+	task.goalPosition = {9,9};
 	currentTasks.push_back(task);
 
-	task.goalPosition.x = 2;
-	task.goalPosition.y = 9;
+	task.goalPosition = {2,9};
 	currentTasks.push_back(task);
 
-	task.goalPosition.x = 5;
-	task.goalPosition.y = 6;
+	task.goalPosition = {5,6};
 	currentTasks.push_back(task);
 
-	vehicleManager.addVehicle(1, 2, 1);
-	vehicleManager.addVehicle(5, 2, 1);
-	//vehicleManager.addVehicle(1, 2, 0);
+	vehicleManager.addVehicle({2,2}, 1);
+	vehicleManager.addVehicle({5,2}, 1);
+	//vehicleManager.addVehicle({1,2}, 0);
 
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);

@@ -7,18 +7,17 @@
 
 class Vehicle {
 private:
-	int x;
-	int y;
+	Position position;
 	double maxSpeed;
 	std::vector<Position> path;
 public:
-	Vehicle(int x1 = 0, int y1 = 0, double maxSpeed1 = 1);
+	Vehicle(Position pos = {0,0}, double maxSpeed1 = 1);
 	
 	bool working = false;
 
 	void printCoords();
 
-	void setPosition(int x1, int y1);
+	void setPosition(Position pos);
 
 	Position getPosition();
 

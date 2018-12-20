@@ -2,18 +2,24 @@
 #include <vector>
 #include "PointOfInterest.h"
 
-PointOfInterest::PointOfInterest(int x, int y, pointOfInterestType type, bool obstacle) : x(x), y(y), type(type), isObstacle(obstacle) {
+PointOfInterest::PointOfInterest(Position position, pointOfInterestType type, bool obstacle) : position(position), type(type), isObstacle(obstacle) {
 	/**
 	Constructor for Point of Interest.
 	*/
 }
 
+void PointOfInterest::setPosition(Position pos) {
+	position = pos;
+}
+
+
 void PointOfInterest::printCoords() {
 	/**
 	Print position of current Point of Interest.
 	*/
-	std::cout << "(" << x << "," << y << ")\n";
+	std::cout << "(" << position.x << "," << position.y << ")\n";
 }
+
 
 bool PointOfInterest::getIsObstacle() {
 	/**
@@ -22,6 +28,7 @@ bool PointOfInterest::getIsObstacle() {
 	return isObstacle;
 }
 
+
 void PointOfInterest::setIsObstacle(bool obstacle) {
 	/**
 		Set if Point of Interest is an obstacle.
@@ -29,12 +36,14 @@ void PointOfInterest::setIsObstacle(bool obstacle) {
 	isObstacle = obstacle;
 }
 
+
 pointOfInterestType PointOfInterest::getPointOfInterestType() {
 	/**
 
 	*/
 	return type;
 }
+
 
 void PointOfInterest::setPointOfInterestType(pointOfInterestType pointType) {
 	if (pointType == pointOfInterestType::Wall) {

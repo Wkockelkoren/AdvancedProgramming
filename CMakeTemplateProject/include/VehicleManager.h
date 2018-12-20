@@ -40,7 +40,7 @@ public:
 
 	~VehicleManager();
 
-	void addVehicle(const int xPosition, const int yPosition, const double vehicleSpeed);
+	void addVehicle(Position pos, const double vehicleSpeed);
 
 	void assignPathToVehicle( std::vector<Task> &currentTasks, Map &map);
 

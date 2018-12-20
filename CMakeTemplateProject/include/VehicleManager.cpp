@@ -12,10 +12,10 @@ VehicleManager::~VehicleManager(){
 }
 
 
-void VehicleManager::addVehicle(const int xPosition, const int yPosition,const double vehicleSpeed) {
+void VehicleManager::addVehicle(Position pos, const double vehicleSpeed) {
 	/** This function can be used to add a vehicle.
 	*/
-	Vehicle vehicle(xPosition, yPosition, vehicleSpeed);
+	Vehicle vehicle(pos, vehicleSpeed);
 	listOfVehicles.push_back(vehicle);
 }
 

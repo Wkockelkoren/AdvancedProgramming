@@ -18,8 +18,7 @@ Map::Map(int width, int height) : width(width), height(height) {
 	// Iterate over each position and fill in the coordinates in the point of interest
 	for (int y = 0; y < height; y++) {
 		for (int x = 0; x < width; x++) {
-			map[y * width + x].x = x;
-			map[y * width + x].y = y;
+			map[y * width + x].setPosition({x,y});
 		}
 	}
 }
@@ -52,17 +51,6 @@ PointOfInterest& Map::getPointOfInterest(int x, int y) {
 	return pointOfInterest;
 }
 
-
-// TODO: find a method that we dont need to use multiple fuctions
-void Map::printMap(SDL_Renderer * renderer) {
-	/**
-	Prints only Points of Interests and no vehicles
-	*/
-
-	// If we have no vehicles we send an empty vector to the function
-	std::vector<Vehicle> vehicles{};
-	printMap(renderer, vehicles);
-}
 
 void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles) {
 	/**
