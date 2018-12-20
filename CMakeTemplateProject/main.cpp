@@ -153,9 +153,7 @@ int main(){
 			vehicleManager.assignPathToVehicle(currentTasks, factory);
 
 			//Move all vehicles to the next place on the path
-			for (size_t i = 0; i < VehicleManager.getVehicles().size(); i++) {
-				std::vector< Position> test = *VehicleManager.getVehicles().at(i).getPath();
-        
+			for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {        
 				try {
 					vehicleManager.getVehicles().at(i).moveNextPathPosition();
 				}
