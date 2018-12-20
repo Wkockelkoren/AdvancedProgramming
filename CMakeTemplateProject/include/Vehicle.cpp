@@ -13,13 +13,13 @@
 * maximum speed to a specific vehicle.
 * @endcode
 */
-Vehicle::Vehicle(int x, int y, double maxSpeed) : x(x), y(y), maxSpeed(maxSpeed) {}
+Vehicle::Vehicle(size_t x, size_t y, size_t maxSpeed) : x(x), y(y), maxSpeed(maxSpeed) {}
 
 void Vehicle::printCoords() {
 	std::cout << "(" << x << "," << y << ")\n";
 }
 
-void Vehicle::setPosition(int x1, int y1) {
+void Vehicle::setPosition(size_t x1, size_t y1) {
 	x = x1;
 	y = y1;
 }
@@ -35,11 +35,11 @@ void Vehicle::printMaxSpeed() {
 	std::cout << maxSpeed<< "\n";
 }
 
-void Vehicle::setMaxSpeed(int maxSpeed1) {
+void Vehicle::setMaxSpeed(size_t maxSpeed1) {
 	maxSpeed = maxSpeed1;
 }
 
-double Vehicle::getMaxSpeed() {
+size_t Vehicle::getMaxSpeed() {
 	return maxSpeed;
 }
 

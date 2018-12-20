@@ -9,9 +9,9 @@ private:
 	pointOfInterestType type;
 
 public:
-	int x;
-	int y;
-	PointOfInterest(int x1 = 0, int y1 = 0, pointOfInterestType pointType = pointOfInterestType::Floor, bool obstacle = false);
+	size_t x;
+	size_t y;
+	PointOfInterest(size_t x1 = 0, size_t y1 = 0, pointOfInterestType pointType = pointOfInterestType::Floor, bool obstacle = false);
 
 	void printCoords();
 
