@@ -12,49 +12,54 @@
 * maximum speed to a specific vehicle.
 * @endcode
 */
-Vehicle::Vehicle(int x, int y, double maxSpeed) : x(x), y(y), maxSpeed(maxSpeed) {}
+
+Vehicle::Vehicle(Position pos, size_t maxSpeed) : position(pos), maxSpeed(maxSpeed) {}
+
 
 void Vehicle::printCoords() {
-	std::cout << "(" << x << "," << y << ")\n";
+	std::cout << "(" << position.x << "," << position.y << ")\n";
 }
 
-void Vehicle::setPosition(int x1, int y1) {
-	x = x1;
-	y = y1;
+
+void Vehicle::setPosition(Position pos) {
+	position = pos;
 }
+
 
 Position Vehicle::getPosition() {
-	Position pos;
-	pos.x = x;
-	pos.y = y;
-	return pos;
+	return position;
 }
+
 
 void Vehicle::printMaxSpeed() {
 	std::cout << maxSpeed<< "\n";
 }
 
-void Vehicle::setMaxSpeed(int maxSpeed1) {
+
+void Vehicle::setMaxSpeed(size_t maxSpeed1) {
 	maxSpeed = maxSpeed1;
 }
 
-double Vehicle::getMaxSpeed() {
+
+size_t Vehicle::getMaxSpeed() {
 	return maxSpeed;
 }
+
 
 bool Vehicle::checkIfWorking() {
 	return working;
 }
+
 
 void Vehicle::moveNextPathPosition() {
 	/**
 	A vehicle uses this function to change its position by usage of an assigned path
 	*/
 	if (!path.empty()) {
-		if (path.at(0).x == x && path.at(0).y == y) { // Check if the vehicle is on the expected position
+		if (path.at(0).x == position.x && path.at(0).y == position.y) { // Check if the vehicle is on the expected position
 			if (path.size() > 1) { // Check if there is a next position to move to
-				x = path.at(1).x; // move to the next position
-				y = path.at(1).y;
+				position.x = path.at(1).x; // move to the next position
+				position.y = path.at(1).y;
 				working = true;
 				path.erase(path.begin()); // delete the previous position of the path
 			}
@@ -75,12 +80,14 @@ void Vehicle::moveNextPathPosition() {
 	}
 }
 
+
 void Vehicle::setPath(std::vector<Position> &generatedpath) {
 	/**
 	Pass generated path to vehicle
 	*/
 	path = generatedpath;
 }
+
 
 std::vector<Position>* Vehicle::getPath() {
 	/**

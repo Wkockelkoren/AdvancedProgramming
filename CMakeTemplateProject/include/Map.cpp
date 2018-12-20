@@ -8,18 +8,16 @@
 /**
 	Contains the classes Map and PointOfInterest.
 */
-
-Map::Map(int width, int height) : width(width), height(height) {
+Map::Map(size_t width, size_t height) : width(width), height(height) {
 	/**
 	Constructor for map
 	*/
 	map = new PointOfInterest[width*height];
 
 	// Iterate over each position and fill in the coordinates in the point of interest
-	for (int y = 0; y < height; y++) {
-		for (int x = 0; x < width; x++) {
-			map[y * width + x].x = x;
-			map[y * width + x].y = y;
+	for (size_t y = 0; y < height; y++) {
+		for (size_t x = 0; x < width; x++) {
+			map[y * width + x].setPosition({x,y});
 		}
 	}
 }
@@ -33,7 +31,7 @@ Map::~Map() {
 }
 
 
-PointOfInterest& Map::getPointOfInterest(int x, int y) {
+PointOfInterest& Map::getPointOfInterest(size_t x, size_t y) {
 	/***
 	Get point of interest from position on map
 	*/
@@ -52,16 +50,6 @@ PointOfInterest& Map::getPointOfInterest(int x, int y) {
 	return pointOfInterest;
 }
 
-// TODO: find a method that we dont need to use multiple fuctions
-void Map::printMap(SDL_Renderer * renderer) {
-	/**
-	Prints only Points of Interests and no vehicles
-	*/
-
-	// If we have no vehicles we send an empty vector to the function
-	std::vector<Vehicle> vehicles{};
-	printMap(renderer, vehicles);
-}
 
 void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles) {
 	/**
@@ -82,9 +70,9 @@ void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles) {
 	SDL_RenderGetViewport(renderer, &darea);
 
 	// Iteration over each row
-	for (int y = 0; y < height; y++) {
+	for (size_t y = 0; y < height; y++) {
 		// Iteration over each column
-		for (int x = 0; x < width; x++) {
+		for (size_t x = 0; x < width; x++) {
 			type = map[y * width + x].getPointOfInterestType(); // Get the type of the point of interest
 			v = false; // Variable to keep track whether to print the vehicle or point of interest type
 
@@ -127,10 +115,10 @@ void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles) {
 				}
 			}
 
-			rect.w = darea.w / width;
-			rect.h = darea.h / height;
-			rect.x = x * rect.w;
-			rect.y = y * rect.h;
+			rect.w = darea.w / (int) width;
+			rect.h = darea.h / (int) height;
+			rect.x = (int) x * rect.w;
+			rect.y = (int) y * rect.h;
 			SDL_RenderFillRect(renderer, &rect);
 		}
 	}
