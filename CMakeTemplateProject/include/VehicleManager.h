@@ -8,9 +8,9 @@
 #include "Structures.h"
 
 struct Coordinate {
-	int x = 0;
-	int y = 0;
-	int counter = 0;
+	size_t x = 0;
+	size_t y = 0;
+	size_t counter = 0;
 };
 
 class VehicleManager{
@@ -20,20 +20,19 @@ class VehicleManager{
 private:
 	std::vector<Vehicle> listOfVehicles;
 	std::vector<Task> listOfTasks;
-	std::vector<Position> listOfPaths;
-	int numberOfTasks = 0;
+	size_t numberOfTasks = 0;
 
 	std::vector<Coordinate> calculateListOfPaths(Map &map, Position startPosition, Position endPosition);
 
 	std::vector<Position> getSinglePath(std::vector<Coordinate> &pathList, Position start);
 	//std::shared_ptr<std::vector<Position>> VehicleManager::getSinglePath(std::vector<Coordinate> &pathList, Position start);
 
-	void addNewCoordinate(Map &map, const Coordinate newCoordinate, const Position endPosition, const int &iterator,
+	void addNewCoordinate(Map &map, const Coordinate newCoordinate, const Position endPosition, const size_t &iterator,
 		std::vector<Coordinate> &pathList, bool &startPointReached, bool &coordinateAdded, bool &existsAlready);
 
 	void setTasks(Task newTask);
 
-	int countAvailableVehicles();
+	size_t countAvailableVehicles();
 
 
 public:
@@ -41,7 +40,7 @@ public:
 
 	~VehicleManager();
 
-	void addVehicle(const int xPosition, const int yPosition, const double vehicleSpeed);
+	void addVehicle(const size_t xPosition, const size_t yPosition, const size_t vehicleSpeed);
 
 	void assignPathToVehicle( std::vector<Task> &currentTasks, Map &map);
 

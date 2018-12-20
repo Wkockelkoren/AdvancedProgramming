@@ -2,7 +2,7 @@
 #include <vector>
 #include "PointOfInterest.h"
 
-PointOfInterest::PointOfInterest(int x, int y, pointOfInterestType type, bool obstacle) : x(x), y(y), type(type), isObstacle(obstacle) {
+PointOfInterest::PointOfInterest(size_t x, size_t y, pointOfInterestType type, bool obstacle) : x(x), y(y), type(type), isObstacle(obstacle) {
 	/**
 	Constructor for Point of Interest.
 	*/

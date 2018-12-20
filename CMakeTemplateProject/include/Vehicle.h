@@ -7,26 +7,26 @@
 
 class Vehicle {
 private:
-	int x;
-	int y;
-	double maxSpeed;
+	size_t x;
+	size_t y;
+	size_t maxSpeed;
 	std::vector<Position> path;
 public:
-	Vehicle(int x1 = 0, int y1 = 0, double maxSpeed1 = 1);
+	Vehicle(size_t x1 = 0, size_t y1 = 0, size_t maxSpeed1 = 1);
 	
 	bool working = false;
 
 	void printCoords();
 
-	void setPosition(int x1, int y1);
+	void setPosition(size_t x1, size_t y1);
 
 	Position getPosition();
 
 	void printMaxSpeed();
 
-	void setMaxSpeed(int maxSpeed1);
+	void setMaxSpeed(size_t maxSpeed1);
 
-	double getMaxSpeed();
+	size_t getMaxSpeed();
 
 	void moveNextPathPosition();
 

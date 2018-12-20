@@ -6,8 +6,8 @@ struct Position {
 	/***
 	A position contains a value for both the x- and y direction.
 	*/
-	int x = 0;
-	int y = 0;
+	size_t x = 0;
+	size_t y = 0;
 };
 
 struct Task {
