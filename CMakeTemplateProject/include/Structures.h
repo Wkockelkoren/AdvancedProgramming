@@ -6,13 +6,14 @@ struct Position {
 	/***
 	A position contains a value for both the x- and y direction.
 	*/
-	int x = 0;
-	int y = 0;
+	size_t x;
+	size_t y;
 };
 
 struct Task {
 	/**
 	A Task is an object that can be passed to an vehicle.
 	*/
-	Position goalPosition; 
+	Position startPosition;
+	Position goalPosition;
 };

@@ -4,7 +4,6 @@
 #include "Map.h"
 
 /**
-* @brief
 * Has a position on the Map, a maximum speed and contains a path that was generated 
 * by the VehicleManager. A Path consists out of multiple Positions (vector of Positions)
 * where the first element in the vector will be the start position and the last element 
