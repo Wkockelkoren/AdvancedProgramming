@@ -52,6 +52,8 @@
 #include "SDL.h"
 #include "time.h"
 
+void updateScreen(SDL_Renderer *renderer, SDL_Window *mapWindow, Map &map, std::vector<Vehicle> vehicles);
+
 int main(){
 
 	/**
@@ -61,16 +63,14 @@ int main(){
 	// Timing stuff
 	clock_t this_time = clock();
 	clock_t last_time = this_time;
-	//
 
-
+	// Creating the managers and map
 	Map factory(10, 10);
 	VehicleManager vehicleManager;
 	TaskManager taskManager;
 
 	//make vehicles
-	vehicleManager.addVehicle({9,9}, 1);
-	
+	vehicleManager.addVehicle({9,9}, 1);	
 
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -93,6 +93,8 @@ int main(){
 	// Create a window, surface and renderer. Continue when no errors occured, otherwise stop the program
 	if (!loadWindow(&mapWindow, 640, 480, &surface, &renderer))
 		return 0;
+
+	updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
 
 	/* Draw the Image on rendering surface */
 	size_t done = 0;
@@ -240,26 +242,18 @@ int main(){
 
 				//Move all vehicles to the next place on the path
 
-				for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {
-					try {
-						vehicleManager.getVehicles().at(i).moveNextPathPosition();
-					}
-					catch (std::exception const& e) {
-						std::cout << e.what();
-					}
+			for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {        
+				try {
+					vehicleManager.getVehicles().at(i).moveNextPathPosition();
+					std::cout << "Move next position\n" ;
+				}
+				catch (std::exception const& e) {
+					std::cout << e.what();
 				}
 			}
-
-			try {
-				factory.printMap(renderer, vehicleManager.getVehicles());
-			}
-			catch (std::exception const& e) {
-				std::cout << e.what();
-			}
-
-			/* Got everything on rendering surface,
-			now Update the drawing image on window screen */
-			SDL_UpdateWindowSurface(mapWindow);
+			
+			//Screen is updated after making changes
+			updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
 		}
 	}
 
@@ -267,4 +261,19 @@ int main(){
 	SDL_Quit();
 
 	return 0;
+}
+
+
+void updateScreen(SDL_Renderer *renderer, SDL_Window *mapWindow, Map &map, std::vector<Vehicle> vehicles) {
+	try {
+		map.printMap(renderer, vehicles);
+		std::cout << "Draw map\n";
+	}
+	catch (std::exception const& e) {
+		std::cout << e.what();
+	}
+
+	/* Got everything on rendering surface,
+	now Update the drawing image on window screen */
+	SDL_UpdateWindowSurface(mapWindow);
 }
