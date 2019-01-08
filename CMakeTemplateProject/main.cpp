@@ -105,6 +105,9 @@ int main(){
 	/* Draw the Image on rendering surface */
 	size_t done = 0;
 	size_t menuMode = 0;
+	size_t subMenuMode = 0;
+	size_t userInputX = 0;
+	size_t userInputY = 0;
 	while (!done) {
 
 		switch (menuMode) {
@@ -117,10 +120,37 @@ int main(){
 		case 2:
 			/* VehicleManager */
 			std::cout << "--- VehicleManager ---\n";
-			std::cin >> menuMode;
-			break;
+			std::cout << "1. Add Vehicle \n";
+			std::cout << "0. Back \n";
+			std::cin >> subMenuMode;
+			switch (subMenuMode) {
+				case 1:
+					std::cout << "Give an X-postion within the range 0 to " << (factory.width - 1) << "\n";
+					std::cin >> userInputX;
+					if (userInputX < 0 || userInputX > factory.width - 1) {
+						std::cout << "Given X-position is out of range \n";
+						break;
+					}
+					std::cout << "Give a Y-postion within the range 0 to " << (factory.height - 1) << "\n";
+					std::cin >> userInputY;
+					if (userInputY < 0 || userInputY > factory.width - 1) {
+						std::cout << "Given Y-position is out of range \n";
+						break;
+					}
+					vehicleManager.addVehicle({ userInputX, userInputY }, 1);
+					break;
+				case 0:
 
+				default:
+					std::cout << "Invalid input";
+					break;
+			}
+			break;
 		case 3:
+			/*Map Editor*/
+			std::cout << "--- MapEditor ---\n";
+			break;
+		case 4:
 			/* Go */
 			std::cout << "--- Go ---\n";
 			std::cin >> menuMode;
@@ -129,7 +159,7 @@ int main(){
 		default:
 			/* Main */
 			std::cout << "--- Main ---\n";
-			std::cout << "Select Menu Mode (TaskManager = 1, VehicleManager = 2 and Go = 3)\n";
+			std::cout << "Select Menu Mode (TaskManager = 1, VehicleManager = 2 and Map Editor = 3 Go = 4)\n";
 			std::cin >> menuMode;
 			break;
 		}
