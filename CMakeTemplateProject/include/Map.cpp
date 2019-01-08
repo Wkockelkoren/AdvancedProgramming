@@ -1,7 +1,3 @@
-/**
-	Contains the classes Map and PointOfInterest.
-*/
-
 #include <iostream>
 #include <vector>
 #include "Map.h"
@@ -9,6 +5,9 @@
 #include "Vehicle.h"
 #include "VehicleManager.h"
 
+/**
+	Contains the classes Map and PointOfInterest.
+*/
 Map::Map(size_t width, size_t height) : width(width), height(height) {
 	/**
 	Constructor for map
