@@ -94,7 +94,6 @@ int main(){
 		std::cout << e.what();
 	}
 
-
 	SDL_Window* mapWindow;
 	SDL_Surface* surface;
 	SDL_Renderer* renderer;
@@ -105,7 +104,35 @@ int main(){
 
 	/* Draw the Image on rendering surface */
 	size_t done = 0;
+	size_t menuMode = 0;
 	while (!done) {
+
+		switch (menuMode) {
+		case 1:
+			/* TaskManager*/
+			std::cout << "--- TaskManager ---\n";
+			std::cin >> menuMode;
+			break;
+
+		case 2:
+			/* VehicleManager */
+			std::cout << "--- VehicleManager ---\n";
+			std::cin >> menuMode;
+			break;
+
+		case 3:
+			/* Go */
+			std::cout << "--- Go ---\n";
+			std::cin >> menuMode;
+			break;
+		
+		default:
+			/* Main */
+			std::cout << "--- Main ---\n";
+			std::cout << "Select Menu Mode (TaskManager = 1, VehicleManager = 2 and Go = 3)\n";
+			std::cin >> menuMode;
+			break;
+		}
 
 		SDL_Event e;
 		while (SDL_PollEvent(&e)) {
