@@ -4,6 +4,11 @@
 #include "PointOfInterest.h"
 #include "Map.h"
 
+/**
+Is also a nanoGUI class which is used to create the sub windows of the Screen. 
+The Window class can be used to draw buttons, input fields and a canvas to draw the map.
+
+*/
 bool loadWindow(SDL_Window** window, size_t width, size_t height, SDL_Surface** surface, SDL_Renderer** renderer) {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{

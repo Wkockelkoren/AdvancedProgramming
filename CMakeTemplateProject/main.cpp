@@ -44,6 +44,7 @@
 #include <vector>
 #include <array>
 #include "Map.h"
+#include "TaskManager.h"
 #include "VehicleManager.h"
 #include "Structures.h"
 #include "Vehicle.h"
@@ -65,30 +66,19 @@ int main(){
 
 	Map factory(10, 10);
 	VehicleManager vehicleManager;
-
+	TaskManager taskManager;
 
 	//make tasks
-	Task task;
-	std::vector<Task> currentTasks;
+	taskManager.createTask({ 1,1 });
+	taskManager.createTask({ 5,1 });
+	taskManager.createTask({ 9,9 });
+	taskManager.createTask({ 2,9 });
+	taskManager.createTask({ 5,6 }, { 9,9 });
 
-	task.goalPosition = {1,1};
-	currentTasks.push_back(task);
-
-	task.goalPosition = {5,1};
-	currentTasks.push_back(task);
-
-	task.goalPosition = {9,9};
-	currentTasks.push_back(task);
-
-	task.goalPosition = {2,9};
-	currentTasks.push_back(task);
-
-	task.goalPosition = {5,6};
-	currentTasks.push_back(task);
-
+	//make vehicles
 	vehicleManager.addVehicle({2,2}, 1);
 	vehicleManager.addVehicle({5,2}, 1);
-	//vehicleManager.addVehicle({1,2}, 0);
+	
 
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -150,9 +140,10 @@ int main(){
 		if ((this_time - last_time) >= 1000) {
 			last_time = this_time;
 
-			vehicleManager.assignPathToVehicle(currentTasks, factory);
+			vehicleManager.assignPathToVehicle(taskManager.getTaskList(), factory);
 
 			//Move all vehicles to the next place on the path
+
 			for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {        
 				try {
 					vehicleManager.getVehicles().at(i).moveNextPathPosition();

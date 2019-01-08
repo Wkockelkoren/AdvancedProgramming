@@ -19,8 +19,6 @@ class VehicleManager{
 	*/
 private:
 	std::vector<Vehicle> listOfVehicles;
-	std::vector<Task> listOfTasks;
-	size_t numberOfTasks = 0;
 
 	std::vector<Coordinate> calculateListOfPaths(Map &map, Position startPosition, Position endPosition);
 
@@ -28,8 +26,6 @@ private:
 
 	void addNewCoordinate(Map &map, const Coordinate newCoordinate, const Position endPosition, const size_t &iterator,
 		std::vector<Coordinate> &pathList, bool &startPointReached, bool &coordinateAdded, bool &existsAlready);
-
-	void setTasks(Task newTask);
 
 	size_t countAvailableVehicles();
 
