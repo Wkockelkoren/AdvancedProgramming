@@ -106,8 +106,8 @@ int main(){
 
 		if (Go == false) {
 			switch (menuMode) {
-			case 1: /* TaskManager*/
-				std::cout << "--- TaskManager ---\n";
+			case 1: /* Task Manager*/
+				std::cout << "--- Task Manager ---\n";
 				std::cout << "Options:\n";
 				std::cout << "1. Add Task\n";
 				std::cout << "2. Back\n";
@@ -154,23 +154,50 @@ int main(){
 				}
 				break;
 
-			case 2: /* VehicleManager */
-				std::cout << "--- VehicleManager ---\n";
-				std::cin >> menuMode;
+			case 2: /* Vehicle Manager */
+				std::cout << "--- Vehicle Manager ---\n";
+				std::cout << "1. Add Vehicle \n";
+				std::cout << "0. Back \n";
+				std::cin >> subMenuMode;
+				switch (subMenuMode) {
+				case 1:
+					std::cout << "Give an X-postion within the range 0 to " << (factory.width - 1) << "\n";
+					std::cin >> userInputX;
+					if (userInputX < 0 || userInputX > factory.width - 1) {
+						std::cout << "Given X-position is out of range \n";
+						break;
+					}
+					std::cout << "Give a Y-postion within the range 0 to " << (factory.height - 1) << "\n";
+					std::cin >> userInputY;
+					if (userInputY < 0 || userInputY > factory.width - 1) {
+						std::cout << "Given Y-position is out of range \n";
+						break;
+					}
+					vehicleManager.addVehicle({ userInputX, userInputY }, 1);
+					break;
+				case 0:
+
+				default:
+					std::cout << "Invalid input";
+					break;
+				}
+				break;
+			case 3: /*Map Editor*/
+				std::cout << "--- Map Editor ---\n";
 				break;
 
-			case 3: /* Go */
+			case 4: /* Go */
 				std::cout << "--- Go ---\n";
 				Go = true;
 				break;
 
-			default:
-				/* Main */
+			default: /* Main */
 				std::cout << "--- Main ---\n";
 				std::cout << "Select Menu Mode:\n";
-				std::cout << "1. TaskManager\n";
-				std::cout << "2. VehicleManager\n";
-				std::cout << "3. Go\n";
+				std::cout << "1. Task Manager\n";
+				std::cout << "2. Vehicle Manager\n";
+				std::cout << "3. Map Editor\n";
+				std::cout << "4. Go\n";
 				std::cin >> menuMode;
 				break;
 			}
