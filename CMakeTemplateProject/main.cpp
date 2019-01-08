@@ -123,7 +123,6 @@ int main(){
 						std::cin >> userInputX;
 						if (userInputX < 0 || userInputX > factory.width - 1) {
 							std::cout << "Given X-position is out of range \n";
-							error = true;
 							continue;
 						}
 						error = false;
@@ -135,7 +134,6 @@ int main(){
 						std::cin >> userInputY;
 						if (userInputY < 0 || userInputY > factory.height - 1) {
 							std::cout << "Given Y-position is out of range \n";
-							error = true;
 							continue;
 						}
 						error = false;
@@ -161,29 +159,125 @@ int main(){
 				std::cin >> subMenuMode;
 				switch (subMenuMode) {
 				case 1:
-					std::cout << "Give an X-postion within the range 0 to " << (factory.width - 1) << "\n";
-					std::cin >> userInputX;
-					if (userInputX < 0 || userInputX > factory.width - 1) {
-						std::cout << "Given X-position is out of range \n";
-						break;
+					error = true;
+					while (error) {
+						std::cout << "Give an X-postion within the range 0 to " << (factory.width - 1) << "\n";
+						std::cin >> userInputX;
+						if (userInputX < 0 || userInputX > factory.width - 1) {
+							std::cout << "Given X-position is out of range \n";
+							continue;
+						}
+						error = false;
 					}
-					std::cout << "Give a Y-postion within the range 0 to " << (factory.height - 1) << "\n";
-					std::cin >> userInputY;
-					if (userInputY < 0 || userInputY > factory.width - 1) {
-						std::cout << "Given Y-position is out of range \n";
-						break;
+
+					error = true;
+					while (error) {
+						std::cout << "Give a Y-postion within the range 0 to " << (factory.width - 1) << "\n";
+						std::cin >> userInputY;
+						if (userInputY < 0 || userInputY > factory.width - 1) {
+							std::cout << "Given Y-position is out of range \n";
+							continue;
+						}
+						error = false;
 					}
+
 					vehicleManager.addVehicle({ userInputX, userInputY }, 1);
 					break;
-				case 0:
-
+				case 0: /* Go back to main menu */
+					menuMode = 0;
+					break;
 				default:
-					std::cout << "Invalid input";
+					std::cout << "Invalid input \n";
 					break;
 				}
 				break;
 			case 3: /*Map Editor*/
 				std::cout << "--- Map Editor ---\n";
+				std::cout << "1. Place Wall \n";
+				std::cout << "2. Place DropOff \n";
+				std::cout << "3. Place Floor(Delete Wall/DropOff) \n"
+				std::cout << "0. Back \n";
+				std::cin >> subMenuMode;
+				switch (subMenuMode) {
+				case 1: /*Place Wall*/
+					error = true;
+					while (error) {
+						std::cout << "Give an X-postion within the range 0 to " << (factory.width - 1) << "\n";
+						std::cin >> userInputX;
+						if (userInputX < 0 || userInputX > factory.width - 1) {
+							std::cout << "Given X-position is out of range \n";
+							continue;
+						}
+						error = false;
+					}
+
+					error = true;
+					while (error) {
+						std::cout << "Give a Y-postion within the range 0 to " << (factory.width - 1) << "\n";
+						std::cin >> userInputY;
+						if (userInputY < 0 || userInputY > factory.width - 1) {
+							std::cout << "Given Y-position is out of range \n";
+							continue;
+						}
+						error = false;
+					}
+					factory.getPointOfInterest(userInputX, userInputY).setPointOfInterestType(pointOfInterestType::Wall);
+					break;
+				case 2:/*Place DropOff*/
+					error = true;
+					while (error) {
+						std::cout << "Give an X-postion within the range 0 to " << (factory.width - 1) << "\n";
+						std::cin >> userInputX;
+						if (userInputX < 0 || userInputX > factory.width - 1) {
+							std::cout << "Given X-position is out of range \n";
+							continue;
+						}
+						error = false;
+					}
+
+					error = true;
+					while (error) {
+						std::cout << "Give a Y-postion within the range 0 to " << (factory.width - 1) << "\n";
+						std::cin >> userInputY;
+						if (userInputY < 0 || userInputY > factory.width - 1) {
+							std::cout << "Given Y-position is out of range \n";
+							continue;
+						}
+						error = false;
+					}
+					factory.getPointOfInterest(userInputX, userInputY).setPointOfInterestType(pointOfInterestType::DropOff);
+					break;
+				case 3:/*Place Floor*/
+					error = true;
+					while (error) {
+						std::cout << "Give an X-postion within the range 0 to " << (factory.width - 1) << "\n";
+						std::cin >> userInputX;
+						if (userInputX < 0 || userInputX > factory.width - 1) {
+							std::cout << "Given X-position is out of range \n";
+							continue;
+						}
+						error = false;
+					}
+
+					error = true;
+					while (error) {
+						std::cout << "Give a Y-postion within the range 0 to " << (factory.width - 1) << "\n";
+						std::cin >> userInputY;
+						if (userInputY < 0 || userInputY > factory.width - 1) {
+							std::cout << "Given Y-position is out of range \n";
+							continue;
+						}
+						error = false;
+					}
+					factory.getPointOfInterest(userInputX, userInputY).setPointOfInterestType(pointOfInterestType::Floor);
+					break;
+				case 0:/*Break*/
+					menuMode = 0;
+					break;
+				default:
+					std::cout << "Invalid input \n";
+					break;
+				}
 				break;
 
 			case 4: /* Go */
