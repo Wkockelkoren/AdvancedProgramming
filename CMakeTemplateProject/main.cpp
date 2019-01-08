@@ -143,7 +143,8 @@ int main(){
 			vehicleManager.assignPathToVehicle(taskManager.getTaskList(), factory);
 
 			//Move all vehicles to the next place on the path
-			for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {
+
+			for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {        
 				try {
 					vehicleManager.getVehicles().at(i).moveNextPathPosition();
 				}

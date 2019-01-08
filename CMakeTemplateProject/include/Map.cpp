@@ -38,10 +38,10 @@ PointOfInterest& Map::getPointOfInterest(size_t x, size_t y) {
 
 
 	//Check wether the requested point is within the map
-	if (!(x < width) || !(x >= 0)) {
+	if (!(x < width)) {
 		throw std::runtime_error("Requested point of interest is not within the map - class Map getPointOfInterest()\n");
 	}
-	if (!(y < height) || !(y >= 0)) {
+	if (!(y < height)) {
 		throw std::runtime_error("Requested point of interest is not within the map - class Map getPointOfInterest()\n");
 	}
 
@@ -98,7 +98,7 @@ void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles) {
 				}
 			}
 
-			
+
 
 			if (v == false) { // If there is no vehicle on the current position, then we print the point of interest type
 				if (type == pointOfInterestType::Floor) {
