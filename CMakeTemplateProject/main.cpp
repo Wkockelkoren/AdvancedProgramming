@@ -69,17 +69,8 @@ int main(){
 	VehicleManager vehicleManager;
 	TaskManager taskManager;
 
-	// Create some tasks
-	taskManager.createTask({ 1,1 });
-	taskManager.createTask({ 5,1 });
-	taskManager.createTask({ 9,9 });
-	taskManager.createTask({ 2,9 });
-	taskManager.createTask({ 5,6 }, { 9,9 });
-
-	// Create some vehicles
-	vehicleManager.addVehicle({2,2}, 1);
-	//vehicleManager.addVehicle({5,2}, 1);
-	
+	//make vehicles
+	vehicleManager.addVehicle({9,9}, 1);	
 
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -95,7 +86,6 @@ int main(){
 		std::cout << e.what();
 	}
 
-
 	SDL_Window* mapWindow;
 	SDL_Surface* surface;
 	SDL_Renderer* renderer;
@@ -108,44 +98,149 @@ int main(){
 
 	/* Draw the Image on rendering surface */
 	size_t done = 0;
+	size_t menuMode = 0;
+	size_t subMenuMode = 0;
+	size_t userInputX = 0;
+	size_t userInputY = 0;
+	bool error = false;
+	bool Go = false;
 	while (!done) {
 
-		SDL_Event e;
-		while (SDL_PollEvent(&e)) {
+		if (Go == false) {
+			switch (menuMode) {
+			case 1: /* Task Manager*/
+				std::cout << "--- Task Manager ---\n";
+				std::cout << "Options:\n";
+				std::cout << "1. Add Task\n";
+				std::cout << "2. Back\n";
+				std::cin >> subMenuMode;
 
-			/* Re-create when window has been resized */
-			if ((e.type == SDL_WINDOWEVENT) && (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)) {
+				switch (subMenuMode) {
+				case 1: /* Add Task */
+					std::cout << "Add Task:\n";
 
-				SDL_DestroyRenderer(renderer);
+					error = true;
+					while (error) {
+						std::cout << "Give an X-position within the range 0 to " << (factory.width - 1) << ":\n";
+						std::cin >> userInputX;
+						if (userInputX < 0 || userInputX > factory.width - 1) {
+							std::cout << "Given X-position is out of range \n";
+							error = true;
+							continue;
+						}
+						error = false;
+					}
 
-				surface = SDL_GetWindowSurface(mapWindow);
-				renderer = SDL_CreateSoftwareRenderer(surface);
-				/* Clear the rendering surface with the specified color */
-				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-				SDL_RenderClear(renderer);
-			}
+					error = true;
+					while (error) {
+						std::cout << "Give an Y-position within the range 0 to " << (factory.height - 1) << ":\n";
+						std::cin >> userInputY;
+						if (userInputY < 0 || userInputY > factory.height - 1) {
+							std::cout << "Given Y-position is out of range \n";
+							error = true;
+							continue;
+						}
+						error = false;
+					}
 
-			if (e.type == SDL_QUIT) {
-				done = 1;
-				return 0;
-			}
 
-			if ((e.type == SDL_KEYDOWN) && (e.key.keysym.sym == SDLK_ESCAPE)) {
-				done = 1;
-				return 0;
+					taskManager.createTask({ userInputX, userInputY });
+
+					break;
+				case 2: /* Go back to main menu */
+					menuMode = 0;
+					break;
+				default:
+					menuMode = 1;
+					break;
+				}
+				break;
+
+			case 2: /* Vehicle Manager */
+				std::cout << "--- Vehicle Manager ---\n";
+				std::cout << "1. Add Vehicle \n";
+				std::cout << "0. Back \n";
+				std::cin >> subMenuMode;
+				switch (subMenuMode) {
+				case 1:
+					std::cout << "Give an X-postion within the range 0 to " << (factory.width - 1) << "\n";
+					std::cin >> userInputX;
+					if (userInputX < 0 || userInputX > factory.width - 1) {
+						std::cout << "Given X-position is out of range \n";
+						break;
+					}
+					std::cout << "Give a Y-postion within the range 0 to " << (factory.height - 1) << "\n";
+					std::cin >> userInputY;
+					if (userInputY < 0 || userInputY > factory.width - 1) {
+						std::cout << "Given Y-position is out of range \n";
+						break;
+					}
+					vehicleManager.addVehicle({ userInputX, userInputY }, 1);
+					break;
+				case 0:
+
+				default:
+					std::cout << "Invalid input";
+					break;
+				}
+				break;
+			case 3: /*Map Editor*/
+				std::cout << "--- Map Editor ---\n";
+				break;
+
+			case 4: /* Go */
+				std::cout << "--- Go ---\n";
+				Go = true;
+				break;
+
+			default: /* Main */
+				std::cout << "--- Main ---\n";
+				std::cout << "Select Menu Mode:\n";
+				std::cout << "1. Task Manager\n";
+				std::cout << "2. Vehicle Manager\n";
+				std::cout << "3. Map Editor\n";
+				std::cout << "4. Go\n";
+				std::cin >> menuMode;
+				break;
 			}
 		}
+		else {
+			SDL_Event e;
+			while (SDL_PollEvent(&e)) {
 
-		//program functions that are time based and need to be repeated
-		this_time = clock();
+				/* Re-create when window has been resized */
+				if ((e.type == SDL_WINDOWEVENT) && (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)) {
 
-		//every second the following if statement will be triggered
-		if ((this_time - last_time) >= 1000) {
-			last_time = this_time;
+					SDL_DestroyRenderer(renderer);
 
-			vehicleManager.assignPathToVehicle(taskManager.getTaskList(), factory);
+					surface = SDL_GetWindowSurface(mapWindow);
+					renderer = SDL_CreateSoftwareRenderer(surface);
+					/* Clear the rendering surface with the specified color */
+					SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+					SDL_RenderClear(renderer);
+				}
 
-			//Move all vehicles to the next place on the path
+				if (e.type == SDL_QUIT) {
+					done = 1;
+					return 0;
+				}
+
+				if ((e.type == SDL_KEYDOWN) && (e.key.keysym.sym == SDLK_ESCAPE)) {
+					done = 1;
+					return 0;
+				}
+			}
+
+			//program functions that are time based and need to be repeated
+			this_time = clock();
+
+			//every second the following if statement will be triggered
+			if ((this_time - last_time) >= 1000) {
+				last_time = this_time;
+
+				vehicleManager.assignPathToVehicle(taskManager.getTaskList(), factory);
+
+				//Move all vehicles to the next place on the path
 
 			for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {        
 				try {
