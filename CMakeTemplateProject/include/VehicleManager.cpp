@@ -268,6 +268,15 @@ std::vector<Position> VehicleManager::createPath(const Position startPosition, c
 	return generatedPath;
 }
 
+size_t VehicleManager::countVehicles() {
+	/** This function returns the number of vehicles
+	*/
+	size_t numberOfVehicles = 0;
+	for (size_t currentVehicle = 0; currentVehicle < listOfVehicles.size(); currentVehicle++) {
+		numberOfVehicles++;
+	}
+	return numberOfVehicles;
+}
 
 std::vector<Vehicle>& VehicleManager::getVehicles() {
 	return listOfVehicles;
