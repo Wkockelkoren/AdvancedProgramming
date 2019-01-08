@@ -27,9 +27,6 @@ private:
 	void addNewCoordinate(Map &map, const Coordinate newCoordinate, const Position endPosition, const size_t &iterator,
 		std::vector<Coordinate> &pathList, bool &startPointReached, bool &coordinateAdded, bool &existsAlready);
 
-	size_t countAvailableVehicles();
-
-
 public:
 	VehicleManager();
 
@@ -45,6 +42,9 @@ public:
 
 	std::vector<Position> createPath(const Position startPosition, const Position dropOff, Map &map);
 
+	size_t countVehicles();
+
+	size_t countAvailableVehicles();
 };
 
 #endif
