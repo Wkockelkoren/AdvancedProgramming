@@ -116,15 +116,18 @@ int main() {
 		if (Go == false) {
 			switch (menuMode) {
 			case 1: /* Task Manager*/
+
 				MenuTaskManager(&menuMode, factory, taskManager);
 				break;
 
 			case 2: /* Vehicle Manager */
 				MenuVehicleManager(&menuMode, factory, vehicleManager);
 				updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
+
 				break;
 			case 3: /*Map Editor*/
-				std::cout << "--- Map Editor ---\n";
+				MenuMapEditor(&menuMode, factory);
+				updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
 				break;
 
 			case 4: /* Go */

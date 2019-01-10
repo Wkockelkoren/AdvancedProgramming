@@ -70,6 +70,47 @@ void MenuVehicleManager(size_t* menuMode, Map& factory, VehicleManager& vehicleM
 	}
 }
 
+void MenuMapEditor(size_t* menuMode, Map& factory) {
+	size_t userInputX = 0;
+	size_t userInputY = 0;
+
+	std::cout << "--- Map Editor ---\n";
+	std::cout << "1. Place Wall \n";
+	std::cout << "2. Place DropOff \n";
+	std::cout << "3. Place Floor(Delete Wall/DropOff) \n";
+	std::cout << "4. Back \n";
+	size_t subMenuMode = MenuUserInput("Input", 1, 4);
+	switch (subMenuMode) {
+	case 1: /*Place Wall*/
+		std::cout << "Add Wall:\n";
+		userInputX = MenuUserInput("Give an X-position", 0, factory.width - 1);
+		userInputY = MenuUserInput("Give an Y-position", 0, factory.height - 1);
+		
+		factory.getPointOfInterest(userInputX, userInputY).setPointOfInterestType(pointOfInterestType::Wall);
+		break;
+	case 2:/*Place DropOff*/
+		std::cout << "Add DropOff:\n";
+		userInputX = MenuUserInput("Give an X-position", 0, factory.width - 1);
+		userInputY = MenuUserInput("Give an Y-position", 0, factory.height - 1);
+		
+		factory.getPointOfInterest(userInputX, userInputY).setPointOfInterestType(pointOfInterestType::DropOff);
+		break;
+	case 3:/*Place Floor*/
+		std::cout << "Add Floor:\n";
+		userInputX = MenuUserInput("Give an X-position", 0, factory.width - 1);
+		userInputY = MenuUserInput("Give an Y-position", 0, factory.height - 1);
+
+		factory.getPointOfInterest(userInputX, userInputY).setPointOfInterestType(pointOfInterestType::Floor);
+		break;
+	case 4:/*Back*/
+		*menuMode = 0;
+		break;
+	default:
+		std::cout << "Invalid input \n";
+		break;
+	}
+}
+
 size_t MenuUserInput(std::string text, size_t min, size_t max) {
 	bool error = true;
 	size_t input = 0;
