@@ -141,13 +141,17 @@ int main() {
 				MenuMapEditor(&menuMode, factory);
 				updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
 				break;
+			
+			case 4: /* Settings */
+				MenuSettings(&menuMode,vehicleManager);
+				break;
 
-			case 4: /* Go */
+			case 5: /* Go */
 				std::cout << "--- Go ---\n";
 				Go = true;
 				break;
 
-			case 5: /* Exit */
+			case 6: /* Exit */
 				done = 1;
 				return 0;
 

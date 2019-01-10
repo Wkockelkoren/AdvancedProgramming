@@ -6,9 +6,10 @@ void MenuMain(size_t* menuMode) {
 	std::cout << "1. Task Manager\n";
 	std::cout << "2. Vehicle Manager\n";
 	std::cout << "3. Map Editor\n";
-	std::cout << "4. Go\n";
-	std::cout << "5. Exit\n\n";
-	*menuMode = MenuUserInput("Input", 1, 5);
+	std::cout << "4. Settings\n";
+	std::cout << "5. Go\n";
+	std::cout << "6. Exit\n\n";
+	*menuMode = MenuUserInput("Input", 1, 6);
 }
 
 void MenuTaskManager(size_t* menuMode, Map& factory, TaskManager& taskManager){
@@ -110,6 +111,35 @@ void MenuMapEditor(size_t* menuMode, Map& factory) {
 		break;
 	default:
 		std::cout << "Invalid input \n";
+		break;
+	}
+}
+
+void MenuSettings(size_t* menuMode, VehicleManager& vehicleManager) {
+	size_t userInputX = 0;
+	std::cout << "--- Settings ---\n";
+	std::cout << "1. Choose Algorithm \n";
+	std::cout << "2. Back \n";
+	size_t subMenuMode = MenuUserInput("Input", 1, 2);
+	switch (subMenuMode) {
+	case 1: /*Choose Algorithm*/
+		std::cout << "1. Sample Algorithm \n";
+		std::cout << "2. A* (not implemented) \n";
+		std::cout << "3. Back \n";
+			userInputX = MenuUserInput("Input", 1, 3);
+			switch (userInputX) {
+			case 1: /*Sample Algorithm*/
+				vehicleManager.setAlgorithm(enumSampleAlgorithm);
+				break;
+			case 2: /* A* */
+				vehicleManager.setAlgorithm(enumAstar);
+				break;
+			case 3: /*Back*/
+				*menuMode = 0;
+				break;
+			}
+	case 2: /* Back*/
+		*menuMode = 0;
 		break;
 	}
 }

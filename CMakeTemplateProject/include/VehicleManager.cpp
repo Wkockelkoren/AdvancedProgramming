@@ -4,7 +4,7 @@ Generates paths and assigns it to a vehicle when the Go button is pressed.
 */
 
 VehicleManager::VehicleManager(){
-
+	currentAlgorithm = enumSampleAlgorithm;
 }
 
 VehicleManager::~VehicleManager(){
@@ -48,9 +48,8 @@ size_t VehicleManager::countAvailableVehicles() {
 	return numberOfAvailableVehicles;
 }
 
-std::vector<Position> VehicleManager::getPathFromAlgorithm(Position startPosition, Position goalPosition, Map &map, AlgorithmChoice algorithmChoice) {
-
-	switch (algorithmChoice) {
+std::vector<Position> VehicleManager::getPathFromAlgorithm(Position startPosition, Position goalPosition, Map &map) {
+	switch (currentAlgorithm) {
 	case enumAstar:
 		std::cout << "A* has not yet been implemented." <<
 			std::endl << "Sample Algorithm will be chosen. " << std::endl;
@@ -96,21 +95,21 @@ void VehicleManager::assignPathToVehicle(std::vector<Task> &currentTasks, Map &m
 			getAvailableVehicle().setTask(currentTasks.front());
 
 			if (getAvailableVehicle().hasStartPosition()) {
-				generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), currentTasks.front().startPosition, map, enumSampleAlgorithm);
+				generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), currentTasks.front().startPosition, map);
 			}
 			else{
-				generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), currentTasks.front().goalPosition, map, enumSampleAlgorithm);
+				generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), currentTasks.front().goalPosition, map);
 				std::cout << "has no start position\n";
 			}
 			currentTasks.erase(currentTasks.begin());
 		}
 		else if (availableVehicle.isAtTaskStartPosition()) {
 			//move to goal position of current task
-			generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), availableVehicle.getTask()->goalPosition, map, enumSampleAlgorithm);
+			generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), availableVehicle.getTask()->goalPosition, map);
 		}
 		else {
 			//move to start position of current task
-			generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), availableVehicle.getTask()->startPosition, map, enumSampleAlgorithm);
+			generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), availableVehicle.getTask()->startPosition, map);
 		}
 
 		getAvailableVehicle().setPath(generatedPath);
@@ -134,6 +133,9 @@ std::vector<Vehicle>& VehicleManager::getVehicles() {
 	return listOfVehicles;
 }
 
+void VehicleManager::setAlgorithm(AlgorithmChoice algorithmChoice) {
+	currentAlgorithm = algorithmChoice;
+}
 
 bool VehicleManager::allVehiclesAtGoalPosition() {
 	for (Vehicle vehicle : listOfVehicles) {

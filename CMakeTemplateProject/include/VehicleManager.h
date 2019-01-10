@@ -13,6 +13,7 @@ class VehicleManager{
 	*/
 private:
 	std::vector<Vehicle> listOfVehicles;
+	AlgorithmChoice currentAlgorithm;
 	SampleAlgorithm sampleAlgorithm;
 
 public:
@@ -27,9 +28,11 @@ public:
 
 	Vehicle& getAvailableVehicle();
 
-	std::vector<Position> VehicleManager::getPathFromAlgorithm(Position startPosition, Position goalPosition, Map &map, AlgorithmChoice algorithmChoice);
+	std::vector<Position> VehicleManager::getPathFromAlgorithm(Position startPosition, Position goalPosition, Map &map);
 
 	std::vector<Vehicle>& getVehicles();
+
+	void setAlgorithm(AlgorithmChoice algorithmChoice);
 
 	size_t countVehicles();
 
