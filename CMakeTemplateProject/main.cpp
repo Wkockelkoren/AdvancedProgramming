@@ -49,10 +49,23 @@
 #include "Structures.h"
 #include "Vehicle.h"
 #include "Window.h"
+#include "Menu.h"
 #include "SDL.h"
 #include "time.h"
 
-int main(){
+#ifdef _WIN32 /* Windows */
+#include <windows.h>
+#endif
+
+#ifdef __linux__ /* Linux */
+
+#endif
+
+#ifdef __APPLE__ /* MacOS */
+
+#endif
+
+int main() {
 
 	/**
 	Unbelievebly great.
@@ -61,17 +74,12 @@ int main(){
 	// Timing stuff
 	clock_t this_time = clock();
 	clock_t last_time = this_time;
-	//
 
-
+	// Creating the managers and map
 	Map factory(10, 10);
 	VehicleManager vehicleManager;
 	TaskManager taskManager;
-
-	//make vehicles
-	vehicleManager.addVehicle({9,9}, 1);
-	
-
+  
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
 		factory.getPointOfInterest(9, 5).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -94,190 +102,34 @@ int main(){
 	if (!loadWindow(&mapWindow, 640, 480, &surface, &renderer))
 		return 0;
 
+	/* Load initial screen/map */
+	updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
+
+	HWND consoleWindow = GetConsoleWindow();
+
+	SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+
 	/* Draw the Image on rendering surface */
 	size_t done = 0;
 	size_t menuMode = 0;
-	size_t subMenuMode = 0;
-	size_t userInputX = 0;
-	size_t userInputY = 0;
-	bool error = false;
 	bool Go = false;
 	while (!done) {
 
 		if (Go == false) {
 			switch (menuMode) {
 			case 1: /* Task Manager*/
-				std::cout << "--- Task Manager ---\n";
-				std::cout << "Options:\n";
-				std::cout << "1. Add Task\n";
-				std::cout << "2. Back\n";
-				std::cin >> subMenuMode;
 
-				switch (subMenuMode) {
-				case 1: /* Add Task */
-					std::cout << "Add Task:\n";
-
-					error = true;
-					while (error) {
-						std::cout << "Give an X-position within the range 0 to " << (factory.width - 1) << ":\n";
-						std::cin >> userInputX;
-						if (userInputX < 0 || userInputX > factory.width - 1) {
-							std::cout << "Given X-position is out of range \n";
-							continue;
-						}
-						error = false;
-					}
-
-					error = true;
-					while (error) {
-						std::cout << "Give an Y-position within the range 0 to " << (factory.height - 1) << ":\n";
-						std::cin >> userInputY;
-						if (userInputY < 0 || userInputY > factory.height - 1) {
-							std::cout << "Given Y-position is out of range \n";
-							continue;
-						}
-						error = false;
-					}
-
-
-					taskManager.createTask({ userInputX, userInputY });
-
-					break;
-				case 2: /* Go back to main menu */
-					menuMode = 0;
-					break;
-				default:
-					menuMode = 1;
-					break;
-				}
+				MenuTaskManager(&menuMode, factory, taskManager);
 				break;
 
 			case 2: /* Vehicle Manager */
-				std::cout << "--- Vehicle Manager ---\n";
-				std::cout << "1. Add Vehicle \n";
-				std::cout << "0. Back \n";
-				std::cin >> subMenuMode;
-				switch (subMenuMode) {
-				case 1:
-					error = true;
-					while (error) {
-						std::cout << "Give an X-postion within the range 0 to " << (factory.width - 1) << "\n";
-						std::cin >> userInputX;
-						if (userInputX < 0 || userInputX > factory.width - 1) {
-							std::cout << "Given X-position is out of range \n";
-							continue;
-						}
-						error = false;
-					}
+				MenuVehicleManager(&menuMode, factory, vehicleManager);
+				updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
 
-					error = true;
-					while (error) {
-						std::cout << "Give a Y-postion within the range 0 to " << (factory.width - 1) << "\n";
-						std::cin >> userInputY;
-						if (userInputY < 0 || userInputY > factory.width - 1) {
-							std::cout << "Given Y-position is out of range \n";
-							continue;
-						}
-						error = false;
-					}
-
-					vehicleManager.addVehicle({ userInputX, userInputY }, 1);
-					break;
-				case 0: /* Go back to main menu */
-					menuMode = 0;
-					break;
-				default:
-					std::cout << "Invalid input \n";
-					break;
-				}
 				break;
 			case 3: /*Map Editor*/
-				std::cout << "--- Map Editor ---\n";
-				std::cout << "1. Place Wall \n";
-				std::cout << "2. Place DropOff \n";
-				std::cout << "3. Place Floor(Delete Wall/DropOff) \n";
-				std::cout << "0. Back \n";
-				std::cin >> subMenuMode;
-				switch (subMenuMode) {
-				case 1: /*Place Wall*/
-					error = true;
-					while (error) {
-						std::cout << "Give an X-postion within the range 0 to " << (factory.width - 1) << "\n";
-						std::cin >> userInputX;
-						if (userInputX < 0 || userInputX > factory.width - 1) {
-							std::cout << "Given X-position is out of range \n";
-							continue;
-						}
-						error = false;
-					}
-
-					error = true;
-					while (error) {
-						std::cout << "Give a Y-postion within the range 0 to " << (factory.width - 1) << "\n";
-						std::cin >> userInputY;
-						if (userInputY < 0 || userInputY > factory.width - 1) {
-							std::cout << "Given Y-position is out of range \n";
-							continue;
-						}
-						error = false;
-					}
-					factory.getPointOfInterest(userInputX, userInputY).setPointOfInterestType(pointOfInterestType::Wall);
-					break;
-				case 2:/*Place DropOff*/
-					error = true;
-					while (error) {
-						std::cout << "Give an X-postion within the range 0 to " << (factory.width - 1) << "\n";
-						std::cin >> userInputX;
-						if (userInputX < 0 || userInputX > factory.width - 1) {
-							std::cout << "Given X-position is out of range \n";
-							continue;
-						}
-						error = false;
-					}
-
-					error = true;
-					while (error) {
-						std::cout << "Give a Y-postion within the range 0 to " << (factory.width - 1) << "\n";
-						std::cin >> userInputY;
-						if (userInputY < 0 || userInputY > factory.width - 1) {
-							std::cout << "Given Y-position is out of range \n";
-							continue;
-						}
-						error = false;
-					}
-					factory.getPointOfInterest(userInputX, userInputY).setPointOfInterestType(pointOfInterestType::DropOff);
-					break;
-				case 3:/*Place Floor*/
-					error = true;
-					while (error) {
-						std::cout << "Give an X-postion within the range 0 to " << (factory.width - 1) << "\n";
-						std::cin >> userInputX;
-						if (userInputX < 0 || userInputX > factory.width - 1) {
-							std::cout << "Given X-position is out of range \n";
-							continue;
-						}
-						error = false;
-					}
-
-					error = true;
-					while (error) {
-						std::cout << "Give a Y-postion within the range 0 to " << (factory.width - 1) << "\n";
-						std::cin >> userInputY;
-						if (userInputY < 0 || userInputY > factory.width - 1) {
-							std::cout << "Given Y-position is out of range \n";
-							continue;
-						}
-						error = false;
-					}
-					factory.getPointOfInterest(userInputX, userInputY).setPointOfInterestType(pointOfInterestType::Floor);
-					break;
-				case 0:/*Back*/
-					menuMode = 0;
-					break;
-				default:
-					std::cout << "Invalid input \n";
-					break;
-				}
+				MenuMapEditor(&menuMode, factory);
+				updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
 				break;
 
 			case 4: /* Go */
@@ -286,13 +138,7 @@ int main(){
 				break;
 
 			default: /* Main */
-				std::cout << "--- Main ---\n";
-				std::cout << "Select Menu Mode:\n";
-				std::cout << "1. Task Manager\n";
-				std::cout << "2. Vehicle Manager\n";
-				std::cout << "3. Map Editor\n";
-				std::cout << "4. Go\n";
-				std::cin >> menuMode;
+				MenuMain(&menuMode);
 				break;
 			}
 		}
@@ -337,28 +183,21 @@ int main(){
 				for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {
 					try {
 						vehicleManager.getVehicles().at(i).moveNextPathPosition();
+						std::cout << "Move next position\n";
 					}
 					catch (std::exception const& e) {
 						std::cout << e.what();
 					}
 				}
-			}
 
-			try {
-				factory.printMap(renderer, vehicleManager.getVehicles());
+				//Screen is updated after making changes
+				updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
 			}
-			catch (std::exception const& e) {
-				std::cout << e.what();
-			}
-
-			/* Got everything on rendering surface,
-			now Update the drawing image on window screen */
-			SDL_UpdateWindowSurface(mapWindow);
 		}
 	}
 
 	SDL_DestroyWindow(mapWindow);
 	SDL_Quit();
-
+    
 	return 0;
 }
