@@ -1,41 +1,137 @@
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/TaskManager.cpp: In member function ‘void TaskManager::createTask(Position)’:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/TaskManager.cpp:23:35: error: converting to non-pointer type ‘size_t {aka long unsigned int}’ from NULL [-Werror=conversion-null]
+  task.startPosition = { NULL,NULL };
+                                   ^
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/TaskManager.cpp:23:35: error: converting to non-pointer type ‘size_t {aka long unsigned int}’ from NULL [-Werror=conversion-null]
+cc1plus: all warnings being treated as errors
+CMakeFiles/PathPlanner.dir/build.make:110: recipe for target 'CMakeFiles/PathPlanner.dir/include/TaskManager.cpp.o' failed
+make[2]: *** [CMakeFiles/PathPlanner.dir/include/TaskManager.cpp.o] Error 1
+make[2]: *** Waiting for unfinished jobs....
 In file included from /home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.cpp:3:0:
-/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.h: In constructor ‘PointOfInterest::PointOfInterest(size_t, size_t, pointOfInterestType, bool)’:
-/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.h:13:9: error: ‘PointOfInterest::y’ will be initialized after [-Werror=reorder]
-  size_t y;
-         ^
-/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.h:9:22: error:   ‘pointOfInterestType PointOfInterest::type’ [-Werror=reorder]
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.h: In constructor ‘PointOfInterest::PointOfInterest(Position, pointOfInterestType, bool)’:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.h:13:22: error: ‘PointOfInterest::type’ will be initialized after [-Werror=reorder]
   pointOfInterestType type;
                       ^~~~
-/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.cpp:5:1: error:   when initialized here [-Werror=reorder]
- PointOfInterest::PointOfInterest(size_t x, size_t y, pointOfInterestType type, bool obstacle) : x(x), y(y), type(type), isObstacle(obstacle) {
- ^~~~~~~~~~~~~~~
-In file included from /home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.cpp:3:0:
-/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.h:9:22: error: ‘PointOfInterest::type’ will be initialized after [-Werror=reorder]
-  pointOfInterestType type;
-                      ^~~~
-/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.h:8:7: error:   ‘bool PointOfInterest::isObstacle’ [-Werror=reorder]
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.h:12:7: error:   ‘bool PointOfInterest::isObstacle’ [-Werror=reorder]
   bool isObstacle;
        ^~~~~~~~~~
-/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.cpp:5:1: error:   when initialized here [-Werror=reorder]
- PointOfInterest::PointOfInterest(size_t x, size_t y, pointOfInterestType type, bool obstacle) : x(x), y(y), type(type), isObstacle(obstacle) {
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/PointOfInterest.cpp:11:1: error:   when initialized here [-Werror=reorder]
+ PointOfInterest::PointOfInterest(Position pos, pointOfInterestType type, bool obstacle) : position(pos), type(type), isObstacle(obstacle) {
  ^~~~~~~~~~~~~~~
 cc1plus: all warnings being treated as errors
-CMakeFiles/PathPlanner.dir/build.make:134: recipe for target 'CMakeFiles/PathPlanner.dir/include/PointOfInterest.cpp.o' failed
+CMakeFiles/PathPlanner.dir/build.make:182: recipe for target 'CMakeFiles/PathPlanner.dir/include/PointOfInterest.cpp.o' failed
 make[2]: *** [CMakeFiles/PathPlanner.dir/include/PointOfInterest.cpp.o] Error 1
-make[2]: *** Waiting for unfinished jobs....
-/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Map.cpp: In member function ‘PointOfInterest& Map::getPointOfInterest(size_t, size_t)’:
-/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Map.cpp:43:26: error: comparison of unsigned expression >= 0 is always true [-Werror=type-limits]
-  if (!(x < width) || !(x >= 0)) {
-                        ~~^~~~
-/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Map.cpp:46:27: error: comparison of unsigned expression >= 0 is always true [-Werror=type-limits]
-  if (!(y < height) || !(y >= 0)) {
-                         ~~^~~~
-/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/VehicleManager.cpp: In member function ‘std::vector<Coordinate> VehicleManager::calculateListOfPaths(Map&, Position, Position)’:
-/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/VehicleManager.cpp:106:30: error: comparison of unsigned expression >= 0 is always true [-Werror=type-limits]
-      if ((pathList[i].x - 1) >= 0) { //check if coordinate is not higher than the upper boundary (lower boundary = 0)
-          ~~~~~~~~~~~~~~~~~~~~^~~~
-/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/VehicleManager.cpp:113:30: error: comparison of unsigned expression >= 0 is always true [-Werror=type-limits]
-      if ((pathList[i].y - 1) >= 0) { //check if coordinate is not higher than the upper boundary (lower boundary = 0)
-          ~~~~~~~~~~~~~~~~~~~~^~~~
+In file included from /home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/main.cpp:46:0:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Map.h:14:7: error: ‘unique_ptr’ in namespace ‘std’ does not name a template type
+  std::unique_ptr<PointOfInterest[]> map;
+       ^~~~~~~~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/main.cpp: In function ‘int main()’:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/main.cpp:104:2: error: ‘HWND’ was not declared in this scope
+  HWND consoleWindow = GetConsoleWindow();
+  ^~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/main.cpp:106:15: error: ‘consoleWindow’ was not declared in this scope
+  SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+               ^~~~~~~~~~~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/main.cpp:106:15: note: suggested alternative: ‘loadWindow’
+  SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+               ^~~~~~~~~~~~~
+               loadWindow
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/main.cpp:106:48: error: ‘SWP_NOSIZE’ was not declared in this scope
+  SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+                                                ^~~~~~~~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/main.cpp:106:48: note: suggested alternative: ‘_T_SIZE’
+  SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+                                                ^~~~~~~~~~
+                                                _T_SIZE
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/main.cpp:106:61: error: ‘SWP_NOZORDER’ was not declared in this scope
+  SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+                                                             ^~~~~~~~~~~~
+In file included from /home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Menu.h:4:0,
+                 from /home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Menu.cpp:3:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Map.h:14:7: error: ‘unique_ptr’ in namespace ‘std’ does not name a template type
+  std::unique_ptr<PointOfInterest[]> map;
+       ^~~~~~~~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/main.cpp:106:61: note: suggested alternative: ‘SDL_BYTEORDER’
+  SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+                                                             ^~~~~~~~~~~~
+                                                             SDL_BYTEORDER
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/main.cpp:106:2: error: ‘SetWindowPos’ was not declared in this scope
+  SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+  ^~~~~~~~~~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/main.cpp:106:2: note: suggested alternative: ‘mapWindow’
+  SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+  ^~~~~~~~~~~~
+  mapWindow
+In file included from /home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Window.h:5:0,
+                 from /home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Window.cpp:3:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Map.h:14:7: error: ‘unique_ptr’ in namespace ‘std’ does not name a template type
+  std::unique_ptr<PointOfInterest[]> map;
+       ^~~~~~~~~~
+In file included from /home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Vehicle.cpp:4:0:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Map.h:14:7: error: ‘unique_ptr’ in namespace ‘std’ does not name a template type
+  std::unique_ptr<PointOfInterest[]> map;
+       ^~~~~~~~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Vehicle.cpp: In constructor ‘Vehicle::Vehicle(Position, size_t)’:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Vehicle.cpp:17:36: error: converting to non-pointer type ‘size_t {aka long unsigned int}’ from NULL [-Werror=conversion-null]
+  task.startPosition = { NULL, NULL };
+                                    ^
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Vehicle.cpp:17:36: error: converting to non-pointer type ‘size_t {aka long unsigned int}’ from NULL [-Werror=conversion-null]
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Vehicle.cpp:18:35: error: converting to non-pointer type ‘size_t {aka long unsigned int}’ from NULL [-Werror=conversion-null]
+  task.goalPosition = { NULL, NULL };
+                                   ^
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Vehicle.cpp:18:35: error: converting to non-pointer type ‘size_t {aka long unsigned int}’ from NULL [-Werror=conversion-null]
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Vehicle.cpp: In member function ‘bool Vehicle::isAtTaskGoalPosition()’:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Vehicle.cpp:120:29: error: NULL used in arithmetic [-Werror=pointer-arith]
+  if (task.goalPosition.x == NULL && task.goalPosition.y == NULL) {
+                             ^~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Vehicle.cpp:120:60: error: NULL used in arithmetic [-Werror=pointer-arith]
+  if (task.goalPosition.x == NULL && task.goalPosition.y == NULL) {
+                                                            ^~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Vehicle.cpp: In member function ‘bool Vehicle::hasStartPosition()’:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Vehicle.cpp:140:30: error: NULL used in arithmetic [-Werror=pointer-arith]
+  if (task.startPosition.x == NULL && task.startPosition.y == NULL) {
+                              ^~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Vehicle.cpp:140:62: error: NULL used in arithmetic [-Werror=pointer-arith]
+  if (task.startPosition.x == NULL && task.startPosition.y == NULL) {
+                                                              ^~~~
+In file included from /home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/VehicleManager.h:6:0,
+                 from /home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/VehicleManager.cpp:1:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Map.h:14:7: error: ‘unique_ptr’ in namespace ‘std’ does not name a template type
+  std::unique_ptr<PointOfInterest[]> map;
+       ^~~~~~~~~~
+In file included from /home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/SampleAlgorithm.h:6:0,
+                 from /home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/SampleAlgorithm.cpp:1:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Map.h:14:7: error: ‘unique_ptr’ in namespace ‘std’ does not name a template type
+  std::unique_ptr<PointOfInterest[]> map;
+       ^~~~~~~~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/SampleAlgorithm.cpp: In member function ‘std::vector<Position> SampleAlgorithm::getSinglePath(std::vector<Coordinate>&, Position)’:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/SampleAlgorithm.cpp:115:43: error: converting to non-pointer type ‘size_t {aka long unsigned int}’ from NULL [-Werror=conversion-null]
+  Position currentPosition = { NULL , NULL };
+                                           ^
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/SampleAlgorithm.cpp:115:43: error: converting to non-pointer type ‘size_t {aka long unsigned int}’ from NULL [-Werror=conversion-null]
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Menu.cpp: In function ‘void MenuVehicleManager(size_t*, Map&, VehicleManager&)’:
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Menu.cpp:62:28: error: this statement may fall through [-Werror=implicit-fallthrough=]
+   vehicleManager.addVehicle({ userInputX, userInputY }, 1);
+   ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/jacco/Documents/Git/AdvancedProgramming/CMakeTemplateProject/include/Menu.cpp:64:2: note: here
+  case 2: /* Go back to main menu */
+  ^~~~
 cc1plus: all warnings being treated as errors
-
+CMakeFiles/PathPlanner.dir/build.make:254: recipe for target 'CMakeFiles/PathPlanner.dir/include/Menu.cpp.o' failed
+make[2]: *** [CMakeFiles/PathPlanner.dir/include/Menu.cpp.o] Error 1
+cc1plus: all warnings being treated as errors
+CMakeFiles/PathPlanner.dir/build.make:62: recipe for target 'CMakeFiles/PathPlanner.dir/main.cpp.o' failed
+make[2]: *** [CMakeFiles/PathPlanner.dir/main.cpp.o] Error 1
+CMakeFiles/PathPlanner.dir/build.make:206: recipe for target 'CMakeFiles/PathPlanner.dir/include/Vehicle.cpp.o' failed
+make[2]: *** [CMakeFiles/PathPlanner.dir/include/Vehicle.cpp.o] Error 1
+cc1plus: all warnings being treated as errors
+CMakeFiles/PathPlanner.dir/build.make:230: recipe for target 'CMakeFiles/PathPlanner.dir/include/Window.cpp.o' failed
+make[2]: *** [CMakeFiles/PathPlanner.dir/include/Window.cpp.o] Error 1
+CMakeFiles/PathPlanner.dir/build.make:134: recipe for target 'CMakeFiles/PathPlanner.dir/include/SampleAlgorithm.cpp.o' failed
+make[2]: *** [CMakeFiles/PathPlanner.dir/include/SampleAlgorithm.cpp.o] Error 1
+CMakeFiles/PathPlanner.dir/build.make:158: recipe for target 'CMakeFiles/PathPlanner.dir/include/VehicleManager.cpp.o' failed
+make[2]: *** [CMakeFiles/PathPlanner.dir/include/VehicleManager.cpp.o] Error 1
+CMakeFiles/Makefile2:67: recipe for target 'CMakeFiles/PathPlanner.dir/all' failed
+make[1]: *** [CMakeFiles/PathPlanner.dir/all] Error 2
+Makefile:83: recipe for target 'all' failed
+make: *** [all] Error 2
