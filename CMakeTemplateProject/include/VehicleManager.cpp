@@ -194,15 +194,13 @@ std::vector<Position> VehicleManager::getSinglePath(std::vector<Coordinate> &pat
 Vehicle& VehicleManager::getAvailableVehicle() {
 	/** This function searches for a vehicle that is not working and returns it
 	*/
-	//std::vector<Vehicle> availableVehicles;
-	//std::vector<Position> generatedPath;
 	size_t numberOfVehicles = listOfVehicles.size();
 
 	//check how many vehicles are available
 	for (size_t currentVehicle = 0; currentVehicle < numberOfVehicles; currentVehicle++) {
 		if (listOfVehicles[currentVehicle].checkIfWorking() == false) {
 			Vehicle& availableVehicle = listOfVehicles[currentVehicle];
-			return availableVehicle;  // listOfVehicles[currentVehicle];
+			return availableVehicle;
 		}
 	}
 	//return should have an been triggered in the for loop. Otherwise the countAvailableVehicles was not used before.
@@ -245,12 +243,36 @@ void VehicleManager::assignPathToVehicle( std::vector<Task> &currentTasks, Map &
 			std::cout << e.what();
 		}
 
-		std::vector<Position> generatedPath = createPath(availableVehicle.getPosition(), currentTasks.front().goalPosition, map);
+		std::vector<Position> generatedPath;
+
+		if (availableVehicle.isAtTaskGoalPosition()) {
+			//get new task en create path to start position
+			getAvailableVehicle().setTask(currentTasks.front());
+
+			if (getAvailableVehicle().hasStartPosition()) {
+				generatedPath = createPath(availableVehicle.getPosition(), currentTasks.front().startPosition, map);
+			}
+			else{
+				generatedPath = createPath(availableVehicle.getPosition(), currentTasks.front().goalPosition, map);
+				std::cout << "has no start position\n";
+			}
+			currentTasks.erase(currentTasks.begin());
+		}
+		else if (availableVehicle.isAtTaskStartPosition()) {
+			//move to goal position of current task
+			generatedPath = createPath(availableVehicle.getPosition(), availableVehicle.getTask()->goalPosition, map);
+		}
+		else {
+			//move to start position of current task
+			generatedPath = createPath(availableVehicle.getPosition(), availableVehicle.getTask()->startPosition, map);
+		}
+
+		//Task task = currentTasks.front();
 		
+
 		getAvailableVehicle().setPath(generatedPath);
 
 		numberOfAvailableVehicles--;
-		currentTasks.erase(currentTasks.begin());
 	}
 }
 
