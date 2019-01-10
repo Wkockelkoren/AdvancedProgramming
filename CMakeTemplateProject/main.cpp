@@ -56,10 +56,6 @@ void updateScreen(SDL_Renderer *renderer, SDL_Window *mapWindow, Map &map, std::
 
 int main() {
 
-	/**
-	Unbelievebly great.
-	*/
-
 	// Timing stuff
 	clock_t this_time = clock();
 	clock_t last_time = this_time;
