@@ -48,10 +48,6 @@ void MenuTaskManager(size_t* menuMode, Map& factory, TaskManager& taskManager){
 
 			taskManager.createTask({ userInputX, userInputY });
 		}
-		if (userInputStart != 1 && userInputStart != 2) {
-			std::cout << "Invalid input\n";
-		}
-
 		break;
 	case 2: /* Print all tasks*/
 		taskManager.printTasks();
