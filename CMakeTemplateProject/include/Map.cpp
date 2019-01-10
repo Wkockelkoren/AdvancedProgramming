@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <memory>
 #include "Map.h"
 #include "PointOfInterest.h"
 #include "Vehicle.h"
@@ -8,12 +9,18 @@
 /**
 	Contains the classes Map and PointOfInterest.
 */
-Map::Map(size_t width, size_t height) : width(width), height(height) {
+Map::Map(const size_t width,const size_t height) : width(width), height(height) {
 	/**
 	Constructor for map
 	*/
-	map = new PointOfInterest[width*height];
-
+	class Test {
+	public:
+		int x;
+		int y;
+	};
+	//map = new PointOfInterest[width*height];
+	map = std::make_unique<PointOfInterest[]>(width*height);
+	
 	// Iterate over each position and fill in the coordinates in the point of interest
 	for (size_t y = 0; y < height; y++) {
 		for (size_t x = 0; x < width; x++) {
@@ -26,8 +33,6 @@ Map::~Map() {
 	/**
 	Destructor for map
 	*/
-
-	delete[] map;
 }
 
 

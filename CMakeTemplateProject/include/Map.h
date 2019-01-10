@@ -11,7 +11,7 @@
 
 class Map {
 private:
-	PointOfInterest *map;
+	std::unique_ptr<PointOfInterest[]> map;
 
 public:
 	const size_t width;

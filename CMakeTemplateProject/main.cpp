@@ -54,7 +54,7 @@
 
 void updateScreen(SDL_Renderer *renderer, SDL_Window *mapWindow, Map &map, std::vector<Vehicle> vehicles);
 
-int main(){
+int main() {
 
 	/**
 	Unbelievebly great.
@@ -70,7 +70,7 @@ int main(){
 	TaskManager taskManager;
 
 	//make vehicles
-	vehicleManager.addVehicle({9,9}, 1);	
+	vehicleManager.addVehicle({ 9,9 }, 1);
 
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -242,27 +242,27 @@ int main(){
 
 				//Move all vehicles to the next place on the path
 
-			for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {        
-				try {
-					vehicleManager.getVehicles().at(i).moveNextPathPosition();
-					std::cout << "Move next position\n" ;
+				for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {
+					try {
+						vehicleManager.getVehicles().at(i).moveNextPathPosition();
+						std::cout << "Move next position\n";
+					}
+					catch (std::exception const& e) {
+						std::cout << e.what();
+					}
 				}
-				catch (std::exception const& e) {
-					std::cout << e.what();
-				}
+
+				//Screen is updated after making changes
+				updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
 			}
-			
-			//Screen is updated after making changes
-			updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
 		}
+
+		SDL_DestroyWindow(mapWindow);
+		SDL_Quit();
+
+		return 0;
 	}
-
-	SDL_DestroyWindow(mapWindow);
-	SDL_Quit();
-
-	return 0;
 }
-
 
 void updateScreen(SDL_Renderer *renderer, SDL_Window *mapWindow, Map &map, std::vector<Vehicle> vehicles) {
 	try {
