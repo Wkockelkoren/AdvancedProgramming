@@ -14,8 +14,8 @@
 */
 
 Vehicle::Vehicle(Position pos, size_t maxSpeed) : position(pos), maxSpeed(maxSpeed) {
-	task.startPosition = { NULL, NULL };
-	task.goalPosition = { NULL, NULL };
+	task.startPosition = { SIZE_MAX, SIZE_MAX };
+	task.goalPosition = { SIZE_MAX, SIZE_MAX };
 }
 
 
@@ -115,7 +115,7 @@ void Vehicle::setTask(Task task1) {
 
 bool Vehicle::isAtTaskGoalPosition() {
 	//no task assigned
-	if (task.goalPosition.x == NULL && task.goalPosition.y == NULL) {
+	if (task.goalPosition.x == SIZE_MAX && task.goalPosition.y == SIZE_MAX) {
 		return true;
 	}
 	//previous task completed
@@ -135,7 +135,7 @@ bool Vehicle::isAtTaskStartPosition() {
 
 
 bool Vehicle::hasStartPosition() {
-	if (task.startPosition.x == NULL && task.startPosition.y == NULL) {
+	if (task.startPosition.x == SIZE_MAX && task.startPosition.y == SIZE_MAX) {
 		return false;
 	}
 	return true;

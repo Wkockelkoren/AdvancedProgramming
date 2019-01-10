@@ -46,6 +46,7 @@
 #include "Map.h"
 #include "TaskManager.h"
 #include "VehicleManager.h"
+#include "SampleAlgorithm.h"
 #include "Structures.h"
 #include "Vehicle.h"
 #include "Window.h"
@@ -66,10 +67,6 @@
 #endif
 
 int main() {
-
-	
-
-
 	// Timing stuff
 	clock_t this_time = clock();
 	clock_t last_time = this_time;
@@ -78,12 +75,11 @@ int main() {
 	Map factory(10, 10);
 	VehicleManager vehicleManager;
 	TaskManager taskManager;
-  
+
 	//for testing purposes
 	vehicleManager.addVehicle({ 1,1 }, 1);
-	taskManager.createTask({ 0,0 });
-	taskManager.createTask({ 1,5 });
-
+	taskManager.createTask({ 0,6 });
+	taskManager.createTask({ 0,0 }, { 0,4 });
 
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);

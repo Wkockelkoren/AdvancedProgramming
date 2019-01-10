@@ -14,7 +14,7 @@ public:
 	~TaskManager();
 
 	void createTask(Position goalPosition);
-	//init null
+	//init size_max
 
 	void createTask(Position startPosition, Position goalPosition);
 	
