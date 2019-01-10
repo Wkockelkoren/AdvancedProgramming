@@ -138,9 +138,17 @@ void MenuSettings(size_t* menuMode, VehicleManager& vehicleManager) {
 			case 3: /*Back*/
 				*menuMode = 0;
 				break;
+			default:
+				std::cout << "Invalid input \n";
+				break;
 			}
+
 	case 2: /* Back*/
 		*menuMode = 0;
+		break;
+
+	default:
+		std::cout << "Invalid input \n";
 		break;
 	}
 }
