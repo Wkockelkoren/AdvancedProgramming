@@ -75,6 +75,9 @@ void VehicleManager::assignPathToVehicle( std::vector<Task> &currentTasks, Map &
 
 		if (availableVehicle.isAtTaskGoalPosition()) {
 			//get new task en create path to start position
+			if (currentTasks.size() == 0) {
+				break;
+			}
 			getAvailableVehicle().setTask(currentTasks.front());
 
 			if (getAvailableVehicle().hasStartPosition()) {
