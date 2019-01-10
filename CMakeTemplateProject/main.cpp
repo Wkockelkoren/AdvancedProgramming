@@ -190,6 +190,8 @@ int main() {
 
 		SDL_DestroyWindow(mapWindow);
 		SDL_Quit();
-    
-	return 0;
+
+		return 0;
+	}
+
 }
