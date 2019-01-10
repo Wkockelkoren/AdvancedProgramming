@@ -8,8 +8,9 @@ void MenuMain(size_t* menuMode) {
 	std::cout << "1. Task Manager\n";
 	std::cout << "2. Vehicle Manager\n";
 	std::cout << "3. Map Editor\n";
-	std::cout << "4. Go\n\n";
-	*menuMode = MenuUserInput("Input", 1, 4);
+	std::cout << "4. Go\n";
+	std::cout << "5. Exit\n\n";
+	*menuMode = MenuUserInput("Input", 1, 5);
 }
 
 void MenuTaskManager(size_t* menuMode, Map& factory, TaskManager& taskManager){
