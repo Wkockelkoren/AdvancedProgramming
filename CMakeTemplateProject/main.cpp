@@ -78,11 +78,17 @@ int main() {
 	Map factory(10, 10);
 	VehicleManager vehicleManager;
 	TaskManager taskManager;
-  
-	//for testing purposes
-	vehicleManager.addVehicle({ 1,1 }, 1);
-	taskManager.createTask({ 0,0 });
-	taskManager.createTask({ 1,5 });
+
+	// Create some tasks
+	taskManager.createTask({ 1,1 });
+	taskManager.createTask({ 5,1 });
+	taskManager.createTask({ 9,9 });
+	taskManager.createTask({ 2,9 });
+	taskManager.createTask({ 5,6 }, { 9,9 });
+
+	// Create some vehicles
+	vehicleManager.addVehicle({ 2,2 }, 1);
+	//vehicleManager.addVehicle({5,2}, 1);
 
 
 	try {

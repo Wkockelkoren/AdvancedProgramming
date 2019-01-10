@@ -34,6 +34,8 @@ public:
 	size_t countVehicles();
 
 	size_t countAvailableVehicles();
+
+	bool allVehiclesAtGoalPosition();
 };
 
 #endif

@@ -62,7 +62,7 @@ void VehicleManager::assignPathToVehicle( std::vector<Task> &currentTasks, Map &
 
 	size_t numberOfAvailableVehicles = countAvailableVehicles();
 
-	while (numberOfAvailableVehicles > 0 && currentTasks.size() > 0) {
+	while (numberOfAvailableVehicles > 0 && (currentTasks.size() > 0 || !allVehiclesAtGoalPosition())) {
 		Vehicle availableVehicle;
 		try {
 			availableVehicle = getAvailableVehicle(); //first a vehicle that is not doing work is needed
@@ -113,4 +113,14 @@ size_t VehicleManager::countVehicles() {
 
 std::vector<Vehicle>& VehicleManager::getVehicles() {
 	return listOfVehicles;
+}
+
+
+bool VehicleManager::allVehiclesAtGoalPosition() {
+	for (Vehicle vehicle : listOfVehicles) {
+		if (!vehicle.isAtTaskGoalPosition()) {
+			return false;
+		}
+	}
+	return true;
 }

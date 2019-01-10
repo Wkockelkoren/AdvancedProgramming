@@ -23,5 +23,7 @@ public:
 	 std::vector<Task>&  getTaskList() ;
 
 	void deleteTask(size_t iterator);
+
+	void printTasks();
 };
 #endif
