@@ -13,11 +13,7 @@ Map::Map(const size_t width,const size_t height) : width(width), height(height) 
 	/**
 	Constructor for map
 	*/
-	class Test {
-	public:
-		int x;
-		int y;
-	};
+
 	//map = new PointOfInterest[width*height];
 	map = std::make_unique<PointOfInterest[]>(width*height);
 	

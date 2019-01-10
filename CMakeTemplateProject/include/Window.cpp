@@ -18,8 +18,8 @@ bool loadWindow(SDL_Window** window, size_t width, size_t height, SDL_Surface** 
 
 	*window = SDL_CreateWindow(
 		"Path Planner",
-		SDL_WINDOWPOS_UNDEFINED,
-		SDL_WINDOWPOS_UNDEFINED,
+		50,
+		50,
 		(int) width,
 		(int) height,
 		0
@@ -42,4 +42,18 @@ bool loadWindow(SDL_Window** window, size_t width, size_t height, SDL_Surface** 
 	SDL_SetRenderDrawColor(*renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(*renderer);
 	return true;
+}
+
+void updateScreen(SDL_Renderer *renderer, SDL_Window *mapWindow, Map &map, std::vector<Vehicle> vehicles) {
+	try {
+		map.printMap(renderer, vehicles);
+		std::cout << "Draw map\n";
+	}
+	catch (std::exception const& e) {
+		std::cout << e.what();
+	}
+
+	/* Got everything on rendering surface,
+	now Update the drawing image on window screen */
+	SDL_UpdateWindowSurface(mapWindow);
 }

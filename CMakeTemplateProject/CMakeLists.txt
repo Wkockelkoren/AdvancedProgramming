@@ -36,6 +36,7 @@ SET(HEADERFILES
 	include/Vehicle.h
 	include/Window.h
 	include/Structures.h
+    include/Menu.h
 )
     
 SOURCE_GROUP("Header Files" FILES ${HEADERFILES})
@@ -49,6 +50,7 @@ SET(SOURCEFILES
 	include/PointOfInterest.cpp
 	include/Vehicle.cpp
 	include/Window.cpp
+    include/Menu.cpp
 )
 
 add_executable(PathPlanner

@@ -18,7 +18,6 @@ void PointOfInterest::setPosition(Position pos) {
 	position = pos;
 }
 
-
 void PointOfInterest::printCoords() {
 	/**
 	Print position of current Point of Interest.
@@ -32,7 +31,6 @@ pointOfInterestType PointOfInterest::getPointOfInterestType() {
 	*/
 	return type;
 }
-
 
 void PointOfInterest::setPointOfInterestType(pointOfInterestType pointType) {
 	if (pointType == pointOfInterestType::Wall) {
@@ -51,7 +49,6 @@ bool PointOfInterest::getIsObstacle() {
 	*/
 	return isObstacle;
 }
-
 
 void PointOfInterest::setIsObstacle(bool obstacle) {
 	/**
