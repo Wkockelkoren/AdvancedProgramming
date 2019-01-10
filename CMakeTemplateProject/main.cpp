@@ -116,9 +116,11 @@ int main() {
 	/* Load initial screen/map */
 	updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
 
-	HWND consoleWindow = GetConsoleWindow();
-
-	SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+	#ifdef _WIN32 /* Windows */
+		/* Nicely place the command window next to the SDL window for Windows */
+		HWND consoleWindow = GetConsoleWindow();
+		SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+	#endif
 
 	/* Draw the Image on rendering surface */
 	size_t done = 0;
