@@ -76,10 +76,24 @@ int main() {
 	VehicleManager vehicleManager;
 	TaskManager taskManager;
 
+<<<<<<< HEAD
 	//for testing purposes
 	vehicleManager.addVehicle({ 1,1 }, 1);
 	taskManager.createTask({ 0,6 });
 	taskManager.createTask({ 0,0 }, { 0,4 });
+=======
+	// Create some tasks
+	taskManager.createTask({ 1,1 });
+	taskManager.createTask({ 5,1 });
+	taskManager.createTask({ 9,9 });
+	taskManager.createTask({ 2,9 });
+	taskManager.createTask({ 5,6 }, { 9,9 });
+
+	// Create some vehicles
+	vehicleManager.addVehicle({ 2,2 }, 1);
+	//vehicleManager.addVehicle({5,2}, 1);
+
+>>>>>>> 10cf008b6f1749cd6faeec697f9e8f7ae77d56d7
 
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -114,26 +128,34 @@ int main() {
 	size_t done = 0;
 	size_t menuMode = 0;
 	bool Go = false;
+
 	while (!done) {
 
 		if (Go == false) {
 			switch (menuMode) {
 			case 1: /* Task Manager*/
+
 				MenuTaskManager(&menuMode, factory, taskManager);
 				break;
 
 			case 2: /* Vehicle Manager */
 				MenuVehicleManager(&menuMode, factory, vehicleManager);
 				updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
+
 				break;
 			case 3: /*Map Editor*/
-				std::cout << "--- Map Editor ---\n";
+				MenuMapEditor(&menuMode, factory);
+				updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
 				break;
 
 			case 4: /* Go */
 				std::cout << "--- Go ---\n";
 				Go = true;
 				break;
+
+			case 5: /* Exit */
+				done = 1;
+				return 0;
 
 			default: /* Main */
 				MenuMain(&menuMode);
@@ -142,6 +164,7 @@ int main() {
 		}
 		else {
 			SDL_Event e;
+
 			while (SDL_PollEvent(&e)) {
 
 				/* Re-create when window has been resized */
@@ -182,6 +205,10 @@ int main() {
 					try {
 						vehicleManager.getVehicles().at(i).moveNextPathPosition();
 						std::cout << "Move next position\n";
+						if (taskManager.getTaskList().size() == 0 && vehicleManager.allVehiclesAtGoalPosition()) {
+							menuMode = 0;
+							Go = false;
+						}
 					}
 					catch (std::exception const& e) {
 						std::cout << e.what();
