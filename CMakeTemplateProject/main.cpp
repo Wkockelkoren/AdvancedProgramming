@@ -67,10 +67,6 @@
 
 int main() {
 
-	/**
-	Unbelievebly great.
-	*/
-
 	// Timing stuff
 	clock_t this_time = clock();
 	clock_t last_time = this_time;

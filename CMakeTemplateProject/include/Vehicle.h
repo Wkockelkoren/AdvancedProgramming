@@ -8,6 +8,7 @@ private:
 	Position position;
 	size_t maxSpeed;
 	std::vector<Position> path;
+	Task task;
 
 public:
 	Vehicle(Position pos = {0,0}, size_t maxSpeed1 = 1);
@@ -33,6 +34,16 @@ public:
 	std::vector<Position>* getPath();
 
 	bool checkIfWorking();
+
+	Task* getTask();
+
+	void setTask(Task task1);
+
+	bool isAtTaskGoalPosition();
+
+	bool isAtTaskStartPosition();
+
+	bool hasStartPosition();
 };
 
 #endif

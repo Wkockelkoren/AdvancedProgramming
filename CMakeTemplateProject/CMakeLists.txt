@@ -30,6 +30,7 @@ endif(MSVC)
 SET(HEADERFILES
 	include/Map.h
 	include/TaskManager.h
+	include/SampleAlgorithm.h
 	include/VehicleManager.h
 	include/PointOfInterest.h
 	include/Vehicle.h
@@ -44,6 +45,7 @@ SET(SOURCEFILES
 	main.cpp
 	include/Map.cpp
 	include/TaskManager.cpp
+	include/SampleAlgorithm.cpp
 	include/VehicleManager.cpp
 	include/PointOfInterest.cpp
 	include/Vehicle.cpp

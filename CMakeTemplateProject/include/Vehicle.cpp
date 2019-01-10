@@ -13,7 +13,10 @@
 * @endcode
 */
 
-Vehicle::Vehicle(Position pos, size_t maxSpeed) : position(pos), maxSpeed(maxSpeed) {}
+Vehicle::Vehicle(Position pos, size_t maxSpeed) : position(pos), maxSpeed(maxSpeed) {
+	task.startPosition = { NULL, NULL };
+	task.goalPosition = { NULL, NULL };
+}
 
 
 void Vehicle::printCoords() {
@@ -57,17 +60,20 @@ bool Vehicle::moveNextPathPosition() {
 	*/
 	if (!path.empty()) {
 		if (path.at(0).x == position.x && path.at(0).y == position.y) { // Check if the vehicle is on the expected position
-			if (path.size() > 1) { // Check if there is a next position to move to
+			if (path.size() > 2) { // Check if there is a next position to move to
 				position.x = path.at(1).x; // move to the next position
 				position.y = path.at(1).y;
 				working = true;
-				path.erase(path.begin()); // delete the previous position of the path
 			}
-			else {
-				path.erase(path.begin());
-				//TODO: vehicle is in last position of the path and the path list is empty, but the path still exists. 
-				//This needs to be fixed. 
+			else if(path.size() == 2) { // Check if there is a next position to move to
+				position.x = path.at(1).x; // move to the next position
+				position.y = path.at(1).y;
+				working = false;
 			}
+			else if(path.size() == 1){
+				working = false;
+			}
+			path.erase(path.begin());// delete the previous position of the path
 		}
 		else {
 			throw std::runtime_error("Vehicle is not in the expected position of the path given. - class Vehicle moveNextPathPosition()\n");
@@ -96,4 +102,43 @@ std::vector<Position>* Vehicle::getPath() {
 	Returns path assigned to current vehicle
 	*/
 	return &path;
+}
+
+
+Task* Vehicle::getTask() {
+	return &task;
+}
+
+
+void Vehicle::setTask(Task task1) {
+	task = task1;
+}
+
+
+bool Vehicle::isAtTaskGoalPosition() {
+	//no task assigned
+	if (task.goalPosition.x == NULL && task.goalPosition.y == NULL) {
+		return true;
+	}
+	//previous task completed
+	if (task.goalPosition.x == position.x && task.goalPosition.y == position.y ) {
+		return true;
+	}
+	return false;
+}
+
+
+bool Vehicle::isAtTaskStartPosition() {
+	if (task.startPosition.x == position.x && task.startPosition.y == position.y) {
+		return true;
+	}
+	return false;
+}
+
+
+bool Vehicle::hasStartPosition() {
+	if (task.startPosition.x == NULL && task.startPosition.y == NULL) {
+		return false;
+	}
+	return true;
 }
