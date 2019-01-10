@@ -18,3 +18,8 @@ struct Task {
 	Position startPosition;
 	Position goalPosition;
 };
+
+enum AlgorithmChoice {
+	enumSampleAlgorithm = 0,
+	enumAstar
+};
