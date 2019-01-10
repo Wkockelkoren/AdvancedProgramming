@@ -56,7 +56,7 @@ void TaskManager::deleteTask(size_t iterator) {
 void TaskManager::printTasks() {
 	std::cout << "List of Tasks:\n";
 	for (Task task: taskList) {
-		if (task.startPosition.x == NULL && task.startPosition.y == NULL) {
+		if (task.startPosition.x == SIZE_MAX && task.startPosition.y == SIZE_MAX) {
 			std::cout << "Task to (" << task.goalPosition.x << ", " << task.goalPosition.y << ")\n";
 		}
 		else {
