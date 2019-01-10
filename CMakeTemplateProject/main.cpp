@@ -76,12 +76,6 @@ int main() {
 	VehicleManager vehicleManager;
 	TaskManager taskManager;
 
-<<<<<<< HEAD
-	//for testing purposes
-	vehicleManager.addVehicle({ 1,1 }, 1);
-	taskManager.createTask({ 0,6 });
-	taskManager.createTask({ 0,0 }, { 0,4 });
-=======
 	// Create some tasks
 	taskManager.createTask({ 1,1 });
 	taskManager.createTask({ 5,1 });
@@ -92,8 +86,6 @@ int main() {
 	// Create some vehicles
 	vehicleManager.addVehicle({ 2,2 }, 1);
 	//vehicleManager.addVehicle({5,2}, 1);
-
->>>>>>> 10cf008b6f1749cd6faeec697f9e8f7ae77d56d7
 
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -120,9 +112,11 @@ int main() {
 	/* Load initial screen/map */
 	updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
 
-	HWND consoleWindow = GetConsoleWindow();
-
-	SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+	#ifdef _WIN32 /* Windows */
+		/* Nicely place the command window next to the SDL window for Windows */
+		HWND consoleWindow = GetConsoleWindow();
+		SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+	#endif
 
 	/* Draw the Image on rendering surface */
 	size_t done = 0;

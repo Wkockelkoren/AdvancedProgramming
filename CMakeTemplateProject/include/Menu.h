@@ -1,6 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
 
+#include <iostream>
+#include <vector>
 #include "Map.h"
 #include "TaskManager.h"
 #include "VehicleManager.h"

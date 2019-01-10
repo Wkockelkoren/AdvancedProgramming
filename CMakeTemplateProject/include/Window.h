@@ -1,8 +1,10 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include "SDL.h"
+#include <iostream>
+#include <vector>
 #include "Map.h"
+#include "SDL.h"
 
 bool loadWindow(SDL_Window** window, size_t width, size_t height, SDL_Surface** surface, SDL_Renderer** renderer);
 

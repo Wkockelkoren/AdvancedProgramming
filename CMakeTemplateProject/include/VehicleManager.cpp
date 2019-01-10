@@ -86,8 +86,33 @@ void VehicleManager::assignPathToVehicle(std::vector<Task> &currentTasks, Map &m
 			std::cout << e.what();
 		}
 
-		std::vector<Position> generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), currentTasks.front().goalPosition, map, enumSampleAlgorithm);
-	
+		std::vector<Position> generatedPath;
+
+		if (availableVehicle.isAtTaskGoalPosition()) {
+			//get new task en create path to start position
+			if (currentTasks.size() == 0) {
+				break;
+			}
+			getAvailableVehicle().setTask(currentTasks.front());
+
+			if (getAvailableVehicle().hasStartPosition()) {
+				generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), currentTasks.front().startPosition, map, enumSampleAlgorithm);
+			}
+			else{
+				generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), currentTasks.front().goalPosition, map, enumSampleAlgorithm);
+				std::cout << "has no start position\n";
+			}
+			currentTasks.erase(currentTasks.begin());
+		}
+		else if (availableVehicle.isAtTaskStartPosition()) {
+			//move to goal position of current task
+			generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), availableVehicle.getTask()->goalPosition, map, enumSampleAlgorithm);
+		}
+		else {
+			//move to start position of current task
+			generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), availableVehicle.getTask()->startPosition, map, enumSampleAlgorithm);
+		}
+
 		getAvailableVehicle().setPath(generatedPath);
 
 		numberOfAvailableVehicles--;

@@ -4,7 +4,6 @@
 #include <vector>
 #include <iostream>
 #include "Map.h"
-#include "Vehicle.h"
 #include "SampleAlgorithm.h"
 #include "Structures.h"
 
@@ -31,7 +30,6 @@ public:
 	std::vector<Position> VehicleManager::getPathFromAlgorithm(Position startPosition, Position goalPosition, Map &map, AlgorithmChoice algorithmChoice);
 
 	std::vector<Vehicle>& getVehicles();
-
 
 	size_t countVehicles();
 

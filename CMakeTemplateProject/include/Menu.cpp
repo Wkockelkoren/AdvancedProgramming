@@ -1,5 +1,3 @@
-#include <iostream>
-#include <vector>
 #include "Menu.h"
 
 void MenuMain(size_t* menuMode) {

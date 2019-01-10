@@ -1,7 +1,4 @@
-#include <iostream>
-#include <vector>
 #include "Vehicle.h"
-#include "Map.h"
 
 /**
 * Has a position on the Map, a maximum speed and contains a path that was generated 
