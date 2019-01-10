@@ -13,6 +13,8 @@ void MenuTaskManager(size_t* menuMode, Map& factory, TaskManager& taskManager);
 
 void MenuVehicleManager(size_t* menuMode, Map& factory, VehicleManager& vehicleManager);
 
+void MenuSettings(size_t* menuMode, VehicleManager& vehicleManager);
+
 void MenuMapEditor(size_t* menuMode, Map& factory);
 
 size_t MenuUserInput(std::string text, size_t min, size_t max);
