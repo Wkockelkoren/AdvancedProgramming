@@ -49,16 +49,23 @@
 #include "Structures.h"
 #include "Vehicle.h"
 #include "Window.h"
+#include "Menu.h"
 #include "SDL.h"
 #include "time.h"
 
-void updateScreen(SDL_Renderer *renderer, SDL_Window *mapWindow, Map &map, std::vector<Vehicle> vehicles);
+#ifdef _WIN32 /* Windows */
+#include <windows.h>
+#endif
 
-int main(){
+#ifdef __linux__ /* Linux */
 
-	/**
-	Unbelievebly great.
-	*/
+#endif
+
+#ifdef __APPLE__ /* MacOS */
+
+#endif
+
+int main() {
 
 	// Timing stuff
 	clock_t this_time = clock();
@@ -68,19 +75,7 @@ int main(){
 	Map factory(10, 10);
 	VehicleManager vehicleManager;
 	TaskManager taskManager;
-
-	// Create some tasks
-	taskManager.createTask({ 1,1 });
-	taskManager.createTask({ 5,1 });
-	taskManager.createTask({ 9,9 });
-	taskManager.createTask({ 2,9 });
-	taskManager.createTask({ 5,6 }, { 9,9 });
-
-	// Create some vehicles
-	vehicleManager.addVehicle({2,2}, 1);
-	//vehicleManager.addVehicle({5,2}, 1);
-	
-
+  
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
 		factory.getPointOfInterest(9, 5).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -95,7 +90,6 @@ int main(){
 		std::cout << e.what();
 	}
 
-
 	SDL_Window* mapWindow;
 	SDL_Surface* surface;
 	SDL_Renderer* renderer;
@@ -104,81 +98,99 @@ int main(){
 	if (!loadWindow(&mapWindow, 640, 480, &surface, &renderer))
 		return 0;
 
+	/* Load initial screen/map */
 	updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
+
+	HWND consoleWindow = GetConsoleWindow();
+
+	SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
 	/* Draw the Image on rendering surface */
 	size_t done = 0;
+	size_t menuMode = 0;
+	bool Go = false;
 	while (!done) {
 
-		SDL_Event e;
-		while (SDL_PollEvent(&e)) {
+		if (Go == false) {
+			switch (menuMode) {
+			case 1: /* Task Manager*/
+				MenuTaskManager(&menuMode, factory, taskManager);
+				break;
 
-			/* Re-create when window has been resized */
-			if ((e.type == SDL_WINDOWEVENT) && (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)) {
+			case 2: /* Vehicle Manager */
+				MenuVehicleManager(&menuMode, factory, vehicleManager);
+				updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
+				break;
+			case 3: /*Map Editor*/
+				std::cout << "--- Map Editor ---\n";
+				break;
 
-				SDL_DestroyRenderer(renderer);
+			case 4: /* Go */
+				std::cout << "--- Go ---\n";
+				Go = true;
+				break;
 
-				surface = SDL_GetWindowSurface(mapWindow);
-				renderer = SDL_CreateSoftwareRenderer(surface);
-				/* Clear the rendering surface with the specified color */
-				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-				SDL_RenderClear(renderer);
-			}
-
-			if (e.type == SDL_QUIT) {
-				done = 1;
-				return 0;
-			}
-
-			if ((e.type == SDL_KEYDOWN) && (e.key.keysym.sym == SDLK_ESCAPE)) {
-				done = 1;
-				return 0;
+			default: /* Main */
+				MenuMain(&menuMode);
+				break;
 			}
 		}
+		else {
+			SDL_Event e;
+			while (SDL_PollEvent(&e)) {
 
-		//program functions that are time based and need to be repeated
-		this_time = clock();
+				/* Re-create when window has been resized */
+				if ((e.type == SDL_WINDOWEVENT) && (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)) {
 
-		//every second the following if statement will be triggered
-		if ((this_time - last_time) >= 1000) {
-			last_time = this_time;
+					SDL_DestroyRenderer(renderer);
 
-			vehicleManager.assignPathToVehicle(taskManager.getTaskList(), factory);
-
-			//Move all vehicles to the next place on the path
-
-			for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {        
-				try {
-					vehicleManager.getVehicles().at(i).moveNextPathPosition();
-					std::cout << "Move next position\n" ;
+					surface = SDL_GetWindowSurface(mapWindow);
+					renderer = SDL_CreateSoftwareRenderer(surface);
+					/* Clear the rendering surface with the specified color */
+					SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+					SDL_RenderClear(renderer);
 				}
-				catch (std::exception const& e) {
-					std::cout << e.what();
+
+				if (e.type == SDL_QUIT) {
+					done = 1;
+					return 0;
+				}
+
+				if ((e.type == SDL_KEYDOWN) && (e.key.keysym.sym == SDLK_ESCAPE)) {
+					done = 1;
+					return 0;
 				}
 			}
-			
-			//Screen is updated after making changes
-			updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
+
+			//program functions that are time based and need to be repeated
+			this_time = clock();
+
+			//every second the following if statement will be triggered
+			if ((this_time - last_time) >= 1000) {
+				last_time = this_time;
+
+				vehicleManager.assignPathToVehicle(taskManager.getTaskList(), factory);
+
+				//Move all vehicles to the next place on the path
+
+				for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {
+					try {
+						vehicleManager.getVehicles().at(i).moveNextPathPosition();
+						std::cout << "Move next position\n";
+					}
+					catch (std::exception const& e) {
+						std::cout << e.what();
+					}
+				}
+
+				//Screen is updated after making changes
+				updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
+			}
 		}
 	}
 
 	SDL_DestroyWindow(mapWindow);
 	SDL_Quit();
-
+    
 	return 0;
-}
-
-
-void updateScreen(SDL_Renderer *renderer, SDL_Window *mapWindow, Map &map, std::vector<Vehicle> vehicles) {
-	try {
-		map.printMap(renderer, vehicles);
-		std::cout << "Draw map\n";
-	}
-	catch (std::exception const& e) {
-		std::cout << e.what();
-	}
-
-	/* Got everything on rendering surface,
-	now Update the drawing image on window screen */
-	SDL_UpdateWindowSurface(mapWindow);
 }
