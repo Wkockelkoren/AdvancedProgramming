@@ -195,7 +195,7 @@ int main(){
 				std::cout << "--- Map Editor ---\n";
 				std::cout << "1. Place Wall \n";
 				std::cout << "2. Place DropOff \n";
-				std::cout << "3. Place Floor(Delete Wall/DropOff) \n"
+				std::cout << "3. Place Floor(Delete Wall/DropOff) \n";
 				std::cout << "0. Back \n";
 				std::cin >> subMenuMode;
 				switch (subMenuMode) {
@@ -271,7 +271,7 @@ int main(){
 					}
 					factory.getPointOfInterest(userInputX, userInputY).setPointOfInterestType(pointOfInterestType::Floor);
 					break;
-				case 0:/*Break*/
+				case 0:/*Back*/
 					menuMode = 0;
 					break;
 				default:
