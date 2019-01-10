@@ -89,11 +89,6 @@ int main() {
 	// Create some vehicles
 	vehicleManager.addVehicle({ 2,2 }, 1);
 	//vehicleManager.addVehicle({5,2}, 1);
-  
-	//for testing purposes
-	vehicleManager.addVehicle({ 1,1 }, 1);
-	taskManager.createTask({ 0,0 });
-	taskManager.createTask({ 1,5 });
 
 
 	try {
