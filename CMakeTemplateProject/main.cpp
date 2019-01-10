@@ -138,7 +138,6 @@ int main() {
 			case 5: /* Exit */
 				done = 1;
 				return 0;
-				break;
 
 			default: /* Main */
 				MenuMain(&menuMode);
