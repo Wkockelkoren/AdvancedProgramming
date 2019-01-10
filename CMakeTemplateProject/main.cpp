@@ -46,6 +46,7 @@
 #include "Map.h"
 #include "TaskManager.h"
 #include "VehicleManager.h"
+#include "SampleAlgorithm.h"
 #include "Structures.h"
 #include "Vehicle.h"
 #include "Window.h"
@@ -66,10 +67,6 @@
 #endif
 
 int main() {
-
-	
-
-
 	// Timing stuff
 	clock_t this_time = clock();
 	clock_t last_time = this_time;
@@ -89,7 +86,6 @@ int main() {
 	// Create some vehicles
 	vehicleManager.addVehicle({ 2,2 }, 1);
 	//vehicleManager.addVehicle({5,2}, 1);
-
 
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -116,9 +112,11 @@ int main() {
 	/* Load initial screen/map */
 	updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
 
-	HWND consoleWindow = GetConsoleWindow();
-
-	SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+	#ifdef _WIN32 /* Windows */
+		/* Nicely place the command window next to the SDL window for Windows */
+		HWND consoleWindow = GetConsoleWindow();
+		SetWindowPos(consoleWindow, 0, 700, 25, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+	#endif
 
 	/* Draw the Image on rendering surface */
 	size_t done = 0;
