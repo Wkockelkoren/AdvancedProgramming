@@ -1,6 +1,8 @@
 #ifndef POINTOFINTEREST_H
 #define POINTOFINTEREST_H
 
+#include <iostream>
+#include <vector>
 #include "Structures.h"
 
 enum pointOfInterestType { Floor, Wall, DropOff };

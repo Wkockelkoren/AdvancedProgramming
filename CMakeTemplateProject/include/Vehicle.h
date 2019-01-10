@@ -1,6 +1,8 @@
 #ifndef VEHICLE_H
 #define VEHICLE_H
 
+#include <iostream>
+#include <vector>
 #include "Structures.h"
 
 class Vehicle {
