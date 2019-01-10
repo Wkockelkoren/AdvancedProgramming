@@ -4,7 +4,6 @@
 #include <vector>
 #include <iostream>
 #include "Map.h"
-#include "Vehicle.h"
 #include "SampleAlgorithm.h"
 #include "Structures.h"
 
@@ -29,7 +28,6 @@ public:
 	Vehicle& getAvailableVehicle();
 
 	std::vector<Vehicle>& getVehicles();
-
 
 	size_t countVehicles();
 

@@ -1,10 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <memory>
 #include "Map.h"
-#include "PointOfInterest.h"
-#include "Vehicle.h"
-#include "VehicleManager.h"
 
 /**
 	Contains the classes Map and PointOfInterest.

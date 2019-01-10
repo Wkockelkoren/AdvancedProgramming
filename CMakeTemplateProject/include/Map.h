@@ -1,13 +1,14 @@
 #ifndef MAP_H
 #define MAP_H
 
+#include <iostream>
+#include <vector>
+#include <memory>
 #include "PointOfInterest.h"
 #include "Vehicle.h"
 #include "SDL.h"
 #include "Structures.h"
 #undef main 
-
-
 
 class Map {
 private:

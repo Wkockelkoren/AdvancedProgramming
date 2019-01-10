@@ -1,8 +1,4 @@
-#include <iostream>
-#include <vector>
 #include "Window.h"
-#include "PointOfInterest.h"
-#include "Map.h"
 
 /**
 Is also a nanoGUI class which is used to create the sub windows of the Screen. 
