@@ -67,6 +67,9 @@
 
 int main() {
 
+	
+
+
 	// Timing stuff
 	clock_t this_time = clock();
 	clock_t last_time = this_time;
@@ -87,6 +90,12 @@ int main() {
 	vehicleManager.addVehicle({ 2,2 }, 1);
 	//vehicleManager.addVehicle({5,2}, 1);
   
+	//for testing purposes
+	vehicleManager.addVehicle({ 1,1 }, 1);
+	taskManager.createTask({ 0,0 });
+	taskManager.createTask({ 1,5 });
+
+
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
 		factory.getPointOfInterest(9, 5).setPointOfInterestType(pointOfInterestType::DropOff);
