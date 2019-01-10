@@ -191,9 +191,10 @@ int main() {
 				updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
 			}
 		}
+	}
 
-		SDL_DestroyWindow(mapWindow);
-		SDL_Quit();
+	SDL_DestroyWindow(mapWindow);
+	SDL_Quit();
     
 	return 0;
 }
