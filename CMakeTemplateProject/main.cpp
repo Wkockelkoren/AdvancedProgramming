@@ -124,7 +124,6 @@ int main() {
 	size_t done = 0;
 	size_t menuMode = 0;
 	bool Go = false;
-	size_t counter = 0;
 
 	while (!done) {
 
@@ -200,18 +199,12 @@ int main() {
 
 				for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {
 					try {
-						if(vehicleManager.getVehicles().at(i).moveNextPathPosition()) {
-							std::cout << "Move next position\n";
-							counter = 0;
+						vehicleManager.getVehicles().at(i).moveNextPathPosition();
+						std::cout << "Move next position\n";
+						if (taskManager.getTaskList().size() == 0 && vehicleManager.allVehiclesAtGoalPosition()) {
+							menuMode = 0;
+							Go = false;
 						}
-						else {
-							counter += 1;
-							if (counter >= 5) {
-								menuMode = 0;
-								Go = false;
-							}
-						}
-						
 					}
 					catch (std::exception const& e) {
 						std::cout << e.what();
