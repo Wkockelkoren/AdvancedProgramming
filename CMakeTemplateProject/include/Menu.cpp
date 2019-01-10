@@ -13,8 +13,11 @@ void MenuMain(size_t* menuMode) {
 }
 
 void MenuTaskManager(size_t* menuMode, Map& factory, TaskManager& taskManager){
+	size_t userInputStart = 0;
 	size_t userInputX = 0;
 	size_t userInputY = 0;
+	size_t userInputStartX = 0;
+	size_t userInputStartY = 0;
 
 	std::cout << "--- Task Manager ---\n";
 	std::cout << "Options:\n";
@@ -26,12 +29,26 @@ void MenuTaskManager(size_t* menuMode, Map& factory, TaskManager& taskManager){
 	switch (subMenuMode) {
 	case 1: /* Add Task */
 		std::cout << "Add Task:\n";
+		std::cout << "Does the task have a specific start position? \n";
+		std::cout << "Options:\n";
+		std::cout << "1. Yes\n";
+		std::cout << "2. No\n";
+		userInputStart = MenuUserInput("Input", 1, 2);
+		if (userInputStart == 1) {
+			userInputStartX = MenuUserInput("Give a start X-position", 0, factory.width - 1);
+			userInputStartY = MenuUserInput("Give a start Y-position", 0, factory.width - 1);
+			
+			userInputX = MenuUserInput("Give an end X-position", 0, factory.width - 1);
+			userInputY = MenuUserInput("Give an end Y-position", 0, factory.height - 1);
 
-		userInputX = MenuUserInput("Give an X-position", 0, factory.width - 1);
-		userInputY = MenuUserInput("Give an Y-position", 0, factory.height - 1);
+			taskManager.createTask({ userInputStartX, userInputStartY },{ userInputX, userInputY });
+		}
+		if (userInputStart == 2) {
+			userInputX = MenuUserInput("Give an X-position", 0, factory.width - 1);
+			userInputY = MenuUserInput("Give a Y-position", 0, factory.height - 1);
 
-		taskManager.createTask({ userInputX, userInputY });
-
+			taskManager.createTask({ userInputX, userInputY });
+		}
 		break;
 	case 2: /* Print all tasks*/
 		taskManager.printTasks();
@@ -60,7 +77,7 @@ void MenuVehicleManager(size_t* menuMode, Map& factory, VehicleManager& vehicleM
 	case 1: /* Add vehicle */
 		std::cout << "Add Vehicle:\n";
 		userInputX = MenuUserInput("Give an X-position", 0, factory.width - 1);
-		userInputY = MenuUserInput("Give an Y-position", 0, factory.height - 1);
+		userInputY = MenuUserInput("Give a Y-position", 0, factory.height - 1);
 
 		vehicleManager.addVehicle({ userInputX, userInputY }, 1);
 		break;
@@ -96,14 +113,14 @@ void MenuMapEditor(size_t* menuMode, Map& factory) {
 	case 2:/*Place DropOff*/
 		std::cout << "Add DropOff:\n";
 		userInputX = MenuUserInput("Give an X-position", 0, factory.width - 1);
-		userInputY = MenuUserInput("Give an Y-position", 0, factory.height - 1);
+		userInputY = MenuUserInput("Give a Y-position", 0, factory.height - 1);
 		
 		factory.getPointOfInterest(userInputX, userInputY).setPointOfInterestType(pointOfInterestType::DropOff);
 		break;
 	case 3:/*Place Floor*/
 		std::cout << "Add Floor:\n";
 		userInputX = MenuUserInput("Give an X-position", 0, factory.width - 1);
-		userInputY = MenuUserInput("Give an Y-position", 0, factory.height - 1);
+		userInputY = MenuUserInput("Give a Y-position", 0, factory.height - 1);
 
 		factory.getPointOfInterest(userInputX, userInputY).setPointOfInterestType(pointOfInterestType::Floor);
 		break;
@@ -155,11 +172,15 @@ void MenuSettings(size_t* menuMode, VehicleManager& vehicleManager) {
 
 size_t MenuUserInput(std::string text, size_t min, size_t max) {
 	bool error = true;
+	bool correctInput = true;
 	size_t input = 0;
 	while (error) {
 		std::cout << text.c_str() << " (" << min << " to " << max << "): ";
 		std::cin >> input;
-		if (input < min || input > max) {
+		correctInput = std::cin.good(); //input protection
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		if (input < min || input > max || !correctInput) {
 			std::cout << "Input is out of range \n";
 			error = true;
 			continue;
