@@ -46,8 +46,9 @@ std::vector<Coordinate> SampleAlgorithm::calculateListOfPaths(Map &map, Position
 	std::vector<Coordinate> pathList;
 	Coordinate coordinate;
 
-	//reset highest counter
+	//reset control variables
 	highestCounter = 0;
+	startPointReached = 0;
 
 	//Place startCoordinate in list
 	coordinate.x = startPosition.x;
@@ -96,6 +97,7 @@ std::vector<Coordinate> SampleAlgorithm::calculateListOfPaths(Map &map, Position
 		}
 		highestCounter++; //this counter is being used to add the neighbours next to the last added coordinates
 	}
+	//newly added (remove this line if works)
 	return pathList;
 }
 
