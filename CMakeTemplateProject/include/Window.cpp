@@ -18,8 +18,8 @@ bool loadWindow(SDL_Window** window, size_t width, size_t height, SDL_Surface** 
 
 	*window = SDL_CreateWindow(
 		"Path Planner",
-		SDL_WINDOWPOS_UNDEFINED,
-		SDL_WINDOWPOS_UNDEFINED,
+		50,
+		50,
 		(int) width,
 		(int) height,
 		0
