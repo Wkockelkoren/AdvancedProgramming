@@ -65,7 +65,7 @@
 
 #endif
 
-int main(){
+int main() {
 
 	/**
 	Unbelievebly great.
@@ -79,7 +79,7 @@ int main(){
 	Map factory(10, 10);
 	VehicleManager vehicleManager;
 	TaskManager taskManager;
-
+  
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
 		factory.getPointOfInterest(9, 5).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -189,13 +189,11 @@ int main(){
 
 				//Screen is updated after making changes
 				updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
-
 			}
 		}
-	}
 
-	SDL_DestroyWindow(mapWindow);
-	SDL_Quit();
-
+		SDL_DestroyWindow(mapWindow);
+		SDL_Quit();
+    
 	return 0;
 }
