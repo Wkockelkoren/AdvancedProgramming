@@ -62,6 +62,7 @@ void MenuVehicleManager(size_t* menuMode, Map& factory, VehicleManager& vehicleM
 		userInputY = MenuUserInput("Give an Y-position", 0, factory.height - 1);
 
 		vehicleManager.addVehicle({ userInputX, userInputY }, 1);
+		break;
 
 	case 2: /* Go back to main menu */
 		*menuMode = 0;

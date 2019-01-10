@@ -24,7 +24,7 @@ else(MSVC)
 	set(CMAKE_CXX_FLAGS "--std=gnu++14 ${CMAKE_CXX_FLAGS_RELEASE}")
     
     # lots of warnings and all warnings as errors
-    add_compile_options(-Wall -Wextra -pedantic -Werror)
+    add_compile_options(-Wall -Wextra -pedantic)
 endif(MSVC)
 
 SET(HEADERFILES

@@ -85,6 +85,7 @@ int main() {
 
 	// Create some vehicles
 	vehicleManager.addVehicle({ 2,2 }, 1);
+	vehicleManager.addVehicle({ 9,9 }, 1);
 	//vehicleManager.addVehicle({5,2}, 1);
 
 	try {

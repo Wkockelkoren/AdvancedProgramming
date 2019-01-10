@@ -33,10 +33,10 @@ PointOfInterest& Map::getPointOfInterest(size_t x, size_t y) {
 
 
 	//Check wether the requested point is within the map
-	if (!(x < width)) {
+	if (!(x < width) && !SIZE_MAX) {
 		throw std::runtime_error("Requested point of interest is not within the map - class Map getPointOfInterest()\n");
 	}
-	if (!(y < height)) {
+	if (!(y < height) && !SIZE_MAX) {
 		throw std::runtime_error("Requested point of interest is not within the map - class Map getPointOfInterest()\n");
 	}
 
