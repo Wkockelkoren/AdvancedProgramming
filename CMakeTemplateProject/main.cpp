@@ -52,8 +52,6 @@
 #include "SDL.h"
 #include "time.h"
 
-void updateScreen(SDL_Renderer *renderer, SDL_Window *mapWindow, Map &map, std::vector<Vehicle> vehicles);
-
 int main(){
 
 	/**
@@ -143,7 +141,6 @@ int main(){
 						error = false;
 					}
 
-
 					taskManager.createTask({ userInputX, userInputY });
 
 					break;
@@ -159,7 +156,7 @@ int main(){
 			case 2: /* Vehicle Manager */
 				std::cout << "--- Vehicle Manager ---\n";
 				std::cout << "1. Add Vehicle \n";
-				std::cout << "0. Back \n";
+				std::cout << "2. Back \n";
 				std::cin >> subMenuMode;
 				switch (subMenuMode) {
 				case 1:
@@ -177,7 +174,9 @@ int main(){
 					}
 					vehicleManager.addVehicle({ userInputX, userInputY }, 1);
 					break;
-				case 0:
+				case 2: /* Go back to main menu */
+					menuMode = 0;
+					break;
 
 				default:
 					std::cout << "Invalid input";
@@ -241,6 +240,7 @@ int main(){
 				vehicleManager.assignPathToVehicle(taskManager.getTaskList(), factory);
 
 				//Move all vehicles to the next place on the path
+			}
 
 			for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {        
 				try {
@@ -261,19 +261,4 @@ int main(){
 	SDL_Quit();
 
 	return 0;
-}
-
-
-void updateScreen(SDL_Renderer *renderer, SDL_Window *mapWindow, Map &map, std::vector<Vehicle> vehicles) {
-	try {
-		map.printMap(renderer, vehicles);
-		std::cout << "Draw map\n";
-	}
-	catch (std::exception const& e) {
-		std::cout << e.what();
-	}
-
-	/* Got everything on rendering surface,
-	now Update the drawing image on window screen */
-	SDL_UpdateWindowSurface(mapWindow);
 }
