@@ -14,7 +14,7 @@
 */
 
 Vehicle::Vehicle(Position pos, size_t maxSpeed) : position(pos), maxSpeed(maxSpeed) {
-	task.goalPosition = { NULL, NULL };
+	task.startPosition = { NULL, NULL };
 	task.goalPosition = { NULL, NULL };
 }
 
