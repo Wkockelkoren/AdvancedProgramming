@@ -27,7 +27,7 @@ public:
 
 	size_t getMaxSpeed();
 
-	bool moveNextPathPosition();
+	void moveNextPathPosition();
 
 	void setPath(std::vector<Position> &generatedpath);
 

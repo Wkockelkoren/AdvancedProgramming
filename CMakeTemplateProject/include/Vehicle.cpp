@@ -54,7 +54,7 @@ bool Vehicle::checkIfWorking() {
 }
 
 
-bool Vehicle::moveNextPathPosition() {
+void Vehicle::moveNextPathPosition() {
 	/**
 	A vehicle uses this function to change its position by usage of an assigned path
 	*/
@@ -83,9 +83,7 @@ bool Vehicle::moveNextPathPosition() {
 	else {
 		working = false;
 		std::cout << "Path is empty\n";
-		return false;
 	}
-	return true;
 }
 
 
