@@ -23,9 +23,11 @@ public:
 	void addVehicle(Position pos, const size_t vehicleSpeed);
 
 //TODO: add new vehicle object to assignPathToVehicle
-	void assignPathToVehicle( std::vector<Task> &currentTasks, Map &map);
+	void assignPathToVehicle(std::vector<Task> &currentTasks, Map &map);
 
 	Vehicle& getAvailableVehicle();
+
+	std::vector<Position> VehicleManager::getPathFromAlgorithm(Position startPosition, Position goalPosition, Map &map, AlgorithmChoice algorithmChoice);
 
 	std::vector<Vehicle>& getVehicles();
 

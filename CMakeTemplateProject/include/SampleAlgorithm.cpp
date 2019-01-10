@@ -114,7 +114,7 @@ std::vector<Position> SampleAlgorithm::getSinglePath(std::vector<Coordinate> &pa
 	size_t currentCounter = 0;
 
 	bool added = false;
-	Position currentPosition = { NULL , NULL };
+	Position currentPosition = { SIZE_MAX , SIZE_MAX };
 	std::vector<Position> generatedPath;
 
 	//Find startposition and counter by looping through pathList and comparing to startposition

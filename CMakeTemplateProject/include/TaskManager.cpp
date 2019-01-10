@@ -22,7 +22,7 @@ void TaskManager::createTask(Position goalPosition) {
 	This function adds a task without a start position to the taskList.
 	*/
 	Task task;
-	task.startPosition = { NULL,NULL };
+	task.startPosition = { SIZE_MAX,SIZE_MAX };
 	task.goalPosition = goalPosition;
 	taskList.push_back(task);
 }
