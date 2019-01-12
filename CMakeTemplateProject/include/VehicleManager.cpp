@@ -115,7 +115,6 @@ void VehicleManager::assignPathToVehicle(std::vector<Task> &currentTasks, Map &m
 		getAvailableVehicle().setPath(generatedPath);
 
 		numberOfAvailableVehicles--;
-		currentTasks.erase(currentTasks.begin());
 	}
 }
 

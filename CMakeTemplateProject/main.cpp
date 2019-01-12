@@ -77,15 +77,12 @@ int main() {
 	TaskManager taskManager;
 
 	// Create some tasks
-	taskManager.createTask({ 1,1 });
-	taskManager.createTask({ 5,1 });
-	taskManager.createTask({ 9,9 });
-	taskManager.createTask({ 2,9 });
-	taskManager.createTask({ 5,6 }, { 9,9 });
 
+	taskManager.createTask({ 9,9 });
+	taskManager.createTask({ 5,6 }, { 9,9 });
+	taskManager.createTask({ 1,1 }, { 3,3 });
 	// Create some vehicles
 	vehicleManager.addVehicle({ 2,2 }, 1);
-	vehicleManager.addVehicle({ 9,9 }, 1);
 	//vehicleManager.addVehicle({5,2}, 1);
 
 	try {
