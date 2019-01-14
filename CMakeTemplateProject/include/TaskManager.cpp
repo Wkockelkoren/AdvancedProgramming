@@ -29,12 +29,7 @@ void TaskManager::createTask(Position startPosition,Position goalPosition) {
 	return taskList;
 }
 
-void TaskManager::deleteTask(size_t iterator) {
-
-	/**
-	This function deletes a task by iterator
-	*/
-	
+void TaskManager::deleteTask(size_t iterator) {	
 	if (iterator < taskList.size()) {
 		taskList.erase(taskList.begin() + iterator);
 	}

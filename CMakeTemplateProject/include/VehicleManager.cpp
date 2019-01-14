@@ -1,7 +1,4 @@
 #include "VehicleManager.h"
-/**
-Generates paths and assigns it to a vehicle when the Go button is pressed.
-*/
 
 VehicleManager::VehicleManager(){
 	currentAlgorithm = enumSampleAlgorithm;
@@ -11,17 +8,11 @@ VehicleManager::~VehicleManager(){
 }
 
 void VehicleManager::addVehicle(Position pos) {
-	/** 
-	This function can be used to add a vehicle.
-	*/
 	Vehicle vehicle(pos);
 	listOfVehicles.push_back(vehicle);
 }
 
 void VehicleManager::deleteVehicle(size_t iterator) {
-	/**
-	This function deletes a vehicle by iterator
-	*/
 	if (iterator < listOfVehicles.size()) {
 		listOfVehicles.erase(listOfVehicles.begin() + iterator);
 	}
@@ -42,16 +33,6 @@ std::vector<Position> VehicleManager::getPathFromAlgorithm(Position startPositio
 }
 
 void VehicleManager::assignPathToVehicle(std::vector<Task> &currentTasks, Map &map) {
-	/**
-	this public function can be called in order to generate a path for a specific vehicle.
-
-	*/
-	/*
-	this public function can be called in order to generate a path. it uses the private function
-	"ListOfPaths" to generate a vector with 1 path from start to end, and with paths that dont lead
-	to the right location. The function generatePath uses this list and returns only the correct path
-	*/
-
 	for (size_t currentVehicle = 0; currentVehicle < listOfVehicles.size(); currentVehicle++) {
 		if (listOfVehicles[currentVehicle].getWorking() == true) {
 			continue;
@@ -90,8 +71,6 @@ void VehicleManager::assignPathToVehicle(std::vector<Task> &currentTasks, Map &m
 }
 
 size_t VehicleManager::countVehicles() {
-	/** This function returns the number of vehicles
-	*/
 	size_t numberOfVehicles = 0;
 	for (size_t currentVehicle = 0; currentVehicle < listOfVehicles.size(); currentVehicle++) {
 		numberOfVehicles++;
