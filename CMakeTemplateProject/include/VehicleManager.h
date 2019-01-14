@@ -11,9 +11,6 @@
 Generates paths and assigns it to a vehicle when the Go button is pressed.
 */
 class VehicleManager{
-	/*
-	The path manager is responsible for creating paths vehicles can use for navigation.
-	*/
 private:
 	std::vector<Vehicle> listOfVehicles;
 	AlgorithmChoice currentAlgorithm;
@@ -39,10 +36,19 @@ public:
 	*/
 	void assignPathToVehicle(std::vector<Task> &currentTasks, Map &map);
 
+	/**
+	This function choses from the available pathfinding algorithems the desired one and returns the path from the starting position to the goal position.
+	*/
 	std::vector<Position> getPathFromAlgorithm(Position startPosition, Position goalPosition, Map &map);
 
+	/**
+	This function returns a list of the vehicles that are created.
+	*/
 	std::vector<Vehicle>& getVehicles();
 
+	/**
+	This function changes the algorithem that is selected to be used.
+	*/
 	void setAlgorithm(AlgorithmChoice algorithmChoice);
 
 	/**

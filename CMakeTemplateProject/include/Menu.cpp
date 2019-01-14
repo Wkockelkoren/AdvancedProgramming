@@ -53,10 +53,16 @@ void MenuTaskManager(size_t* menuMode, Map& factory, TaskManager& taskManager){
 		break;
 	case 2: /* Delete task*/
 		std::cout << "Delete Task:\n";
-		std::cout << "What is the position of the task that you would like to delete? \n";
-		taskManager.printTasks();
-		userInputStart = MenuUserInput("Input", 0, taskManager.getTaskList().size()-1);
-		taskManager.deleteTask(userInputStart);
+		if (taskManager.getTaskList().size() == 0) {
+			std::cout << "There are no Tasks that can be deleted.\n\n";
+		}
+		else {
+			std::cout << "What is the position of the task that you would like to delete? \n";
+			taskManager.printTasks();
+			userInputStart = MenuUserInput("Input", 0, taskManager.getTaskList().size()-1);
+			taskManager.deleteTask(userInputStart);
+		}
+		
 		break;
 	case 3: /* Print all tasks*/
 		taskManager.printTasks();
@@ -93,10 +99,15 @@ void MenuVehicleManager(size_t* menuMode, Map& factory, VehicleManager& vehicleM
 		break;
 	case 2: /* Delete vehicle*/
 		std::cout << "Delete Vehicle:\n";
-		std::cout << "What is the position of the Vehicle that you would like to delete? \n";
-		vehicleManager.printVehicles();
-		userInputStart = MenuUserInput("Input", 0, vehicleManager.getVehicles().size() - 1);
-		vehicleManager.deleteVehicle(userInputStart);
+		if (vehicleManager.getVehicles().size() == 0) {
+			std::cout << "There are no Vehicles that can be deleted.\n\n";
+		}
+		else {
+			std::cout << "What is the position of the Vehicle that you would like to delete? \n";
+			vehicleManager.printVehicles();
+			userInputStart = MenuUserInput("Input", 0, vehicleManager.getVehicles().size() - 1);
+			vehicleManager.deleteVehicle(userInputStart);
+		}
 		break;
 	case 3: /* Print all vehicles*/
 		vehicleManager.printVehicles();

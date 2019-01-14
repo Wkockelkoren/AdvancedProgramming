@@ -87,31 +87,110 @@ int main() {
 	clock_t last_time = this_time;
 
 	// Creating the managers and map
-	Map factory(10, 10);
+	Map factory(20, 20);
 	VehicleManager vehicleManager;
 	TaskManager taskManager;
 
 	// Some standard tasks
-	taskManager.createTask({ 3, 5 }, { 8, 8 });
-	taskManager.createTask({ 9, 9 });
-	taskManager.createTask({ 0, 0 }, { 5, 1 });
+	taskManager.createTask({ 1, 18 }, { 16, 9 });
+	taskManager.createTask({ 5,  2 }, {  9, 18 });
+	taskManager.createTask({ 16, 9 }, {  5, 18 });
+	taskManager.createTask({ 9, 18 }, {  1, 18 });
+	taskManager.createTask({ 5, 2 }, { 16, 9 });
+	taskManager.createTask({ 2, 2 });
 
 	// One standard vehicle
-	vehicleManager.addVehicle({ 0, 9 });
+	vehicleManager.addVehicle({ 17, 14 });
+	vehicleManager.addVehicle({  2, 10 });
+	vehicleManager.addVehicle({ 10,  1 });
+
 
 	try {
-		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
-		factory.getPointOfInterest(9, 5).setPointOfInterestType(pointOfInterestType::DropOff);
-		factory.getPointOfInterest(4, 2).setPointOfInterestType(pointOfInterestType::Wall);
-		factory.getPointOfInterest(4, 3).setPointOfInterestType(pointOfInterestType::Wall);
-		factory.getPointOfInterest(4, 4).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(8, 0).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(8, 1).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(8, 3).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(8, 4).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(8, 5).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(8, 6).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(8, 7).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(8, 9).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(8, 10).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(8, 11).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(8, 12).setPointOfInterestType(pointOfInterestType::Wall);
+
+		factory.getPointOfInterest(12, 0).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(12, 1).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(12, 3).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(12, 4).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(12, 5).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(12, 6).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(12, 7).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(12, 9).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(12, 10).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(12, 11).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(12, 12).setPointOfInterestType(pointOfInterestType::Wall);
+
+		factory.getPointOfInterest(0, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(1, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(2, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(3, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(4, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(5, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(6, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(7, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(9, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(11, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(13, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(14, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(15, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(16, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(17, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(18, 12).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(19, 12).setPointOfInterestType(pointOfInterestType::Wall);
+
+		factory.getPointOfInterest( 0, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest( 2, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest( 3, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest( 4, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest( 6, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest( 7, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest( 8, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest( 9, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(10, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(11, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(12, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(13, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(14, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(15, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(16, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(18, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(19, 16).setPointOfInterestType(pointOfInterestType::Wall);
+		
+		factory.getPointOfInterest(3, 17).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(3, 18).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(3, 19).setPointOfInterestType(pointOfInterestType::Wall);
+
+		factory.getPointOfInterest(7, 17).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(7, 18).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(7, 19).setPointOfInterestType(pointOfInterestType::Wall);
+
+		factory.getPointOfInterest(3, 5).setPointOfInterestType(pointOfInterestType::Wall);
 		factory.getPointOfInterest(4, 5).setPointOfInterestType(pointOfInterestType::Wall);
-		factory.getPointOfInterest(4, 6).setPointOfInterestType(pointOfInterestType::Wall);
-		factory.getPointOfInterest(4, 7).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(5, 5).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(6, 5).setPointOfInterestType(pointOfInterestType::Wall);
+		factory.getPointOfInterest(7, 5).setPointOfInterestType(pointOfInterestType::Wall);
+
+		factory.getPointOfInterest(5, 2).setPointOfInterestType(pointOfInterestType::DropOff);
+		factory.getPointOfInterest(16, 9).setPointOfInterestType(pointOfInterestType::DropOff);
+		factory.getPointOfInterest(1, 18).setPointOfInterestType(pointOfInterestType::DropOff);
+		factory.getPointOfInterest(5, 18).setPointOfInterestType(pointOfInterestType::DropOff);
+		factory.getPointOfInterest(9, 18).setPointOfInterestType(pointOfInterestType::DropOff);
 	}
 	catch (std::exception const& e) {
 		std::cout << e.what();
 	}
+
+
 
 	SDL_Window* mapWindow;
 	SDL_Surface* surface;
