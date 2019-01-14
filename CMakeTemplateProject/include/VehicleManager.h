@@ -28,7 +28,7 @@ public:
 
 	Vehicle& getAvailableVehicle();
 
-	std::vector<Position> VehicleManager::getPathFromAlgorithm(Position startPosition, Position goalPosition, Map &map);
+	std::vector<Position> getPathFromAlgorithm(Position startPosition, Position goalPosition, Map &map);
 
 	std::vector<Vehicle>& getVehicles();
 
