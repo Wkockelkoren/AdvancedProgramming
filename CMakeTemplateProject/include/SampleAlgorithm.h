@@ -5,8 +5,6 @@
 #include <iostream>
 #include "Map.h"
 #include "Structures.h"
-
-
 /**
 Position struct with added counter
 */

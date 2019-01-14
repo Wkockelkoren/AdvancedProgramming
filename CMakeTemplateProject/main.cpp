@@ -81,14 +81,6 @@
 #include <windows.h>
 #endif
 
-#ifdef __linux__ /* Linux */
-
-#endif
-
-#ifdef __APPLE__ /* MacOS */
-
-#endif
-
 int main() {
 	// Timing stuff
 	clock_t this_time = clock();
@@ -98,6 +90,14 @@ int main() {
 	Map factory(10, 10);
 	VehicleManager vehicleManager;
 	TaskManager taskManager;
+
+	// Some standard tasks
+	taskManager.createTask({ 3, 5 }, { 8, 8 });
+	taskManager.createTask({ 9, 9 });
+	taskManager.createTask({ 0, 0 }, { 5, 1 });
+
+	// One standard vehicle
+	vehicleManager.addVehicle({ 0, 9 });
 
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
