@@ -3,7 +3,7 @@
 These are the structures used in the program
 */
 struct Position {
-	/***
+	/**
 	A position contains a value for both the x- and y direction.
 	*/
 	size_t x;
