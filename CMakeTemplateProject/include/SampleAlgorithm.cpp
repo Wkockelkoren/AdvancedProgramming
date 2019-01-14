@@ -2,9 +2,6 @@
 
 void SampleAlgorithm::addNewCoordinate(Map &map, const Coordinate newCoordinate, const Position endPosition, const size_t &iterator,
 	std::vector<Coordinate> &pathList) {
-	/**this function checks if the requested coordinate is the start coordinate or if there is an obstacle at the requested position.
-	If both is not the case the coordinate gets added to the argument pathlist
-	*/
 	for (size_t it = 0; it < pathList.size(); it++) {
 		if ((newCoordinate.x == pathList[iterator].x) && (newCoordinate.y == pathList[iterator].y)) {
 			existsAlready = true;
@@ -38,11 +35,6 @@ void SampleAlgorithm::addNewCoordinate(Map &map, const Coordinate newCoordinate,
 
 
 std::vector<Coordinate> SampleAlgorithm::calculateListOfPaths(Map &map, Position startPosition, Position endPosition) {
-	/**This function generates a vector of coordinates. It starts with the start coordinate and
-	then it checks every coordinate adjacent to the start coordinate. If the coordinate is no
-	obstacle and within boundaries it adds the coordinate to a list. Next, this action also happens
-	with every new coordinate in the list untill the end position is found.
-	*/
 	std::vector<Coordinate> pathList;
 	Coordinate coordinate;
 
@@ -105,12 +97,6 @@ std::vector<Coordinate> SampleAlgorithm::calculateListOfPaths(Map &map, Position
 std::vector<Position> SampleAlgorithm::getSinglePath(std::vector<Coordinate> &pathList, Position start) {
 	//Reduce the pathList to list with steps to take
 
-	/** This function returns a generated path from the output of the calculateListOfPahts function.
-	The output of the calcaluteListOfPaths is a vector that contains the actual path and
-	a set of unfinished path that don't lead to the right direction. This function searches
-	for the actual path and returns that.
-	*/
-
 	size_t currentCounter = 0;
 
 	bool added = false;
@@ -170,9 +156,6 @@ std::vector<Position> SampleAlgorithm::getSinglePath(std::vector<Coordinate> &pa
 
 
 std::vector<Position> SampleAlgorithm::createPath(const Position startPosition, const Position goalPosition, Map &map) {
-	/**
-		this public function can be called in order to generate a path.
-	*/
 	/*
 	this public function can be called in order to generate a path. it uses the private function
 	"ListOfPaths" to generate a vector with 1 path from start to end, and with paths that dont lead
