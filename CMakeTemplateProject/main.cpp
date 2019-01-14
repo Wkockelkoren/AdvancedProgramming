@@ -91,7 +91,7 @@ int main() {
 	VehicleManager vehicleManager;
 	TaskManager taskManager;
 
-<<<<<<< HEAD
+	// Some standard tasks
 	taskManager.createTask({ 1, 18 }, { 16, 9 });
 	taskManager.createTask({ 5,  2 }, {  9, 18 });
 	taskManager.createTask({ 16, 9 }, {  5, 18 });
@@ -99,18 +99,11 @@ int main() {
 	taskManager.createTask({ 5, 2 }, { 16, 9 });
 	taskManager.createTask({ 2, 2 });
 
+	// One standard vehicle
 	vehicleManager.addVehicle({ 17, 14 });
 	vehicleManager.addVehicle({  2, 10 });
 	vehicleManager.addVehicle({ 10,  1 });
-=======
-	// Some standard tasks
-	taskManager.createTask({ 3, 5 }, { 8, 8 });
-	taskManager.createTask({ 9, 9 });
-	taskManager.createTask({ 0, 0 }, { 5, 1 });
 
-	// One standard vehicle
-	vehicleManager.addVehicle({ 0, 9 });
->>>>>>> master
 
 	try {
 		factory.getPointOfInterest(8, 0).setPointOfInterestType(pointOfInterestType::Wall);
