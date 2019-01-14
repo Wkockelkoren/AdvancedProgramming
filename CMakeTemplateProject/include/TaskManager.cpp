@@ -2,13 +2,6 @@
 #include <iostream>
 
 
-Task TaskManager::getTask() {
-	/**
-	This function returns the front task in list.
-	*/
-	return taskList.front();
-}
-
 TaskManager::TaskManager() {
 
 }

@@ -14,13 +14,10 @@ public:
 	~TaskManager();
 
 	void createTask(Position goalPosition);
-	//init size_max
 
 	void createTask(Position startPosition, Position goalPosition);
-	
-	Task getTask();
-	//test push back
-	 std::vector<Task>&  getTaskList() ;
+
+	std::vector<Task>&  getTaskList() ;
 
 	void deleteTask(size_t iterator);
 
