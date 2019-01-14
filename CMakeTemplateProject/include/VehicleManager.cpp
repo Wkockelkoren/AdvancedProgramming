@@ -10,42 +10,11 @@ VehicleManager::VehicleManager(){
 VehicleManager::~VehicleManager(){
 }
 
-void VehicleManager::addVehicle(Position pos, const size_t vehicleSpeed) {
+void VehicleManager::addVehicle(Position pos) {
 	/** This function can be used to add a vehicle.
 	*/
-	Vehicle vehicle(pos, vehicleSpeed);
+	Vehicle vehicle(pos);
 	listOfVehicles.push_back(vehicle);
-}
-
-Vehicle& VehicleManager::getAvailableVehicle() {
-	/** This function searches for a vehicle that is not working and returns it
-	*/
-	//std::vector<Vehicle> availableVehicles;
-	//std::vector<Position> generatedPath;
-	size_t numberOfVehicles = listOfVehicles.size();
-
-	//check how many vehicles are available
-	for (size_t currentVehicle = 0; currentVehicle < numberOfVehicles; currentVehicle++) {
-		if (listOfVehicles[currentVehicle].checkIfWorking() == false) {
-			Vehicle& availableVehicle = listOfVehicles[currentVehicle];
-			return availableVehicle;  // listOfVehicles[currentVehicle];
-		}
-	}
-	//return should have an been triggered in the for loop. Otherwise the countAvailableVehicles was not used before.
-	throw std::runtime_error("No available vehicle to return - class VehicleManager GetAvailableVehicle()\n");
-}
-
-
-size_t VehicleManager::countAvailableVehicles() {
-	/** This function returns the number of vehicles that are not working
-	*/
-	size_t numberOfAvailableVehicles = 0;
-	for (size_t currentVehicle = 0; currentVehicle < listOfVehicles.size(); currentVehicle++) {
-		if (listOfVehicles[currentVehicle].checkIfWorking() == false) {
-			numberOfAvailableVehicles++;
-		}
-	}
-	return numberOfAvailableVehicles;
 }
 
 std::vector<Position> VehicleManager::getPathFromAlgorithm(Position startPosition, Position goalPosition, Map &map) {
@@ -61,7 +30,6 @@ std::vector<Position> VehicleManager::getPathFromAlgorithm(Position startPositio
 		break;
 	}
 }
-
 
 void VehicleManager::assignPathToVehicle(std::vector<Task> &currentTasks, Map &map) {
 	/**

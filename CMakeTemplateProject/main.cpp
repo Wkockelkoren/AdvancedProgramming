@@ -8,16 +8,16 @@
 	* Make sure you have installed Visual Studio 2017.
 
   * \subsection step1_3 Step 3:
-	* Run the �build_Windows.bat� file to generate a Visual Studio 2017 project (double-click).
+	* Run the build_Windows.bat file to generate a Visual Studio 2017 project (double-click).
 
   * \subsection step1_4 Step 4:
-	* Start the �PathPlanner.sln� from the build directory (32-bit version or 64-bit version).
+	* Start the PathPlanner.sln from the build directory (32-bit version or 64-bit version).
 
   * \subsection step1_5 Step 5:
-	* Set the �PathPlanner� project as StartUp project by right clicking on it.
+	* Set the PathPlanner project as StartUp project by right clicking on it.
 
   * \subsection step1_6 Step 6:
-	* Build and run the program.Install CMake and add it to your system path variable.
+	* Build and run the program
 
 
   * \section install_sec2 Installation Linux
@@ -26,7 +26,7 @@
 
 	*			sudo apt install cmake libsdl2-dev g++
   *
-  * \subsection step2_2 Step 2: run build
+  * \subsection step2_2 Step 2:
 
 	* Run the build file build_Linux.sh to compile the program:
 
@@ -36,7 +36,30 @@
 
 	* Run the program using:
 
-	*			./ build/PathPlanner
+	*			./build/PathPlanner
+
+  * \section install_sec3 Installation MacOS
+    * \subsection step3_1 Step 1:
+	* Install Brew:
+
+	*			 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+  * \subsection step3_2 Step 2:
+	* Install CMake, SDL2 and gcc:
+
+	*			brew install cmake sdl2 gcc
+  *
+  * \subsection step3_3 Step 3:
+
+	* Run the build file build_MacOS.sh to compile the program:
+
+	*			bash ./build_MacOS.sh
+  *
+  * \subsection step3_4 Step 4:
+
+	* Run the program using:
+
+	*			./build/PathPlanner
 
  */
 
@@ -117,7 +140,6 @@ int main() {
 		if (Go == false) {
 			switch (menuMode) {
 			case 1: /* Task Manager*/
-
 				MenuTaskManager(&menuMode, factory, taskManager);
 				break;
 
