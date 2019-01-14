@@ -22,9 +22,10 @@ void MenuTaskManager(size_t* menuMode, Map& factory, TaskManager& taskManager){
 	std::cout << "--- Task Manager ---\n";
 	std::cout << "Options:\n";
 	std::cout << "1. Add Task\n";
-	std::cout << "2. View Task list\n";
-	std::cout << "3. Back\n\n";
-	size_t subMenuMode = MenuUserInput("Input", 1, 3);
+	std::cout << "2. Delete Task\n";
+	std::cout << "3. View Task list\n";
+	std::cout << "4. Back\n\n";
+	size_t subMenuMode = MenuUserInput("Input", 1, 4);
 
 	switch (subMenuMode) {
 	case 1: /* Add Task */
@@ -50,11 +51,18 @@ void MenuTaskManager(size_t* menuMode, Map& factory, TaskManager& taskManager){
 			taskManager.createTask({ userInputX, userInputY });
 		}
 		break;
-	case 2: /* Print all tasks*/
+	case 2: /* Delete task*/
+		std::cout << "Delete Task:\n";
+		std::cout << "What is the position of the task that you would like to delete? \n";
+		taskManager.printTasks();
+		userInputStart = MenuUserInput("Input", 0, taskManager.getTaskList().size()-1);
+		taskManager.deleteTask(userInputStart);
+		break;
+	case 3: /* Print all tasks*/
 		taskManager.printTasks();
 		break;
 
-	case 3: /* Go back to main menu */
+	case 4: /* Go back to main menu */
 		*menuMode = 0;
 		break;
 
