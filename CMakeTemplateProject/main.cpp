@@ -190,8 +190,6 @@ int main() {
 		std::cout << e.what();
 	}
 
-
-
 	SDL_Window* mapWindow;
 	SDL_Surface* surface;
 	SDL_Renderer* renderer;
@@ -216,7 +214,7 @@ int main() {
 
 	while (!done) {
 
-		if (Go == false) {
+		if (Go == false) { /* Go to menu when simulation is finished */
 			switch (menuMode) {
 			case 1: /* Task Manager*/
 				MenuTaskManager(&menuMode, factory, taskManager);
@@ -250,7 +248,9 @@ int main() {
 				break;
 			}
 		}
-		else {
+		else { /* Run simulation when it is started from the menu */
+			
+			// Check whether vehicles are available, otherwise return to menu
 			if (vehicleManager.countVehicles() == 0)
 			{
 				std::cout << "No vehicles available\n\n";
@@ -287,6 +287,7 @@ int main() {
 		}
 	}
 
+	// Nicely close SDL when exiting program
 	SDL_DestroyWindow(mapWindow);
 	SDL_Quit();
 

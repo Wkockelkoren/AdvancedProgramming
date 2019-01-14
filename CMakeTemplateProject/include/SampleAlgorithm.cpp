@@ -32,8 +32,6 @@ void SampleAlgorithm::addNewCoordinate(Map &map, const Coordinate newCoordinate,
 	SampleAlgorithm::existsAlready = false;
 }
 
-
-
 std::vector<Coordinate> SampleAlgorithm::calculateListOfPaths(Map &map, Position startPosition, Position endPosition) {
 	std::vector<Coordinate> pathList;
 	Coordinate coordinate;
@@ -92,7 +90,6 @@ std::vector<Coordinate> SampleAlgorithm::calculateListOfPaths(Map &map, Position
 	//newly added (remove this line if works)
 	return pathList;
 }
-
 
 std::vector<Position> SampleAlgorithm::getSinglePath(std::vector<Coordinate> &pathList, Position start) {
 	//Reduce the pathList to list with steps to take
@@ -153,7 +150,6 @@ std::vector<Position> SampleAlgorithm::getSinglePath(std::vector<Coordinate> &pa
 	}
 	return generatedPath;
 }
-
 
 std::vector<Position> SampleAlgorithm::createPath(const Position startPosition, const Position goalPosition, Map &map) {
 	/*

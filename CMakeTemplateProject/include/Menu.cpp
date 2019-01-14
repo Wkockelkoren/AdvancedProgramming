@@ -51,6 +51,7 @@ void MenuTaskManager(size_t* menuMode, Map& factory, TaskManager& taskManager){
 			taskManager.createTask({ userInputX, userInputY });
 		}
 		break;
+
 	case 2: /* Delete task*/
 		std::cout << "Delete Task:\n";
 		if (taskManager.getTaskList().size() == 0) {
@@ -62,8 +63,8 @@ void MenuTaskManager(size_t* menuMode, Map& factory, TaskManager& taskManager){
 			userInputStart = MenuUserInput("Input", 0, taskManager.getTaskList().size()-1);
 			taskManager.deleteTask(userInputStart);
 		}
-		
 		break;
+
 	case 3: /* Print all tasks*/
 		taskManager.printTasks();
 		break;
@@ -97,6 +98,7 @@ void MenuVehicleManager(size_t* menuMode, Map& factory, VehicleManager& vehicleM
 		userInputY = MenuUserInput("Give a Y-position", 0, factory.height - 1);
 		vehicleManager.addVehicle({ userInputX, userInputY });
 		break;
+
 	case 2: /* Delete vehicle*/
 		std::cout << "Delete Vehicle:\n";
 		if (vehicleManager.getVehicles().size() == 0) {
@@ -109,9 +111,11 @@ void MenuVehicleManager(size_t* menuMode, Map& factory, VehicleManager& vehicleM
 			vehicleManager.deleteVehicle(userInputStart);
 		}
 		break;
+
 	case 3: /* Print all vehicles*/
 		vehicleManager.printVehicles();
 		break;
+
 	case 4: /* Go back to main menu */
 		*menuMode = 0;
 		break;
@@ -140,6 +144,7 @@ void MenuMapEditor(size_t* menuMode, Map& factory) {
 		
 		factory.getPointOfInterest(userInputX, userInputY).setPointOfInterestType(pointOfInterestType::Wall);
 		break;
+
 	case 2:/*Place DropOff*/
 		std::cout << "Add DropOff:\n";
 		userInputX = MenuUserInput("Give an X-position", 0, factory.width - 1);
@@ -147,6 +152,7 @@ void MenuMapEditor(size_t* menuMode, Map& factory) {
 		
 		factory.getPointOfInterest(userInputX, userInputY).setPointOfInterestType(pointOfInterestType::DropOff);
 		break;
+
 	case 3:/*Place Floor*/
 		std::cout << "Add Floor:\n";
 		userInputX = MenuUserInput("Give an X-position", 0, factory.width - 1);
@@ -154,9 +160,11 @@ void MenuMapEditor(size_t* menuMode, Map& factory) {
 
 		factory.getPointOfInterest(userInputX, userInputY).setPointOfInterestType(pointOfInterestType::Floor);
 		break;
+
 	case 4:/*Back*/
 		*menuMode = 0;
 		break;
+
 	default:
 		std::cout << "Invalid input \n";
 		break;
@@ -179,12 +187,15 @@ void MenuSettings(size_t* menuMode, VehicleManager& vehicleManager) {
 			case 1: /*Sample Algorithm*/
 				vehicleManager.setAlgorithm(enumSampleAlgorithm);
 				break;
+
 			case 2: /* A* */
 				vehicleManager.setAlgorithm(enumAstar);
 				break;
+
 			case 3: /*Back*/
 				*menuMode = 0;
 				break;
+
 			default:
 				std::cout << "Invalid input \n";
 				break;

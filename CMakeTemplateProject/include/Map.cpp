@@ -77,8 +77,6 @@ void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles) {
 				}
 			}
 
-
-
 			if (v == false) { // If there is no vehicle on the current position, then we print the point of interest type
 				if (type == pointOfInterestType::Floor) {
 					SDL_SetRenderDrawColor(renderer, 126, 110, 90, 0xFF);

@@ -1,7 +1,6 @@
 #include "TaskManager.h"
 #include <iostream>
 
-
 TaskManager::TaskManager() {
 
 }
@@ -16,7 +15,6 @@ void TaskManager::createTask(Position goalPosition) {
 	task.goalPosition = goalPosition;
 	taskList.push_back(task);
 }
-
 
 void TaskManager::createTask(Position startPosition,Position goalPosition) {
 	Task task;
@@ -34,7 +32,6 @@ void TaskManager::deleteTask(size_t iterator) {
 		taskList.erase(taskList.begin() + iterator);
 	}
 }
-
 
 void TaskManager::printTasks() {
 	std::cout << "List of Tasks:\n";
