@@ -18,32 +18,32 @@ private:
 
 public:
 	/**
-	Width of the Map
+		Width of the Map
 	*/
 	const size_t width;
 
 	/**
-	Height of the Map
+		Height of the Map
 	*/
 	const size_t height;
 
 	/**
-	Constructor for Map
+		Constructor for Map
 	*/
 	Map(size_t width, size_t height);
 
 	/**
-	Destructor for Map
+		Destructor for Map
 	*/
 	~Map();
 
 	/**
-	Get point of interest from position on Map
+		Get point of interest from position on Map
 	*/
 	PointOfInterest& getPointOfInterest(size_t x, size_t y);
 
 	/**
-	Prints Points of Interests and Vehicles
+		Prints Points of Interests and Vehicles
 	*/
 	void printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles);
 };
