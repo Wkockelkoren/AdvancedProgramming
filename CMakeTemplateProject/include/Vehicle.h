@@ -21,62 +21,62 @@ private:
 
 public:
 	/**
-	Constructor for map
+		Constructor for map
 	*/
 	Vehicle(Position pos = {0,0});	
 
 	/**
-	Get the current position of the Vehicle on the Map
+		Get the current position of the Vehicle on the Map
 	*/
 	Position getPosition();
 
 	/**
-	A vehicle uses this function to change its position by usage of an assigned path
+		A vehicle uses this function to change its position by usage of an assigned path
 	*/
 	void moveNextPathPosition();
 
 	/**
-	Pass generated path to vehicle
+		Pass generated path to vehicle
 	*/
 	void setPath(std::vector<Position> &generatedpath);
 
 	/**
-	Returns path assigned to current vehicle
+		Returns path assigned to current vehicle
 	*/
 	std::vector<Position>* getPath();
 
 	/**
-	Pass generated path to vehicle
+		Pass generated path to vehicle
 	*/
 	void setWorking(bool isWorking);
 
 	/**
-	Check whether a Vehicle is working (driving)
+		Check whether a Vehicle is working (driving)
 	*/
 	bool getWorking();
 
 	/**
-	Get the task that is currently assigned to the vehicle
+		Get the task that is currently assigned to the vehicle
 	*/
 	Task* getTask();
 
 	/**
-	Pass a task to the vehicle
+		Pass a task to the vehicle
 	*/
 	void setTask(Task task1);
 
 	/**
-	Check whether the vehicle position is equal to the goal position of the task
+		Check whether the vehicle position is equal to the goal position of the task
 	*/
 	bool isAtTaskGoalPosition();
 
 	/**
-	Check whether the vehicle position is equal to the start position of the task
+		Check whether the vehicle position is equal to the start position of the task
 	*/
 	bool isAtTaskStartPosition();
 
 	/**
-	Check whether the task of the vehicle has a start position
+		Check whether the task of the vehicle has a start position
 	*/
 	bool hasStartPosition();
 };
