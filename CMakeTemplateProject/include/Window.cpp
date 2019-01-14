@@ -43,7 +43,6 @@ bool loadWindow(SDL_Window** window, size_t width, size_t height, SDL_Surface** 
 void updateScreen(SDL_Renderer *renderer, SDL_Window *mapWindow, Map &map, std::vector<Vehicle> vehicles) {
 	try {
 		map.printMap(renderer, vehicles);
-		std::cout << "Draw map\n";
 	}
 	catch (std::exception const& e) {
 		std::cout << e.what();

@@ -28,7 +28,7 @@ private:
 		std::vector<Coordinate> &pathList);
 
 public:
-	std::vector<Position> createPath(const Position startPosition, const Position dropOff, Map &map);
+	std::vector<Position> createPath(const Position startPosition, const Position goalPosition, Map &map);
 
 };
 

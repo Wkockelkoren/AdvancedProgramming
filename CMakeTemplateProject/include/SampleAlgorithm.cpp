@@ -169,7 +169,7 @@ std::vector<Position> SampleAlgorithm::getSinglePath(std::vector<Coordinate> &pa
 }
 
 
-std::vector<Position> SampleAlgorithm::createPath(const Position startPosition, const Position dropOff, Map &map) {
+std::vector<Position> SampleAlgorithm::createPath(const Position startPosition, const Position goalPosition, Map &map) {
 	/**
 		this public function can be called in order to generate a path.
 	*/
@@ -178,7 +178,7 @@ std::vector<Position> SampleAlgorithm::createPath(const Position startPosition, 
 	"ListOfPaths" to generate a vector with 1 path from start to end, and with paths that dont lead
 	to the right location. The function generatePath uses this list and returns only the correct path
 	*/
-	std::vector<Coordinate>	listOfPaths = calculateListOfPaths(map, dropOff, startPosition);
+	std::vector<Coordinate>	listOfPaths = calculateListOfPaths(map, goalPosition, startPosition);
 	std::vector<Position> generatedPath = getSinglePath(listOfPaths, startPosition);
 	return generatedPath;
 }
