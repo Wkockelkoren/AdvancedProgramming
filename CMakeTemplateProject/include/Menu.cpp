@@ -75,11 +75,14 @@ void MenuTaskManager(size_t* menuMode, Map& factory, TaskManager& taskManager){
 void MenuVehicleManager(size_t* menuMode, Map& factory, VehicleManager& vehicleManager) {
 	size_t userInputX = 0;
 	size_t userInputY = 0;
+	size_t userInputStart = 0;
 
 	std::cout << "--- Vehicle Manager ---\n";
 	std::cout << "1. Add Vehicle \n";
-	std::cout << "2. Back \n\n";
-	size_t subMenuMode = MenuUserInput("Input", 1, 2);
+	std::cout << "2. Delete Vehicle \n";
+	std::cout << "3. View Vehicle list \n";
+	std::cout << "4. Back \n\n";
+	size_t subMenuMode = MenuUserInput("Input", 1, 4);
 
 	switch (subMenuMode) {
 	case 1: /* Add vehicle */
@@ -89,8 +92,17 @@ void MenuVehicleManager(size_t* menuMode, Map& factory, VehicleManager& vehicleM
 
 		vehicleManager.addVehicle({ userInputX, userInputY });
 		break;
-
-	case 2: /* Go back to main menu */
+	case 2: /* Delete vehicle*/
+		std::cout << "Delete Vehicle:\n";
+		std::cout << "What is the position of the Vehicle that you would like to delete? \n";
+		vehicleManager.printVehicles();
+		userInputStart = MenuUserInput("Input", 0, vehicleManager.getVehicles().size() - 1);
+		vehicleManager.deleteVehicle(userInputStart);
+		break;
+	case 3: /* Print all vehicles*/
+		vehicleManager.printVehicles();
+		break;
+	case 4: /* Go back to main menu */
 		*menuMode = 0;
 		break;
 
