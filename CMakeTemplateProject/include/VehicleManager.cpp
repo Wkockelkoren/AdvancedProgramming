@@ -74,47 +74,40 @@ void VehicleManager::assignPathToVehicle(std::vector<Task> &currentTasks, Map &m
 	to the right location. The function generatePath uses this list and returns only the correct path
 	*/
 
-	size_t numberOfAvailableVehicles = countAvailableVehicles();
-
-	while (numberOfAvailableVehicles > 0 && (currentTasks.size() > 0 || !allVehiclesAtGoalPosition())) {
-		Vehicle availableVehicle;
-		try {
-			availableVehicle = getAvailableVehicle(); //first a vehicle that is not doing work is needed
+	for (size_t currentVehicle = 0; currentVehicle < listOfVehicles.size(); currentVehicle++) {
+		if (listOfVehicles[currentVehicle].checkIfWorking() == true) {
+			continue;
 		}
-		catch (std::exception const& e) {
-			std::cout << e.what();
-		}
+		if (currentTasks.size() > 0 || !allVehiclesAtGoalPosition()) {
+			std::vector<Position> generatedPath;
 
-		std::vector<Position> generatedPath;
+			if (listOfVehicles[currentVehicle].isAtTaskGoalPosition()) {
+				//get new task en create path to start position
+				if (currentTasks.size() == 0) {
+					continue;
+				}
+				listOfVehicles[currentVehicle].setTask(currentTasks.front());
 
-		if (availableVehicle.isAtTaskGoalPosition()) {
-			//get new task en create path to start position
-			if (currentTasks.size() == 0) {
-				break;
+				if (listOfVehicles[currentVehicle].hasStartPosition()) {
+					generatedPath = getPathFromAlgorithm(listOfVehicles[currentVehicle].getPosition(), currentTasks.front().startPosition, map);
+				}
+				else {
+					generatedPath = getPathFromAlgorithm(listOfVehicles[currentVehicle].getPosition(), currentTasks.front().goalPosition, map);
+					std::cout << "has no start position\n";
+				}
+				currentTasks.erase(currentTasks.begin());
 			}
-			getAvailableVehicle().setTask(currentTasks.front());
-
-			if (getAvailableVehicle().hasStartPosition()) {
-				generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), currentTasks.front().startPosition, map);
+			else if (listOfVehicles[currentVehicle].isAtTaskStartPosition() || !listOfVehicles[currentVehicle].hasStartPosition()) {
+				//move to goal position of current task
+				generatedPath = getPathFromAlgorithm(listOfVehicles[currentVehicle].getPosition(), listOfVehicles[currentVehicle].getTask()->goalPosition, map);
 			}
-			else{
-				generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), currentTasks.front().goalPosition, map);
-				std::cout << "has no start position\n";
+			else {
+				//move to start position of current task
+				generatedPath = getPathFromAlgorithm(listOfVehicles[currentVehicle].getPosition(), listOfVehicles[currentVehicle].getTask()->startPosition, map);
 			}
-			currentTasks.erase(currentTasks.begin());
-		}
-		else if (availableVehicle.isAtTaskStartPosition() || !availableVehicle.hasStartPosition()) {
-			//move to goal position of current task
-			generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), availableVehicle.getTask()->goalPosition, map);
-		}
-		else {
-			//move to start position of current task
-			generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), availableVehicle.getTask()->startPosition, map);
-		}
 
-		getAvailableVehicle().setPath(generatedPath);
-
-		numberOfAvailableVehicles--;
+			listOfVehicles[currentVehicle].setPath(generatedPath);
+		}
 	}
 }
 

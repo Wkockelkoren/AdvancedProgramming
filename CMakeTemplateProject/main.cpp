@@ -76,14 +76,6 @@ int main() {
 	VehicleManager vehicleManager;
 	TaskManager taskManager;
 
-	taskManager.createTask({ 2,9 });
-	taskManager.createTask({ 5,6 }, { 9,9 });
-
-	// Create some vehicles
-	vehicleManager.addVehicle({ 2,2 }, 1);
-	vehicleManager.addVehicle({ 9,9 }, 1);
-	//vehicleManager.addVehicle({5,2}, 1);
-
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
 		factory.getPointOfInterest(9, 5).setPointOfInterestType(pointOfInterestType::DropOff);
@@ -158,31 +150,11 @@ int main() {
 			}
 		}
 		else {
-			SDL_Event e;
-
-			while (SDL_PollEvent(&e)) {
-
-				/* Re-create when window has been resized */
-				if ((e.type == SDL_WINDOWEVENT) && (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)) {
-
-					SDL_DestroyRenderer(renderer);
-
-					surface = SDL_GetWindowSurface(mapWindow);
-					renderer = SDL_CreateSoftwareRenderer(surface);
-					/* Clear the rendering surface with the specified color */
-					SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-					SDL_RenderClear(renderer);
-				}
-
-				if (e.type == SDL_QUIT) {
-					done = 1;
-					return 0;
-				}
-
-				if ((e.type == SDL_KEYDOWN) && (e.key.keysym.sym == SDLK_ESCAPE)) {
-					done = 1;
-					return 0;
-				}
+			if (vehicleManager.countVehicles() == 0)
+			{
+				std::cout << "No vehicles available\n\n";
+				menuMode = 0;
+				Go = false;
 			}
 
 			//program functions that are time based and need to be repeated
@@ -195,7 +167,6 @@ int main() {
 				vehicleManager.assignPathToVehicle(taskManager.getTaskList(), factory);
 
 				//Move all vehicles to the next place on the path
-
 				for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {
 					try {
 						vehicleManager.getVehicles().at(i).moveNextPathPosition();
