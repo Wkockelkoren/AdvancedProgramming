@@ -103,7 +103,7 @@ void VehicleManager::assignPathToVehicle(std::vector<Task> &currentTasks, Map &m
 			}
 			currentTasks.erase(currentTasks.begin());
 		}
-		else if (availableVehicle.isAtTaskStartPosition()) {
+		else if (availableVehicle.isAtTaskStartPosition() || !availableVehicle.hasStartPosition()) {
 			//move to goal position of current task
 			generatedPath = getPathFromAlgorithm(availableVehicle.getPosition(), availableVehicle.getTask()->goalPosition, map);
 		}

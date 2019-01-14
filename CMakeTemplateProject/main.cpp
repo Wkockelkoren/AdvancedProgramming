@@ -76,14 +76,9 @@ int main() {
 	VehicleManager vehicleManager;
 	TaskManager taskManager;
 
-	taskManager.createTask({ 1,1 });
-	taskManager.createTask({ 5,1 });
-
-	taskManager.createTask({ 9,9 });
 	taskManager.createTask({ 2,9 });
 	taskManager.createTask({ 5,6 }, { 9,9 });
 
-	taskManager.createTask({ 1,1 }, { 3,3 });
 	// Create some vehicles
 	vehicleManager.addVehicle({ 2,2 }, 1);
 	vehicleManager.addVehicle({ 9,9 }, 1);
@@ -204,15 +199,14 @@ int main() {
 				for (size_t i = 0; i < vehicleManager.getVehicles().size(); i++) {
 					try {
 						vehicleManager.getVehicles().at(i).moveNextPathPosition();
-						std::cout << "Move next position\n";
-						if (taskManager.getTaskList().size() == 0 && vehicleManager.allVehiclesAtGoalPosition()) {
-							menuMode = 0;
-							Go = false;
-						}
 					}
 					catch (std::exception const& e) {
 						std::cout << e.what();
 					}
+				}
+				if (taskManager.getTaskList().size() == 0 && vehicleManager.allVehiclesAtGoalPosition()) {
+					menuMode = 0;
+					Go = false;
 				}
 
 				//Screen is updated after making changes
