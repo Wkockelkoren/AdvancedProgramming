@@ -10,46 +10,18 @@
 * @endcode
 */
 
-Vehicle::Vehicle(Position pos, size_t maxSpeed) : position(pos), maxSpeed(maxSpeed) {
+Vehicle::Vehicle(Position pos) : position(pos) {
 	task.startPosition = { SIZE_MAX, SIZE_MAX };
 	task.goalPosition = { SIZE_MAX, SIZE_MAX };
 }
-
-
-void Vehicle::printCoords() {
-	std::cout << "(" << position.x << "," << position.y << ")\n";
-}
-
-
-void Vehicle::setPosition(Position pos) {
-	position = pos;
-}
-
 
 Position Vehicle::getPosition() {
 	return position;
 }
 
-
-void Vehicle::printMaxSpeed() {
-	std::cout << maxSpeed<< "\n";
-}
-
-
-void Vehicle::setMaxSpeed(size_t maxSpeed1) {
-	maxSpeed = maxSpeed1;
-}
-
-
-size_t Vehicle::getMaxSpeed() {
-	return maxSpeed;
-}
-
-
 bool Vehicle::checkIfWorking() {
 	return working;
 }
-
 
 void Vehicle::moveNextPathPosition() {
 	/**
@@ -83,7 +55,6 @@ void Vehicle::moveNextPathPosition() {
 	}
 }
 
-
 void Vehicle::setPath(std::vector<Position> &generatedpath) {
 	/**
 	Pass generated path to vehicle
@@ -91,14 +62,12 @@ void Vehicle::setPath(std::vector<Position> &generatedpath) {
 	path = generatedpath;
 }
 
-
 std::vector<Position>* Vehicle::getPath() {
 	/**
 	Returns path assigned to current vehicle
 	*/
 	return &path;
 }
-
 
 Task* Vehicle::getTask() {
 	return &task;
@@ -108,7 +77,6 @@ Task* Vehicle::getTask() {
 void Vehicle::setTask(Task task1) {
 	task = task1;
 }
-
 
 bool Vehicle::isAtTaskGoalPosition() {
 	//no task assigned
@@ -122,14 +90,12 @@ bool Vehicle::isAtTaskGoalPosition() {
 	return false;
 }
 
-
 bool Vehicle::isAtTaskStartPosition() {
 	if (task.startPosition.x == position.x && task.startPosition.y == position.y) {
 		return true;
 	}
 	return false;
 }
-
 
 bool Vehicle::hasStartPosition() {
 	if (task.startPosition.x == SIZE_MAX && task.startPosition.y == SIZE_MAX) {

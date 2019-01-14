@@ -8,26 +8,15 @@
 class Vehicle {
 private:
 	Position position;
-	size_t maxSpeed;
 	std::vector<Position> path;
 	Task task;
 
 public:
-	Vehicle(Position pos = {0,0}, size_t maxSpeed1 = 1);
+	Vehicle(Position pos = {0,0});
 
 	bool working = false;
 
-	void printCoords();
-
-	void setPosition(Position pos);
-
 	Position getPosition();
-
-	void printMaxSpeed();
-
-	void setMaxSpeed(size_t maxSpeed1);
-
-	size_t getMaxSpeed();
 
 	void moveNextPathPosition();
 
