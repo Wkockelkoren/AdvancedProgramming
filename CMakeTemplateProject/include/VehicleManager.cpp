@@ -43,7 +43,7 @@ void VehicleManager::assignPathToVehicle(std::vector<Task> &currentTasks, Map &m
 	*/
 
 	for (size_t currentVehicle = 0; currentVehicle < listOfVehicles.size(); currentVehicle++) {
-		if (listOfVehicles[currentVehicle].checkIfWorking() == true) {
+		if (listOfVehicles[currentVehicle].getWorking() == true) {
 			continue;
 		}
 		if (currentTasks.size() > 0 || !allVehiclesAtGoalPosition()) {
