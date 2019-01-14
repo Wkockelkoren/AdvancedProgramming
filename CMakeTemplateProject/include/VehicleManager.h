@@ -23,6 +23,8 @@ public:
 
 	void addVehicle(Position pos);
 
+	void deleteVehicle(size_t iterator);
+
 	void assignPathToVehicle(std::vector<Task> &currentTasks, Map &map);
 
 	std::vector<Position> getPathFromAlgorithm(Position startPosition, Position goalPosition, Map &map);
@@ -34,6 +36,8 @@ public:
 	size_t countVehicles();
 
 	bool allVehiclesAtGoalPosition();
+
+	void printVehicles();
 };
 
 #endif

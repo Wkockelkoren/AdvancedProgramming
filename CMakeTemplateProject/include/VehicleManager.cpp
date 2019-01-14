@@ -11,10 +11,20 @@ VehicleManager::~VehicleManager(){
 }
 
 void VehicleManager::addVehicle(Position pos) {
-	/** This function can be used to add a vehicle.
+	/** 
+	This function can be used to add a vehicle.
 	*/
 	Vehicle vehicle(pos);
 	listOfVehicles.push_back(vehicle);
+}
+
+void VehicleManager::deleteVehicle(size_t iterator) {
+	/**
+	This function deletes a vehicle by iterator
+	*/
+	if (iterator < listOfVehicles.size()) {
+		listOfVehicles.erase(listOfVehicles.begin() + iterator);
+	}
 }
 
 std::vector<Position> VehicleManager::getPathFromAlgorithm(Position startPosition, Position goalPosition, Map &map) {
@@ -104,4 +114,13 @@ bool VehicleManager::allVehiclesAtGoalPosition() {
 		}
 	}
 	return true;
+}
+
+void VehicleManager::printVehicles() {
+	std::cout << "List of Vehicles:\n";
+	size_t counter = 0;
+	for (Vehicle vehicle : listOfVehicles) {
+		std::cout << "Vehicle " << counter << " on position (" << vehicle.getPosition().x << "," << vehicle.getPosition().y << ")\n";
+		counter++;
+	}
 }
