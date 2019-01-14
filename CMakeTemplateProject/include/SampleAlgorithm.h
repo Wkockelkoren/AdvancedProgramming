@@ -17,7 +17,6 @@ private:
 	bool startPointReached = false;
 	size_t highestCounter = 0;
 	bool coordinateAdded = false;
-	bool noPathPossible = false;
 	bool existsAlready = false;
 
 	std::vector<Coordinate> calculateListOfPaths(Map &map, Position startPosition, Position endPosition);

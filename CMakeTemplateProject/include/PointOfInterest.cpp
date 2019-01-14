@@ -14,10 +14,6 @@ void PointOfInterest::setPosition(Position pos) {
 	position = pos;
 }
 
-void PointOfInterest::printCoords() {
-	std::cout << "(" << position.x << "," << position.y << ")\n";
-}
-
 pointOfInterestType PointOfInterest::getPointOfInterestType() {
 	return type;
 }
@@ -35,8 +31,4 @@ void PointOfInterest::setPointOfInterestType(pointOfInterestType pointType) {
 
 bool PointOfInterest::getIsObstacle() {
 	return isObstacle;
-}
-
-void PointOfInterest::setIsObstacle(bool obstacle) {
-	isObstacle = obstacle;
 }
