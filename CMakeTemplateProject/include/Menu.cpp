@@ -93,8 +93,8 @@ void MenuVehicleManager(size_t* menuMode, Map& factory, VehicleManager& vehicleM
 		vehicleManager.addVehicle({ userInputX, userInputY });
 		break;
 	case 2: /* Delete vehicle*/
-		std::cout << "Delete Task:\n";
-		std::cout << "What is the position of the task that you would like to delete? \n";
+		std::cout << "Delete Vehicle:\n";
+		std::cout << "What is the position of the Vehicle that you would like to delete? \n";
 		vehicleManager.printVehicles();
 		userInputStart = MenuUserInput("Input", 0, vehicleManager.getVehicles().size() - 1);
 		vehicleManager.deleteVehicle(userInputStart);
