@@ -165,7 +165,7 @@ int main() {
 		factory.getPointOfInterest(16, 16).setPointOfInterestType(pointOfInterestType::Wall);
 		factory.getPointOfInterest(18, 16).setPointOfInterestType(pointOfInterestType::Wall);
 		factory.getPointOfInterest(19, 16).setPointOfInterestType(pointOfInterestType::Wall);
-		
+
 		factory.getPointOfInterest(3, 17).setPointOfInterestType(pointOfInterestType::Wall);
 		factory.getPointOfInterest(3, 18).setPointOfInterestType(pointOfInterestType::Wall);
 		factory.getPointOfInterest(3, 19).setPointOfInterestType(pointOfInterestType::Wall);
@@ -231,7 +231,7 @@ int main() {
 				MenuMapEditor(&menuMode, factory);
 				updateScreen(renderer, mapWindow, factory, vehicleManager.getVehicles());
 				break;
-			
+
 			case 4: /* Settings */
 				MenuSettings(&menuMode,vehicleManager);
 				break;
@@ -262,7 +262,7 @@ int main() {
 			this_time = clock();
 
 			//every second the following if statement will be triggered
-			if ((this_time - last_time) >= 1000) {
+			if ((this_time - last_time) >= CLOCKS_PER_SEC) {
 				last_time = this_time;
 
 				vehicleManager.assignPathToVehicle(taskManager.getTaskList(), factory);
@@ -289,6 +289,6 @@ int main() {
 
 	SDL_DestroyWindow(mapWindow);
 	SDL_Quit();
-    
+
 	return 0;
 }
