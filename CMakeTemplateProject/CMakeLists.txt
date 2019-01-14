@@ -8,22 +8,22 @@ endif(MSVC)
 
 find_package(SDL2 REQUIRED)
 
-include_directories(	
+include_directories(
 	include
 	${SDL2_INCLUDE_DIRS}
 )
 
 if(MSVC)
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Qpar /MP /O2 /DNDEBUG /EHsc")
-	set(CMAKE_CXX_FLAGS "-std=c++14 ${CMAKE_CXX_FLAGS_RELEASE}")
-    
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} /std:c++17 ")
+
     # warning level 4 and all warnings as errors
     add_compile_options(/W4 /WX)
 else(MSVC)
 	set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
-	set(CMAKE_CXX_FLAGS "--std=gnu++14 ${CMAKE_CXX_FLAGS_RELEASE}")
-    
-    # lots of warnings and all warnings as errors
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} -std=gnu++17 ")
+
+    # lots of warnings
     add_compile_options(-Wall -Wextra -pedantic)
 endif(MSVC)
 
@@ -38,7 +38,7 @@ SET(HEADERFILES
 	include/Structures.h
     include/Menu.h
 )
-    
+
 SOURCE_GROUP("Header Files" FILES ${HEADERFILES})
 
 SET(SOURCEFILES
@@ -62,4 +62,3 @@ target_link_libraries(
 	PathPlanner
 	${SDL2_LIBRARIES}
 )
-
