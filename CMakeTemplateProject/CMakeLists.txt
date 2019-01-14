@@ -15,15 +15,15 @@ include_directories(
 
 if(MSVC)
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Qpar /MP /O2 /DNDEBUG /EHsc")
-	set(CMAKE_CXX_FLAGS "-std=c++14 ${CMAKE_CXX_FLAGS_RELEASE}")
+	set (CMAKE_CXX_STANDARD 11)
     
     # warning level 4 and all warnings as errors
     add_compile_options(/W4 /WX)
 else(MSVC)
 	set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
-	set(CMAKE_CXX_FLAGS "--std=gnu++14 ${CMAKE_CXX_FLAGS_RELEASE}")
+	set (CMAKE_CXX_STANDARD 11)
     
-    # lots of warnings and all warnings as errors
+    # lots of warnings
     add_compile_options(-Wall -Wextra -pedantic)
 endif(MSVC)
 
