@@ -15,7 +15,7 @@ include_directories(
 
 if(MSVC)
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Qpar /MP /O2 /DNDEBUG /EHsc")
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} -std=c++17 ")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} /std:c++17 ")
 
     # warning level 4 and all warnings as errors
     add_compile_options(/W4 /WX)
