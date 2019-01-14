@@ -32,11 +32,6 @@ public:
 	void setPosition(Position pos);
 
 	/**
-	Print position of current point of interest.
-	*/
-	void printCoords();
-
-	/**
 	Returns the type of a point of interest
 	*/
 	pointOfInterestType getPointOfInterestType();
@@ -51,10 +46,6 @@ public:
 	*/
 	bool getIsObstacle();
 
-	/**
-	Set if the point of interest is an obstacle
-	*/
-	void setIsObstacle(bool obstacle);
 };
 
 #endif

@@ -30,19 +30,29 @@ void TaskManager::createTask(Position startPosition,Position goalPosition) {
 }
 
 void TaskManager::deleteTask(size_t iterator) {
-	taskList.erase(taskList.begin() + iterator);
+
+	/**
+	This function deletes a task by iterator
+	*/
+	
+	if (iterator < taskList.size()) {
+		taskList.erase(taskList.begin() + iterator);
+	}
 }
 
 
 void TaskManager::printTasks() {
 	std::cout << "List of Tasks:\n";
+	size_t counter = 0;
 	for (Task task: taskList) {
+		std::cout << "Task " << counter;
 		if (task.startPosition.x == SIZE_MAX && task.startPosition.y == SIZE_MAX) {
-			std::cout << "Task to (" << task.goalPosition.x << ", " << task.goalPosition.y << ")\n";
+			std::cout << " to (" << task.goalPosition.x << ", " << task.goalPosition.y << ")\n";
 		}
 		else {
-			std::cout << "Task from (" << task.startPosition.x << ", " << task.startPosition.y << ") to (" << task.goalPosition.x << ", " << task.goalPosition.y << ")\n";
+			std::cout << " from (" << task.startPosition.x << ", " << task.startPosition.y << ") to (" << task.goalPosition.x << ", " << task.goalPosition.y << ")\n";
 		}
+		counter++;
 	}
 	std::cout << "\n";
 }

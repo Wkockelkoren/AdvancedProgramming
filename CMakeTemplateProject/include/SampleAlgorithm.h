@@ -25,7 +25,6 @@ private:
 	bool startPointReached = false;
 	size_t highestCounter = 0;
 	bool coordinateAdded = false;
-	bool noPathPossible = false;
 	bool existsAlready = false;
 
 	/**This function generates a vector of coordinates. It starts with the start coordinate and
