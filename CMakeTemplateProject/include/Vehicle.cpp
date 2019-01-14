@@ -1,15 +1,5 @@
 #include "Vehicle.h"
 
-/**
-* Has a position on the Map, a maximum speed and contains a path that was generated 
-* by the VehicleManager. A Path consists out of multiple Positions (vector of Positions)
-* where the first element in the vector will be the start position and the last element 
-* the end position. In the Editor view it is possible to add and edit multiple vehicles
-* with each a different start and end position. Furthermore, it is possible to assign a
-* maximum speed to a specific vehicle.
-* @endcode
-*/
-
 Vehicle::Vehicle(Position pos) : position(pos) {
 	task.startPosition = { SIZE_MAX, SIZE_MAX };
 	task.goalPosition = { SIZE_MAX, SIZE_MAX };
@@ -19,28 +9,30 @@ Position Vehicle::getPosition() {
 	return position;
 }
 
-bool Vehicle::checkIfWorking() {
+void Vehicle::setWorking(bool isWorking) {
+	working = isWorking;
+}
+
+bool Vehicle::getWorking() {
 	return working;
 }
 
 void Vehicle::moveNextPathPosition() {
-	/**
-	A vehicle uses this function to change its position by usage of an assigned path
-	*/
+	
 	if (!path.empty()) {
 		if (path.at(0).x == position.x && path.at(0).y == position.y) { // Check if the vehicle is on the expected position
 			if (path.size() > 2) { // Check if there is a next position to move to
 				position.x = path.at(1).x; // move to the next position
 				position.y = path.at(1).y;
-				working = true;
+				setWorking(true);
 			}
 			else if(path.size() == 2) { // Check if there is a next position to move to
 				position.x = path.at(1).x; // move to the next position
 				position.y = path.at(1).y;
-				working = false;
+				setWorking(false);
 			}
 			else if(path.size() == 1){
-				working = false;
+				setWorking(false);
 			}
 			path.erase(path.begin());// delete the previous position of the path
 		}
@@ -50,22 +42,18 @@ void Vehicle::moveNextPathPosition() {
 		}
 	}
 	else {
-		working = false;
+		setWorking(false);
 		std::cout << "Path is empty\n";
 	}
 }
 
 void Vehicle::setPath(std::vector<Position> &generatedpath) {
-	/**
-	Pass generated path to vehicle
-	*/
+	
 	path = generatedpath;
 }
 
 std::vector<Position>* Vehicle::getPath() {
-	/**
-	Returns path assigned to current vehicle
-	*/
+
 	return &path;
 }
 
