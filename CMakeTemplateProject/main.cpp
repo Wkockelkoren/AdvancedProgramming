@@ -76,11 +76,6 @@ int main() {
 	VehicleManager vehicleManager;
 	TaskManager taskManager;
 
-	taskManager.createTask({ 2,9 });
-
-	// Create some vehicles
-	//vehicleManager.addVehicle({5,2}, 1);
-
 	try {
 		factory.getPointOfInterest(0, 0).setPointOfInterestType(pointOfInterestType::DropOff);
 		factory.getPointOfInterest(9, 5).setPointOfInterestType(pointOfInterestType::DropOff);
