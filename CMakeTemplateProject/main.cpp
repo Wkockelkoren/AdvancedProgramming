@@ -117,7 +117,6 @@ int main() {
 		if (Go == false) {
 			switch (menuMode) {
 			case 1: /* Task Manager*/
-
 				MenuTaskManager(&menuMode, factory, taskManager);
 				break;
 
