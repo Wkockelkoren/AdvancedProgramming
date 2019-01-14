@@ -1,10 +1,5 @@
 cmake_minimum_required (VERSION 3.7)
 
-# Fix behavior of CMAKE_CXX_STANDARD when targeting macOS.
-if (POLICY CMP0025)
-  cmake_policy(SET CMP0025 NEW)
-endif ()
-
 project (PathPlanner)
 
 if(MSVC)
@@ -20,13 +15,13 @@ include_directories(
 
 if(MSVC)
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Qpar /MP /O2 /DNDEBUG /EHsc")
-	set (CMAKE_CXX_STANDARD 11)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} -std=c++14 ")
     
     # warning level 4 and all warnings as errors
     add_compile_options(/W4 /WX)
 else(MSVC)
 	set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
-	set (CMAKE_CXX_STANDARD 11)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} -std=gnu++14 ")
     
     # lots of warnings
     add_compile_options(-Wall -Wextra -pedantic)
