@@ -1,13 +1,6 @@
 #include "Map.h"
 
-/**
-	Contains the classes Map and PointOfInterest.
-*/
 Map::Map(const size_t width,const size_t height) : width(width), height(height) {
-	/**
-	Constructor for map
-	*/
-
 	//map = new PointOfInterest[width*height];
 	map = std::make_unique<PointOfInterest[]>(width*height);
 	
@@ -20,18 +13,13 @@ Map::Map(const size_t width,const size_t height) : width(width), height(height) 
 }
 
 Map::~Map() {
-	/**
+	/*
 	Destructor for map
 	*/
 }
 
 
 PointOfInterest& Map::getPointOfInterest(size_t x, size_t y) {
-	/***
-	Get point of interest from position on map
-	*/
-
-
 	//Check wether the requested point is within the map
 	if (!(x < width) && !SIZE_MAX) {
 		throw std::runtime_error("Requested point of interest is not within the map - class Map getPointOfInterest()\n");
@@ -47,10 +35,6 @@ PointOfInterest& Map::getPointOfInterest(size_t x, size_t y) {
 
 
 void Map::printMap(SDL_Renderer * renderer, std::vector<Vehicle> vehicles) {
-	/**
-	Prints Points of Interests and vehicles
-	*/
-
 	// Pre allocate memory for variables used in the function
 	bool v = false;
 	pointOfInterestType type = pointOfInterestType::Floor;
